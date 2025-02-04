@@ -1,0 +1,15 @@
+{
+	"appTitle": "migla_flutter",
+	"@appTitle": {
+		"description": "The title of the application"
+	},
+	"welcomeToMigla": "Welcome to Migla",
+	"welcomeDesc": "Migla is an app to make migration easier.",
+	"getStarted": "Get Started",
+	"registerDesc": "Register to start",
+	"labelNameSurname": "Name and Surname",
+	"labelEmail": "Email",
+	"labelPassword": "Password",
+	"labelConfirmPassword": "Confirm Password",
+	"register": "Register"
+}

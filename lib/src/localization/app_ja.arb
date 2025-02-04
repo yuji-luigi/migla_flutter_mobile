@@ -1,0 +1,15 @@
+{
+	"appTitle": "migla_flutter",
+	"@appTitle": {
+		"description": "The title of the application"
+	},
+	"welcomeToMigla": "ようこそ、MIGLAへ",
+	"welcomeDesc": "MIGLAは、マイグレーションをより簡単にするためのアプリです。",
+	"getStarted": "はじめる",
+	"registerDesc": "新規登録して始めましょう",
+	"labelNameSurname": "名前と苗字",
+	"labelEmail": "メールアドレス",
+	"labelPassword": "パスワード",
+	"labelConfirmPassword": "パスワードの確認",
+	"register": "登録する"
+}
