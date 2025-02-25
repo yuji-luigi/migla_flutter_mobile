@@ -1,9 +1,26 @@
 {
-	"appTitle": "migla_flutter",
-	"@appTitle": {
-		"description": "The title of the application"
+	"helloExample": "Ciao, {name}!",
+	"@helloExample": {
+		"description": "A greeting message with a name",
+		"placeholders": {
+			"name": {
+				"type": "String",
+				"example": "John Doe"
+			}
+		}
+	},
+	"nWombats": "{count, plural, =0{no wombats} =1{1 wombat} other{{count} wombats}}",
+	"@nWombatsExample": {
+		"description": "A plural message",
+		"placeholders": {
+			"count": {
+				"type": "num",
+				"format": "compact"
+			}
+		}
 	},
 	"welcomeToMigla": "Benvenuti in Migla",
+	"welcomeBack": "Ben tornato!",
 	"welcomeDesc": "Migla è un'app per rendere più facile la migrazione.",
 	"getStarted": "Inizia",
 	"registerDesc": "Stai al passo con i progressi di tuo figlio!",
@@ -11,5 +28,10 @@
 	"labelEmail": "Email",
 	"labelPassword": "Password",
 	"labelConfirmPassword": "Conferma Password",
-	"register": "Registrati"
+	"register": "Registrati",
+	"login": "Accedi",
+	"alreadyHaveAccount": "Hai già un account?",
+	"noAccount": "Non hai un account?",
+	"forgotPassword": "Hai dimenticato la password?",
+	"dashboardHomeScreenHeader": "Stai al passo con i progressi di tuo figlio!"
 }

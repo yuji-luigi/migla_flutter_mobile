@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
 
@@ -8,7 +9,7 @@ class FormEmailPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 8,
+      spacing: spacingAuthForm,
       children: [
         InputRoundedWhite(
           hintText: context.t.labelNameSurname,
