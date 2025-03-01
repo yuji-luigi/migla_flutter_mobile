@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
+/// button used in auth forms
 class Button extends StatelessWidget {
   final String text;
   final void Function() onPressed;

@@ -38,5 +38,8 @@
 	"teacherReportTextButton": "Report maestra",
 	"photoAndVideoTextButton": "Foto e Video",
 	"settings": "Impostazioni",
-	"logout": "Esci"
+	"logout": "Esci",
+	"weekButtonText": "Settimana",
+	"categoryButtonText": "Categoria",
+	"otherButtonText": "Altro"
 }

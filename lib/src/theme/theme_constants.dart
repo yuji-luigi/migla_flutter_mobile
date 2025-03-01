@@ -60,3 +60,9 @@ Color colorBlack = const Color(0xFF160D08);
 Color colorWhite = const Color(0xFFFFFFFF);
 
 Color colorTextDisabled = const Color(0xFFA1AEB1);
+
+BoxShadow buttonShadowDefault = BoxShadow(
+  color: colorBlack.withAlpha(90),
+  blurRadius: 10,
+  offset: Offset(0, 10),
+);

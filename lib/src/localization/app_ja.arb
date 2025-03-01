@@ -39,5 +39,8 @@
 	"teacherReportTextButton": "先生からの通信",
 	"photoAndVideoTextButton": "写真とビデオ",
 	"settings": "設定",
-	"logout": "ログアウト"
+	"logout": "ログアウト",
+	"weekButtonText": "週間",
+	"categoryButtonText": "カテゴリー",
+	"otherButtonText": "その他"
 }

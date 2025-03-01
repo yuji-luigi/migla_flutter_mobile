@@ -31,15 +31,7 @@ class TileLikeButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: backgroundColor ?? colorSecondary,
           borderRadius: BorderRadius.circular(radiusMedium),
-          boxShadow: withShadow
-              ? [
-                  BoxShadow(
-                    color: colorBlack.withAlpha(90),
-                    blurRadius: 10,
-                    offset: Offset(0, 10),
-                  ),
-                ]
-              : null,
+          boxShadow: withShadow ? [buttonShadowDefault] : null,
         ),
         child: Row(
           spacing: 11,
