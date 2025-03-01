@@ -22,6 +22,7 @@ TextStyle textStyleHeadingMedium = TextStyle(
 
 TextStyle textStyleHeadingSmall = TextStyle(
   fontSize: fontSizeHeadingSmall,
+  fontWeight: FontWeight.w600,
 );
 
 TextStyle textStyleBodySmall = TextStyle(
@@ -45,4 +46,17 @@ TextStyle textStyleCaption = TextStyle(
 
 /// #8EACCD primary color
 Color colorPrimary = const Color(0xFF8EACCD);
+Color colorPrimaryDark = const Color(0xFF637386);
+
 Color bgColorSecondary = const Color(0xFF8EACCD);
+
+Color colorSecondary = const Color(0xFFEBBA8D);
+Color colorSecondaryDark = const Color(0xFFB7804E);
+
+Color colorTertiary = const Color(0xFFDEE5D4);
+Color colorTertiaryDark = const Color(0xFF859372);
+
+Color colorBlack = const Color(0xFF160D08);
+Color colorWhite = const Color(0xFFFFFFFF);
+
+Color colorTextDisabled = const Color(0xFFA1AEB1);

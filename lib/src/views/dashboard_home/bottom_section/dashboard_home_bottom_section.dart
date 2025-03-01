@@ -1,59 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
+import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/screens/dashboard/photo_videos_screen/photo_videos_top_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/buttons/tile_like_button/tile_like_button.dart';
+import 'package:migla_flutter/src/widgets/buttons/tile_like_button/tile_like_button_home.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class DashboardHomeBottomSection extends StatelessWidget {
   const DashboardHomeBottomSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 200,
-          child: Text(
-            context.t.dashboardHomeScreenHeader,
-            textAlign: TextAlign.center,
-            style: textStyleBodySmall,
-          ),
-        ),
-        Center(
-          child: CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.transparent,
-            child: Image.asset(
-              avatarPlaceholder,
-              fit: BoxFit.fill,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: Column(
+        spacing: 16,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TileLikeButtonHome(
+            text: context.t.photoAndVideoTextButton,
+            endIconColor: colorSecondaryDark,
+            icon: SvgPicture.asset(
+              svgSmile,
             ),
+            onTap: () {
+              PhotoVideosTopScreen().launch(context);
+            },
           ),
-        ),
-        Text(
-          context.t.dashboardHomeScreenHeader,
-          textAlign: TextAlign.center,
-          style: textStyleHeadingMedium.copyWith(),
-        ),
-        Text(
-          context.t.dashboardHomeScreenHeader,
-          textAlign: TextAlign.center,
-          style: textStyleHeadingMedium.copyWith(),
-        ),
-        Text(
-          context.t.dashboardHomeScreenHeader,
-          textAlign: TextAlign.center,
-          style: textStyleHeadingMedium.copyWith(),
-        ),
-        Text(
-          context.t.dashboardHomeScreenHeader,
-          textAlign: TextAlign.center,
-          style: textStyleHeadingMedium.copyWith(),
-        ),
-        Text(
-          context.t.dashboardHomeScreenHeader,
-          textAlign: TextAlign.center,
-          style: textStyleHeadingMedium.copyWith(),
-        ),
-      ],
+          TileLikeButtonHome(
+            text: context.t.teacherReport,
+            backgroundColor: colorPrimary,
+            endIconColor: colorPrimaryDark,
+            icon: SvgPicture.asset(
+              svgBlog,
+            ),
+            onTap: () {},
+          ),
+          TileLikeButtonHome(
+            backgroundColor: colorTertiary,
+            endIconColor: colorTertiaryDark,
+            text: context.t.notificationTextButton,
+            icon: SvgPicture.asset(
+              svgMail,
+            ),
+            onTap: () {},
+          ),
+        ],
+      ),
     );
   }
 }

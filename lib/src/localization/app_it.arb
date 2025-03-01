@@ -33,5 +33,10 @@
 	"alreadyHaveAccount": "Hai già un account?",
 	"noAccount": "Non hai un account?",
 	"forgotPassword": "Hai dimenticato la password?",
-	"dashboardHomeScreenHeader": "Stai al passo con i progressi di tuo figlio!"
+	"dashboardHomeScreenHeader": "Stai al passo con i progressi di tuo figlio!",
+	"notificationTextButton": "Notifiche",
+	"teacherReportTextButton": "Report maestra",
+	"photoAndVideoTextButton": "Foto e Video",
+	"settings": "Impostazioni",
+	"logout": "Esci"
 }

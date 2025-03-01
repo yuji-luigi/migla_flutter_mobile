@@ -37,5 +37,11 @@
 	"alreadyHaveAccount": "Already have an account?",
 	"noAccount": "Don't have an account?",
 	"forgotPassword": "Forgot password?",
-	"dashboardHomeScreenHeader": "Let's be together in your child's progress!"
+	"dashboardHomeScreenHeader": "Let's be together in your child's progress!",
+	"teacherReport": "Teacher report",
+	"photoAndVideo": "Photo and Video",
+	"notificationTextButton": "Notification",
+	"photoAndVideoTextButton": "Photo and Video",
+	"settings": "Settings",
+	"logout": "Logout"
 }

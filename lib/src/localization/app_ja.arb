@@ -34,5 +34,10 @@
 	"alreadyHaveAccount": "アカウントをお持ちですか？",
 	"noAccount": "アカウントをお持ちでない方は、こちらから",
 	"forgotPassword": "パスワードを忘れた方は、こちらから",
-	"dashboardHomeScreenHeader": "あなたの子供の成長を一緒に見守りましょう！"
+	"dashboardHomeScreenHeader": "あなたの子供の成長を一緒に見守りましょう！",
+	"notificationTextButton": "通知",
+	"teacherReportTextButton": "先生からの通信",
+	"photoAndVideoTextButton": "写真とビデオ",
+	"settings": "設定",
+	"logout": "ログアウト"
 }
