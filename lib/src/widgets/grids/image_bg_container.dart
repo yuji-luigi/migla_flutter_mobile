@@ -22,13 +22,14 @@ class ImageBgContainer extends StatelessWidget {
         ),
       ),
       child: Container(
+        padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
               Colors.black.withAlpha(0),
-              colorWhite.withAlpha(100),
+              colorWhite.withAlpha(200),
             ],
           ),
         ),

@@ -35,5 +35,6 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/images/
     - assets/images/icons/
+    - assets/images/mock_images/
     - assets/images/auth/
     - assets/images/background/
