@@ -108,16 +108,16 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
               color: bgPrimaryColor,
               child: Stack(
                 children: [
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Image.asset(bgCircleBottomRight),
+                  ),
                   SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: widget.bottomSection,
                     ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Image.asset(bgCircleBottomRight),
                   ),
                 ],
               ),

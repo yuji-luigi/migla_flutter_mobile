@@ -13,9 +13,6 @@ class DashboardHomeScreen extends StatelessWidget {
       bottomSection: Column(
         children: [
           DashboardHomeBottomSection(),
-          DashboardHomeBottomSection(),
-          DashboardHomeBottomSection(),
-          DashboardHomeBottomSection(),
         ],
       ),
     );
