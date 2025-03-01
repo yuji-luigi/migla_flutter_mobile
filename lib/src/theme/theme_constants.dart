@@ -13,7 +13,7 @@ const fontSizeHeadingSmall = 16.0;
 const fontSizeBodySmall = 13.0;
 const fontSizeBodyMedium = 14.0;
 const fontSizeBodyLarge = 16.0;
-const fontSizeCaption = 12.0;
+const fontSizeCaptionMd = 12.0;
 const fontSizeCaptionSmall = 10.0;
 
 TextStyle textStyleHeadingMedium = TextStyle(
@@ -41,8 +41,8 @@ TextStyle textStyleBodyLarge = TextStyle(
   fontWeight: FontWeight.w400,
 );
 
-TextStyle textStyleCaption = TextStyle(
-  fontSize: fontSizeCaption,
+TextStyle textStyleCaptionMd = TextStyle(
+  fontSize: fontSizeCaptionMd,
 );
 TextStyle textStyleCaptionSmall = TextStyle(
   fontSize: fontSizeCaptionSmall,

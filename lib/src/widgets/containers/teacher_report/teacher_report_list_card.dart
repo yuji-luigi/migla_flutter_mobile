@@ -48,10 +48,12 @@ class TeacherReportListCard extends StatelessWidget {
                     title: title,
                     color: colorTextDisabled,
                     image: image,
-                  ),
-                  Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                  ),
+                  ).buildColumns([
+                    Text(
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        style: textStyleCaptionMd.copyWith(
+                            fontWeight: FontWeight.bold))
+                  ]),
                 ],
               ),
             ),

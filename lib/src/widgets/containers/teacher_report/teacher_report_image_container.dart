@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class TeacherReportImageContainer extends StatelessWidget {
@@ -47,47 +48,25 @@ class TeacherReportImageContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              spacing: 16,
-              children: [
-                SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircleAvatar(),
+            RowAvatarWithTitle(
+              title: title,
+              color: colorTextDisabled,
+              image: image,
+            ).buildColumns([
+              Text(
+                'Cerimonia del té',
+                style: textStyleCaptionSmall.copyWith(
+                  color: colorWhite,
                 ),
-                Text(
-                  '4th grade',
-                  style: textStyleCaptionSmall.copyWith(
-                    color: colorWhite,
-                  ),
+              ),
+              Text(
+                title,
+                style: context.textTheme.headlineSmall!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: textColor ?? colorWhite,
                 ),
-              ],
-            ),
-            Row(
-              spacing: 16,
-              children: [
-                24.width,
-                Text(
-                  title,
-                  style: textStyleCaptionSmall.copyWith(
-                    color: colorWhite,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              spacing: 16,
-              children: [
-                24.width,
-                Text(
-                  title,
-                  style: context.textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: textColor ?? colorWhite,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ])
           ],
         ),
       ),
