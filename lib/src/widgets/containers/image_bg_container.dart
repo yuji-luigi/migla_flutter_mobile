@@ -6,12 +6,22 @@ import 'package:nb_utils/nb_utils.dart';
 class ImageBgContainer extends StatelessWidget {
   final String image;
   final String title;
-  const ImageBgContainer({super.key, required this.image, required this.title});
+  final double? height;
+  final Color? gradientBottom;
+  final Color? textColor;
+  const ImageBgContainer({
+    super.key,
+    required this.image,
+    required this.title,
+    this.height,
+    this.gradientBottom,
+    this.textColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 176,
+      height: height ?? 176,
       clipBehavior: Clip.hardEdge,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -29,7 +39,7 @@ class ImageBgContainer extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               Colors.black.withAlpha(0),
-              colorWhite.withAlpha(200),
+              gradientBottom?.withAlpha(200) ?? colorWhite.withAlpha(200),
             ],
           ),
         ),
@@ -38,7 +48,7 @@ class ImageBgContainer extends StatelessWidget {
           title,
           style: context.textTheme.headlineSmall!.copyWith(
             fontWeight: FontWeight.w600,
-            color: colorBlack,
+            color: textColor ?? colorBlack,
           ),
         ),
       ),

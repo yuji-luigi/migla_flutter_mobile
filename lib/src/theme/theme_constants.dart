@@ -14,6 +14,7 @@ const fontSizeBodySmall = 13.0;
 const fontSizeBodyMedium = 14.0;
 const fontSizeBodyLarge = 16.0;
 const fontSizeCaption = 12.0;
+const fontSizeCaptionSmall = 10.0;
 
 TextStyle textStyleHeadingMedium = TextStyle(
   fontSize: fontSizeHeadingMedium,
@@ -42,6 +43,11 @@ TextStyle textStyleBodyLarge = TextStyle(
 
 TextStyle textStyleCaption = TextStyle(
   fontSize: fontSizeCaption,
+);
+TextStyle textStyleCaptionSmall = TextStyle(
+  fontSize: fontSizeCaptionSmall,
+  fontWeight: FontWeight.bold,
+  height: 1,
 );
 
 /// #8EACCD primary color
