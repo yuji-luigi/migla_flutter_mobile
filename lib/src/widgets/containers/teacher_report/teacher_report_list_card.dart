@@ -11,6 +11,7 @@ class TeacherReportListCard extends StatelessWidget {
   final double? height;
   final Color? gradientBottom;
   final Color? textColor;
+  final String description;
   const TeacherReportListCard({
     super.key,
     required this.image,
@@ -18,6 +19,7 @@ class TeacherReportListCard extends StatelessWidget {
     this.height,
     this.gradientBottom,
     this.textColor,
+    required this.description,
   });
 
   @override
@@ -50,9 +52,11 @@ class TeacherReportListCard extends StatelessWidget {
                     image: image,
                   ).buildColumns([
                     Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                        style: textStyleCaptionMd.copyWith(
-                            fontWeight: FontWeight.bold))
+                      description,
+                      style: textStyleCaptionMd.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
                   ]),
                 ],
               ),

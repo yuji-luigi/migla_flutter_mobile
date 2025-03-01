@@ -14,6 +14,7 @@ class TeacherReportTopListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final random = Random();
     return SingleChildScrollView(
       child: Column(
         spacing: 8,
@@ -26,9 +27,21 @@ class TeacherReportTopListView extends StatelessWidget {
             title: 'Teacher Report',
           ),
           TeacherReportListCard(
-            image:
-                placeholderImages[Random().nextInt(placeholderImages.length)],
+            image: placeholderImages[random.nextInt(placeholderImages.length)],
             title: 'Teacher Report',
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+          ),
+          TeacherReportListCard(
+            image: placeholderImages[random.nextInt(placeholderImages.length)],
+            title: 'Teacher Report',
+            description:
+                'The teacher report is a report that is used to evaluate the teacher\'s performance.',
+          ),
+          TeacherReportListCard(
+            image: placeholderImages[random.nextInt(placeholderImages.length)],
+            title: 'Teacher Report',
+            description: 'The festival was on fire',
           ),
           16.height,
         ],
