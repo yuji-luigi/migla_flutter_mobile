@@ -21,6 +21,7 @@ class NotificationDetailScreen extends StatelessWidget {
             color: colorWhite,
             padding: EdgeInsets.symmetric(
               horizontal: paddingXDashboardLg,
+              vertical: paddingXDashboardLg,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
