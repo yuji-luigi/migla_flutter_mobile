@@ -48,5 +48,8 @@
 	"categoryButtonText": "Category",
 	"otherButtonText": "Other",
 	"notificationTitle": "Notification",
-	"markAsRead": "Mark as read"
+	"markAsRead": "Mark as read",
+	"navGallery": "Gallery",
+	"navSettings": "Settings",
+	"settingScreenLanguage": "Language"
 }

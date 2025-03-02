@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
+import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/drawer/dashboard_left_drawer.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class DashboardScaffold extends StatefulWidget {
@@ -43,22 +45,9 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar appBar = AppBar(
-      backgroundColor: Colors.transparent,
-      leading: IconButton(
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        icon: const Icon(
-          Icons.menu,
-          size: 40,
-        ),
-      ),
-    );
-
     return Scaffold(
       extendBodyBehindAppBar: true,
-      drawer: const Drawer(),
+      drawer: const DashboardLeftDrawer(),
       // appBar: appBar,
       backgroundColor: bgColorSecondary,
       // body: body
@@ -66,15 +55,17 @@ class _DashboardScaffoldState extends State<DashboardScaffold> {
         slivers: [
           // ✅ Parallax Effect (SliverAppBar acts like topSection)
           SliverAppBar(
-            leading: IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(
-                Icons.menu,
-                size: 40,
-              ),
-            ),
+            leading: Builder(builder: (context) {
+              return IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                icon: const Icon(
+                  Icons.menu,
+                  size: 40,
+                ),
+              );
+            }),
 
             backgroundColor: Colors.transparent,
             expandedHeight: _topSectionHeight + 30, // Adjust height as needed

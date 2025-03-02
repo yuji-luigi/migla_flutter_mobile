@@ -48,5 +48,8 @@
 	"categoryButtonText": "カテゴリー",
 	"otherButtonText": "その他",
 	"notificationTitle": "通知",
-	"markAsRead": "既読にする"
+	"markAsRead": "既読にする",
+	"navGallery": "ギャラリー",
+	"navSettings": "設定",
+	"settingScreenLanguage": "言語"
 }
