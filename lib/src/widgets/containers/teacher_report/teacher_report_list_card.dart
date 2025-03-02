@@ -40,24 +40,27 @@ class TeacherReportListCard extends StatelessWidget {
         color: colorWhite,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          spacing: 8,
           children: [
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 6,
                 children: [
                   RowAvatarWithTitle(
                     title: title,
                     color: colorTextDisabled,
                     image: image,
-                  ).buildColumns([
-                    Text(
-                      description,
-                      style: textStyleCaptionMd.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ]),
+                  ).buildColumns([]),
+                  Text(
+                    description,
+                    style: textStyleCaptionMd.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2, // ✅ Restrict to 1 line
+                    overflow: TextOverflow.ellipsis, // ✅ Truncate with "..."
+                  )
                 ],
               ),
             ),
