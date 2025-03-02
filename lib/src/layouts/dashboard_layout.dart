@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
+import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
 class DashboardLayout extends StatelessWidget {
@@ -53,13 +54,13 @@ class DashboardLayout extends StatelessWidget {
               children: [
                 SizedBox(
                     height: MediaQuery.of(context).padding.top + appBarHeight),
-                Expanded(
+                Flexible(
                   child: Container(
                       width: double.infinity,
                       padding: padding ??
                           EdgeInsets.only(
-                            left: 16,
-                            right: 16,
+                            left: paddingXDashboardMd,
+                            right: paddingXDashboardMd,
                           ),
                       constraints: BoxConstraints(
                         minHeight: MediaQuery.of(context).size.height -

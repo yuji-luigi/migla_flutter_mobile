@@ -3,8 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/screens/dashboard/photo_videos_screen/photo_videos_top_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/teacher_report/teacher_report_top_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_top.dart';
+import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_top_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_top_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/tile_like_button/tile_like_button.dart';
 import 'package:migla_flutter/src/widgets/buttons/tile_like_button/tile_like_button_home.dart';
@@ -49,7 +50,9 @@ class DashboardHomeBottomSection extends StatelessWidget {
             icon: SvgPicture.asset(
               svgMail,
             ),
-            onTap: () {},
+            onTap: () {
+              NotificationTop().launch(context);
+            },
           ),
         ],
       ),

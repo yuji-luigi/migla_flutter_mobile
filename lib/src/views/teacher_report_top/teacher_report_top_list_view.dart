@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
-import 'package:migla_flutter/src/screens/dashboard/teacher_report/teacher_report_detail_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/containers/image_bg_container.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';

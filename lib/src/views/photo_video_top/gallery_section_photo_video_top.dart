@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:migla_flutter/src/screens/dashboard/photo_videos_screen/photo_videos_gallery.dart';
+import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_gallery.dart';
 import 'package:migla_flutter/src/widgets/containers/image_bg_container.dart';
 import 'package:nb_utils/nb_utils.dart';
 

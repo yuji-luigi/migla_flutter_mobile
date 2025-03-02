@@ -46,5 +46,7 @@
 	"logout": "Logout",
 	"weekButtonText": "Week",
 	"categoryButtonText": "Category",
-	"otherButtonText": "Other"
+	"otherButtonText": "Other",
+	"notificationTitle": "Notification",
+	"markAsRead": "Mark as read"
 }

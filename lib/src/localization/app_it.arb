@@ -46,5 +46,7 @@
 	"logout": "Esci",
 	"weekButtonText": "Settimana",
 	"categoryButtonText": "Categoria",
-	"otherButtonText": "Altro"
+	"otherButtonText": "Altro",
+	"notificationTitle": "Notifiche",
+	"markAsRead": "Segna come letto"
 }

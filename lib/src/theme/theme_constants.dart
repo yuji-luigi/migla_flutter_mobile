@@ -50,6 +50,7 @@ TextStyle textStyleBodyLarge = TextStyle(
 
 TextStyle textStyleCaptionMd = TextStyle(
   fontSize: fontSizeCaptionMd,
+  fontWeight: FontWeight.bold,
 );
 TextStyle textStyleCaptionSmall = TextStyle(
   fontSize: fontSizeCaptionSmall,
