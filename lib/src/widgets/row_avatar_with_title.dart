@@ -3,13 +3,13 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class RowAvatarWithTitle extends StatelessWidget {
-  final String title;
+  final String text;
   final String image;
   final Color? color;
   final double avatarSize;
   const RowAvatarWithTitle({
     super.key,
-    required this.title,
+    required this.text,
     required this.image,
     this.color,
     this.avatarSize = 24,
@@ -23,10 +23,14 @@ class RowAvatarWithTitle extends StatelessWidget {
           height: avatarSize,
           child: CircleAvatar(),
         ),
-        Text(
-          title,
-          style: textStyleCaptionSmall.copyWith(
-            color: color ?? colorWhite,
+        Flexible(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: textStyleCaptionSmall.copyWith(
+              color: color ?? colorWhite,
+            ),
           ),
         ),
       ],

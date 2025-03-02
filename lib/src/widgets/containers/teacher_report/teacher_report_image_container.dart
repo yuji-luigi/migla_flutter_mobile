@@ -49,7 +49,7 @@ class TeacherReportImageContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             RowAvatarWithTitle(
-              title: title,
+              text: title,
               color: colorTextDisabled,
               image: image,
             ).buildColumns([
@@ -61,6 +61,8 @@ class TeacherReportImageContainer extends StatelessWidget {
               ),
               Text(
                 title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: context.textTheme.headlineSmall!.copyWith(
                   fontWeight: FontWeight.w600,
                   color: textColor ?? colorWhite,

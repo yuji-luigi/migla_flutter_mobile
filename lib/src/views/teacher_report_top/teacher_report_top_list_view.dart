@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/screens/dashboard/teacher_report/teacher_report_detail_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/containers/image_bg_container.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';
@@ -20,28 +21,40 @@ class TeacherReportTopListView extends StatelessWidget {
         spacing: 8,
         children: [
           16.height,
-          TeacherReportImageContainer(
-            textColor: colorWhite,
-            image:
-                placeholderImages[Random().nextInt(placeholderImages.length)],
-            title: 'Teacher Report',
+          GestureDetector(
+            onTap: () {
+              TeacherReportDetailScreen(id: 0).launch(context);
+            },
+            child: TeacherReportImageContainer(
+              textColor: colorWhite,
+              image: teacherReportList.first["coverImage"],
+              title: teacherReportList.first["title"],
+            ),
+          ),
+          ...teacherReportList.sublist(1).asMap().entries.map(
+            (e) {
+              return GestureDetector(
+                onTap: () {
+                  TeacherReportDetailScreen(id: e.key).launch(context);
+                },
+                child: TeacherReportListCard(
+                  image: e.value["coverImage"],
+                  subtitle: e.value["subtitle"],
+                  title: e.value["title"],
+                ),
+              );
+            },
           ),
           TeacherReportListCard(
             image: placeholderImages[random.nextInt(placeholderImages.length)],
-            title: 'Teacher Report',
-            description:
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-          ),
-          TeacherReportListCard(
-            image: placeholderImages[random.nextInt(placeholderImages.length)],
-            title: 'Teacher Report',
-            description:
+            subtitle: 'Teacher Report',
+            title:
                 'The teacher report is a report that is used to evaluate the teacher\'s performance.',
           ),
           TeacherReportListCard(
             image: placeholderImages[random.nextInt(placeholderImages.length)],
-            title: 'Teacher Report',
-            description: 'The festival was on fire',
+            subtitle: 'Teacher Report',
+            title: 'The festival was on fire',
           ),
           16.height,
         ],

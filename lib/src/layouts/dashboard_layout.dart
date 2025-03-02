@@ -9,6 +9,8 @@ class DashboardLayout extends StatelessWidget {
   final List<Widget>? appBarActions;
   final Color? backgroundColor;
   final Color? bodyColor;
+  final EdgeInsets? padding;
+  final Gradient? bodyGradient;
   const DashboardLayout({
     super.key,
     required this.body,
@@ -16,6 +18,8 @@ class DashboardLayout extends StatelessWidget {
     this.appBarActions,
     this.backgroundColor,
     this.bodyColor,
+    this.padding,
+    this.bodyGradient,
   });
 
   @override
@@ -51,16 +55,20 @@ class DashboardLayout extends StatelessWidget {
                     height: MediaQuery.of(context).padding.top + appBarHeight),
                 Expanded(
                   child: Container(
-                      color: bodyColor ?? bgPrimaryColor,
                       width: double.infinity,
-                      padding: EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
+                      padding: padding ??
+                          EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                          ),
                       constraints: BoxConstraints(
                         minHeight: MediaQuery.of(context).size.height -
                             MediaQuery.of(context).padding.top -
                             appBarHeight,
+                      ),
+                      decoration: BoxDecoration(
+                        color: bodyColor ?? bgPrimaryColor,
+                        gradient: bodyGradient,
                       ),
                       child: body),
                 ),

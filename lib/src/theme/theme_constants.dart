@@ -15,10 +15,17 @@ const fontSizeBodyMedium = 14.0;
 const fontSizeBodyLarge = 16.0;
 const fontSizeCaptionMd = 12.0;
 const fontSizeCaptionSmall = 10.0;
+const fontSizeTitleLg = 24.0;
+
+TextStyle textStyleTitleLg = TextStyle(
+  fontSize: fontSizeTitleLg,
+  fontWeight: FontWeight.bold,
+);
 
 TextStyle textStyleHeadingMedium = TextStyle(
   fontSize: fontSizeHeadingMedium,
   fontWeight: FontWeight.bold,
+  height: 1,
 );
 
 TextStyle textStyleHeadingSmall = TextStyle(

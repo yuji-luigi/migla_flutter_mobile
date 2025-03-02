@@ -7,19 +7,19 @@ import 'package:nb_utils/nb_utils.dart';
 
 class TeacherReportListCard extends StatelessWidget {
   final String image;
-  final String title;
+  final String subtitle;
   final double? height;
   final Color? gradientBottom;
   final Color? textColor;
-  final String description;
+  final String title;
   const TeacherReportListCard({
     super.key,
     required this.image,
-    required this.title,
+    required this.subtitle,
     this.height,
     this.gradientBottom,
     this.textColor,
-    required this.description,
+    required this.title,
   });
 
   @override
@@ -49,12 +49,12 @@ class TeacherReportListCard extends StatelessWidget {
                 spacing: 6,
                 children: [
                   RowAvatarWithTitle(
-                    title: title,
+                    text: subtitle,
                     color: colorTextDisabled,
                     image: image,
                   ).buildColumns([]),
                   Text(
-                    description,
+                    title,
                     style: textStyleCaptionMd.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -71,7 +71,7 @@ class TeacherReportListCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radiusMedium),
                 color: colorPrimary,
                 image: DecorationImage(
-                  image: AssetImage(kyubiImg),
+                  image: AssetImage(image),
                   fit: BoxFit
                       .cover, // 👈 Ensures the image covers the whole container
                 ),
