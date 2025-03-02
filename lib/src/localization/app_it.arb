@@ -19,6 +19,10 @@
 			}
 		}
 	},
+	"appTitle": "migla_flutter",
+	"@appTitle": {
+		"description": "The title of the application"
+	},
 	"welcomeToMigla": "Benvenuti in Migla",
 	"welcomeBack": "Ben tornato!",
 	"welcomeDesc": "Migla è un'app per rendere più facile la migrazione.",
@@ -34,8 +38,9 @@
 	"noAccount": "Non hai un account?",
 	"forgotPassword": "Hai dimenticato la password?",
 	"dashboardHomeScreenHeader": "Stai al passo con i progressi di tuo figlio!",
+	"teacherReport": "Report maestra",
+	"photoAndVideo": "Foto e Video",
 	"notificationTextButton": "Notifiche",
-	"teacherReportTextButton": "Report maestra",
 	"photoAndVideoTextButton": "Foto e Video",
 	"settings": "Impostazioni",
 	"logout": "Esci",
