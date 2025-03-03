@@ -28,7 +28,14 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
 
   @override
   Widget build(BuildContext context) {
-    void _showFullScreenImage(BuildContext context, String imagePath) {
+    List<String> _images = List.generate(
+        50,
+        (index) =>
+            placeholderImages[Random().nextInt(placeholderImages.length)]);
+    void _showFullScreenImage(BuildContext context, int initialIndex) {
+      PageController _pageController =
+          PageController(initialPage: initialIndex);
+
       showDialog(
         context: context,
         builder: (context) => Dialog(
@@ -40,15 +47,23 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
           child: Stack(
             children: [
               Positioned.fill(
-                child: InteractiveViewer(
-                  panEnabled: true, // ✅ Allow dragging
-                  minScale: 1.0,
-                  maxScale: 5.0, // ✅ Allow zooming
-                  child: Hero(
-                    tag: imagePath, // ✅ Smooth transition effect
-                    child: Image.asset(imagePath,
-                        fit: BoxFit.contain), // ✅ Show in original size
-                  ),
+                child: PageView.builder(
+                  controller: _pageController, // ✅ Enable swiping
+                  itemCount: _images.length,
+                  itemBuilder: (context, index) {
+                    return InteractiveViewer(
+                      panEnabled: true,
+                      minScale: 1.0,
+                      maxScale: 5.0,
+                      child: Hero(
+                        tag: "image_$index",
+                        child: Image.asset(
+                          _images[index],
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
               Positioned(
@@ -61,7 +76,7 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
                   ),
                   child: IconButton(
                     icon: Icon(Icons.close, color: colorWhite, size: 30),
-                    onPressed: () => Navigator.pop(context), // ✅ Close on tap
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ),
               ),
@@ -89,14 +104,13 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
                 mainAxisSpacing: 1, // ✅ Space between rows
                 childAspectRatio: 1.2, // ✅ Adjust item width/height ratio
               ),
-              itemCount: 50, // ✅ Total number of photos
+              itemCount: _images.length, // ✅ Total number of photos
               itemBuilder: (context, index) {
-                String imagePath = placeholderImages[
-                    Random().nextInt(placeholderImages.length)];
+                String imagePath = _images[index];
 
                 return GestureDetector(
                   onTap: () => _showFullScreenImage(
-                      context, imagePath), // ✅ Open full-screen on tap
+                      context, index), // ✅ Open full-screen on tap
                   child: Hero(
                     tag: "image_$index", // ✅ Unique tag for smooth animation
                     child: Container(
