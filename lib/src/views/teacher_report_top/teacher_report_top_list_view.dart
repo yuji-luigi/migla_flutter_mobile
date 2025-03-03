@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
+import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/containers/image_bg_container.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';
@@ -25,17 +26,21 @@ class TeacherReportTopListView extends StatelessWidget {
             onTap: () {
               TeacherReportDetailScreen(id: 0).launch(context);
             },
-            child: TeacherReportImageContainer(
-              textColor: colorWhite,
-              image: teacherReportList.first["coverImage"],
-              title: teacherReportList.first["title"],
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: paddingXDashboardMd),
+              child: TeacherReportImageContainer(
+                textColor: colorWhite,
+                image: teacherReportList.first["coverImage"],
+                title: teacherReportList.first["title"],
+              ),
             ),
           ),
           ...teacherReportList.sublist(1).asMap().entries.map(
             (e) {
               return GestureDetector(
                 onTap: () {
-                  TeacherReportDetailScreen(id: e.key).launch(context);
+                  TeacherReportDetailScreen(id: e.key + 1).launch(context);
                 },
                 child: TeacherReportListCard(
                   image: e.value["coverImage"],

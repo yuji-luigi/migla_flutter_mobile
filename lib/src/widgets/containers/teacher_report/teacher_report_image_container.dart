@@ -27,6 +27,7 @@ class TeacherReportImageContainer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(radiusMedium),
+        boxShadow: [buttonShadowDefault],
         image: DecorationImage(
           image: AssetImage(image),
           fit: BoxFit.cover, // 👈 Ensures the image covers the whole container

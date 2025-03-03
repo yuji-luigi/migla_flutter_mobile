@@ -10,6 +10,7 @@ class TeacherReportTopScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashboardLayout(
       title: context.t.teacherReport,
+      padding: EdgeInsets.zero,
       body: TeacherReportTopListView(),
     );
   }
