@@ -51,7 +51,7 @@ class DashboardHomeBottomSection extends StatelessWidget {
               svgMail,
             ),
             onTap: () {
-              NotificationTop().launch(context);
+              NotificationTopScreen().launch(context);
             },
           ),
         ],

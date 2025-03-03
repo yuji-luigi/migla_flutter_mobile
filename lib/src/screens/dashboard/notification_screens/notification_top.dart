@@ -9,8 +9,8 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/list/date_mark_as_read_tile.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class NotificationTop extends StatelessWidget {
-  const NotificationTop({super.key});
+class NotificationTopScreen extends StatelessWidget {
+  const NotificationTopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

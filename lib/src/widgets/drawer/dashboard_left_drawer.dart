@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_gallery.dart';
+import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_top.dart';
 import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_top_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
@@ -52,8 +52,15 @@ class DashboardLeftDrawer extends StatelessWidget {
                     horizontal: paddingXDashboardMd,
                   ),
                   child: ListTile(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(900),
+                    ),
                     onTap: () => item.widget.launch(context),
-                    leading: SvgPicture.asset(item.icon),
+                    leading: SvgPicture.asset(
+                      item.icon,
+                      width: 24,
+                      height: 24,
+                    ),
                     title:
                         Text(item.title, style: TextStyle(color: colorBlack)),
                   ),
@@ -81,6 +88,11 @@ List<DrawerItem> getDrawerItem(BuildContext context) {
       icon: svgGallery,
       title: context.t.navGallery,
       widget: PhotoVideosTopScreen(),
+    ),
+    DrawerItem(
+      icon: svgMail,
+      title: context.t.notificationTitle,
+      widget: NotificationTopScreen(),
     ),
     DrawerItem(
       icon: svgCog,
