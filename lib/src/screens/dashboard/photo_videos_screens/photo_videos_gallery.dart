@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/layouts/dashboard_layout.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/images/swipable_image_fullscreen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 String _week = 'week';
@@ -44,43 +45,9 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
           ),
           backgroundColor: colorBlack.withAlpha(500),
           insetPadding: EdgeInsets.all(0), // ✅ Full-screen mode
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: PageView.builder(
-                  controller: _pageController, // ✅ Enable swiping
-                  itemCount: _images.length,
-                  itemBuilder: (context, index) {
-                    return InteractiveViewer(
-                      panEnabled: true,
-                      minScale: 1.0,
-                      maxScale: 5.0,
-                      child: Hero(
-                        tag: "image_$index",
-                        child: Image.asset(
-                          _images[index],
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Positioned(
-                top: 40,
-                right: 16,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: colorBlack.withAlpha(100),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: IconButton(
-                    icon: Icon(Icons.close, color: colorWhite, size: 30),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-              ),
-            ],
+          child: SwipableImageFullscreen(
+            images: _images,
+            initialIndex: initialIndex,
           ),
         ),
       );
