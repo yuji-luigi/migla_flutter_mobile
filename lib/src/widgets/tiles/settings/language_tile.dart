@@ -33,15 +33,15 @@ class _LanguageTileState extends State<LanguageTile> {
             items: [
               DropdownMenuItem(
                 value: "en",
-                child: Text("EN"),
+                child: Text("English"),
               ),
               DropdownMenuItem(
                 value: "it",
-                child: Text("IT"),
+                child: Text("Italiano"),
               ),
               DropdownMenuItem(
                 value: "ja",
-                child: Text("JA"),
+                child: Text("日本語"),
               ),
             ],
             value: _selectedLanguage,
