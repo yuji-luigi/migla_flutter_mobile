@@ -8,6 +8,8 @@ const String svgPayment = "assets/images/icons/payment_icon.svg";
 const String svgCalendar = "assets/images/icons/calendar_icon.svg";
 const String svgGallery = "assets/images/icons/gallery_icon.svg";
 const String svgCog = "assets/images/icons/cog.svg";
+const String svgLogout = "assets/images/icons/logout.svg";
+const String svgArrowDown = "assets/images/icons/arrow_down.svg";
 
 Map<String, String> svgIconMap = {
   "event": svgCalendar,

@@ -55,6 +55,7 @@ TextStyle textStyleCaptionMd = TextStyle(
 TextStyle textStyleCaptionSmall = TextStyle(
   fontSize: fontSizeCaptionSmall,
   fontWeight: FontWeight.bold,
+  color: colorTextDisabled,
   height: 1,
 );
 
