@@ -28,7 +28,8 @@
 	"welcomeDesc": "Stai al passo con i progressi di tuo figlio!",
 	"getStarted": "Inizia",
 	"registerDesc": "Stai al passo con i progressi di tuo figlio!",
-	"labelNameSurname": "Nome e Cognome",
+	"labelName": "Nome",
+	"labelSurname": "Cognome",
 	"labelEmail": "Email",
 	"labelPassword": "Password",
 	"labelConfirmPassword": "Conferma Password",
@@ -51,5 +52,6 @@
 	"markAsRead": "Segna come letto",
 	"navGallery": "Galleria",
 	"navSettings": "Impostazioni",
-	"settingScreenLanguage": "Lingua"
+	"settingScreenLanguage": "Lingua",
+	"pushNotificationSetting": "Notifiche Push"
 }

@@ -5,6 +5,7 @@ import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/language_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/logout_tile.dart';
+import 'package:migla_flutter/src/widgets/tiles/settings/notification_switch_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -22,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
           children: [
             // locale
             const LanguageTile(),
+            const NotificationSwitchTile(),
             const LogoutTile(),
           ],
         ),

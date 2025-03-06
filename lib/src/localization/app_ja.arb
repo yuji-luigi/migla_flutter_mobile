@@ -28,7 +28,8 @@
 	"welcomeDesc": "あなたの子供の成長を一緒に見守りましょう！",
 	"getStarted": "はじめる",
 	"registerDesc": "新規登録して始めましょう",
-	"labelNameSurname": "名前と苗字",
+	"labelName": "名前(アルファベット)",
+	"labelSurname": "苗字(アルファベット)",
 	"labelEmail": "メールアドレス",
 	"labelPassword": "パスワード",
 	"labelConfirmPassword": "パスワードの確認",
@@ -51,5 +52,6 @@
 	"markAsRead": "既読にする",
 	"navGallery": "ギャラリー",
 	"navSettings": "設定",
-	"settingScreenLanguage": "言語"
+	"settingScreenLanguage": "言語",
+	"pushNotificationSetting": "プッシュ通知"
 }

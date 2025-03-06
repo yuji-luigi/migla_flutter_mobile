@@ -20,7 +20,8 @@ class RegisterScreen extends StatelessWidget {
         Center(child: Image.asset('assets/images/rainbow.png')),
         Text(context.t.welcomeToMigla, style: textStyleHeadingMedium),
         24.height,
-        Text(context.t.welcomeDesc, style: textStyleHeadingSmall),
+        Text(context.t.welcomeDesc,
+            style: textStyleHeadingSmall, textAlign: TextAlign.center),
         Spacer(),
         FormEmailPassword(),
         Spacer(),
@@ -42,7 +43,8 @@ class RegisterScreen extends StatelessWidget {
               isNewTask: true,
             ),
           ],
-        )
+        ),
+        24.height,
       ],
     );
   }

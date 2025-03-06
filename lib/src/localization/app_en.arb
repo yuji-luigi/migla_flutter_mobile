@@ -28,7 +28,8 @@
 	"welcomeDesc": "Let's be together in your child's progress!",
 	"getStarted": "Get Started",
 	"registerDesc": "Register to start",
-	"labelNameSurname": "Name and Surname",
+	"labelName": "Name",
+	"labelSurname": "Surname",
 	"labelEmail": "Email",
 	"labelPassword": "Password",
 	"labelConfirmPassword": "Confirm Password",
@@ -51,5 +52,6 @@
 	"markAsRead": "Mark as read",
 	"navGallery": "Gallery",
 	"navSettings": "Settings",
-	"settingScreenLanguage": "Language"
+	"settingScreenLanguage": "Language",
+	"pushNotificationSetting": "Push Notification"
 }

@@ -1,1 +1,1 @@
-const double spacingAuthForm = 24;
+const double spacingAuthForm = 16;

@@ -6,7 +6,6 @@ import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/views/auth/register/form_email_password.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
 import 'package:migla_flutter/src/widgets/link_text.dart';
@@ -19,6 +18,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
+      spacing: 8,
       children: [
         Spacer(),
         Text(
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
         ),
         8.height,
         Center(child: SvgPicture.asset('assets/images/auth/mom_son.svg')),
-        Spacer(),
+        24.height,
         Column(
           spacing: spacingAuthForm,
           children: [
