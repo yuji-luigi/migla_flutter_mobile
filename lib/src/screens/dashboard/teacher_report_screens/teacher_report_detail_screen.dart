@@ -242,3 +242,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
     );
   }
 }
+
+// await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+// );
