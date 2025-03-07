@@ -15,32 +15,32 @@ class AuthScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<Uint8List> svgToPng(String svgPath, BuildContext context) async {
-      try {
-        String svgString = await rootBundle.loadString(svgPath);
+    // Future<Uint8List> svgToPng(String svgPath, BuildContext context) async {
+    //   try {
+    //     String svgString = await rootBundle.loadString(svgPath);
 
-        final pictureInfo =
-            await vg.loadPicture(SvgStringLoader(svgString), context);
+    //     final pictureInfo =
+    //         await vg.loadPicture(SvgStringLoader(svgString), context);
 
-        double screenHeight = context.height();
-        double screenWidth = context.width();
-        final image = await pictureInfo.picture.toImage(
-          screenWidth.toInt(),
-          screenHeight.toInt(),
-        );
-        final byteData = await image.toByteData(format: ImageByteFormat.png);
+    //     double screenHeight = context.height();
+    //     double screenWidth = context.width();
+    //     final image = await pictureInfo.picture.toImage(
+    //       screenWidth.toInt(),
+    //       screenHeight.toInt(),
+    //     );
+    //     final byteData = await image.toByteData(format: ImageByteFormat.png);
 
-        if (byteData == null) {
-          throw Exception('Unable to convert SVG to PNG');
-        }
+    //     if (byteData == null) {
+    //       throw Exception('Unable to convert SVG to PNG');
+    //     }
 
-        final pngBytes = byteData.buffer.asUint8List();
-        return pngBytes;
-      } catch (e) {
-        print(e);
-        rethrow;
-      }
-    }
+    //     final pngBytes = byteData.buffer.asUint8List();
+    //     return pngBytes;
+    //   } catch (e) {
+    //     print(e);
+    //     rethrow;
+    //   }
+    // }
 
     return Scaffold(
       backgroundColor: bgPrimaryColor,

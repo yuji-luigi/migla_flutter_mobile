@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
-import 'package:migla_flutter/src/layouts/dashboard_layout.dart';
+import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -40,9 +41,9 @@ List<Map<String, dynamic>> teacherReportList = [
     "date": "2025/03/02",
     "coverImage": mockImgKyubi,
     "gallery": [
-      "assets/images/teacher_report/teacher_report_1.png",
-      "assets/images/teacher_report/teacher_report_2.png",
-      "assets/images/teacher_report/teacher_report_3.png",
+      "assets/images/mock_images/field.jpeg",
+      "assets/images/mock_images/house.jpeg",
+      "assets/images/mock_images/salone.jpeg",
     ],
   },
   {
@@ -80,9 +81,9 @@ List<Map<String, dynamic>> teacherReportList = [
     "date": "2025/03/02",
     "coverImage": mockImgHouse,
     "gallery": [
-      "assets/images/teacher_report/teacher_report_1.png",
-      "assets/images/teacher_report/teacher_report_2.png",
-      "assets/images/teacher_report/teacher_report_3.png",
+      "assets/images/mock_images/field.jpeg",
+      "assets/images/mock_images/house.jpeg",
+      "assets/images/mock_images/salone.jpeg",
     ],
   },
   {
@@ -123,9 +124,9 @@ List<Map<String, dynamic>> teacherReportList = [
     "date": "2025/03/09",
     "coverImage": mockImgSalone,
     "gallery": [
-      "assets/images/teacher_report/teacher_report_4.png",
-      "assets/images/teacher_report/teacher_report_5.png",
-      "assets/images/teacher_report/teacher_report_6.png",
+      "assets/images/mock_images/field.jpeg",
+      "assets/images/mock_images/house.jpeg",
+      "assets/images/mock_images/salone.jpeg",
     ],
   },
   {
@@ -170,9 +171,9 @@ List<Map<String, dynamic>> teacherReportList = [
     "date": "2025/03/16",
     "coverImage": mockImgSky,
     "gallery": [
-      "assets/images/teacher_report/teacher_report_7.png",
-      "assets/images/teacher_report/teacher_report_8.png",
-      "assets/images/teacher_report/teacher_report_9.png",
+      "assets/images/mock_images/field.jpeg",
+      "assets/images/mock_images/house.jpeg",
+      "assets/images/mock_images/salone.jpeg",
     ],
   },
 ];
@@ -184,11 +185,13 @@ class TeacherReportDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = teacherReportList[id];
-    return DashboardLayout(
+    return RegularLayoutScaffold(
+      bgCircleBottomRightColor: colorTertiary.withAlpha(50),
+      bgCircleTopLeftColor: colorTertiary.withAlpha(100),
       backgroundColor: colorPrimary,
-      bodyColor: colorPrimary,
+      bodyColor: Colors.transparent,
       // bodyGradient: LinearGradient(
-      //   colors: [colorPrimary, colorSecondary],
+      //   colors: [colorPrimary, colorWhite],
       //   begin: Alignment.topCenter,
       //   end: Alignment.bottomCenter,
       // ),
@@ -209,21 +212,30 @@ class TeacherReportDetailScreen extends StatelessWidget {
                   text: data["author"],
                   image: data["coverImage"],
                 ),
-                Container(
-                  width: double.infinity,
+                GalleryGridItem(
+                  imagePath: data["coverImage"],
+                  tag: "coverImage",
+                  // images: data["gallery"],
                   height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(radiusMedium),
-                    image: DecorationImage(
-                      image: AssetImage(data['coverImage']),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ),
+                // Container(
+                //   width: double.infinity,
+                //   height: 200,
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(radiusMedium),
+                //     image: DecorationImage(
+                //       image: AssetImage(data['coverImage']),
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             Text(data["description"], style: textStyleBodyMedium),
-            16.height,
+            GalleryGrid(
+              images: data["gallery"],
+              columns: 3,
+            )
           ],
         ),
       ),

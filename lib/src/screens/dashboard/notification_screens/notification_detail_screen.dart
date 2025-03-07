@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:migla_flutter/src/layouts/dashboard_layout.dart';
+import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
@@ -11,7 +11,7 @@ class NotificationDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, dynamic> notification = mockNotificationList[id];
 
-    return DashboardLayout(
+    return RegularLayoutScaffold(
       title: notification['title'],
       bodyColor: colorTertiary,
       padding: EdgeInsets.all(0),

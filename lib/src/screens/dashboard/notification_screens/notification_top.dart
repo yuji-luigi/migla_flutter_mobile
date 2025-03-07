@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/layouts/dashboard_layout.dart';
+import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_detail_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
@@ -14,7 +14,7 @@ class NotificationTopScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DashboardLayout(
+    return RegularLayoutScaffold(
       padding: EdgeInsets.zero,
       bodyColor: colorTertiary,
       title: context.t.notificationTitle,
@@ -22,7 +22,7 @@ class NotificationTopScreen extends StatelessWidget {
         children: [
           DateMarkAsReadTile(),
           2.height,
-          Flexible(
+          Expanded(
             child: ListView.builder(
               itemCount: mockNotificationList.length,
               shrinkWrap: true,

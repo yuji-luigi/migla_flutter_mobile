@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/layouts/dashboard_layout.dart';
+import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/views/photo_video_top/gallery_section_photo_video_top.dart';
 import 'package:migla_flutter/src/widgets/buttons/chip_button.dart';
@@ -28,9 +28,10 @@ class _PhotoVideosTopScreenState extends State<PhotoVideosTopScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return DashboardLayout(
+    return RegularLayoutScaffold(
       title: 'Photo & Videos',
-      bodyColor: bgPrimaryColor,
+      backgroundColor: bgPrimaryColor,
+      bodyColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Column(
           children: [

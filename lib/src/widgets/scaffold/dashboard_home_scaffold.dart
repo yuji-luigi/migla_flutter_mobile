@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
-import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/drawer/dashboard_left_drawer.dart';
-import 'package:nb_utils/nb_utils.dart';
 
-class DashboardScaffold extends StatefulWidget {
+class DashboardHomeScaffold extends StatefulWidget {
   // final List<Widget> body;
   final Widget topSection;
   final Widget bottomSection;
 
-  const DashboardScaffold({
+  const DashboardHomeScaffold({
     super.key,
     // required this.body,
     required this.topSection,
@@ -18,10 +16,10 @@ class DashboardScaffold extends StatefulWidget {
   });
 
   @override
-  State<DashboardScaffold> createState() => _DashboardScaffoldState();
+  State<DashboardHomeScaffold> createState() => _DashboardScaffoldState();
 }
 
-class _DashboardScaffoldState extends State<DashboardScaffold> {
+class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
   final GlobalKey _topSectionKey = GlobalKey();
   double _topSectionHeight = 200; // Default height (fallback)
   void _calculateTopSectionHeight() {

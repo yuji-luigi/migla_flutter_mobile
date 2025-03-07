@@ -6,6 +6,9 @@ const String bgCircleTopLeftSecondary =
 const String bgCircleBottomRight =
     "assets/images/background/bg_circle_bottom_right.png";
 
+const String svgBgCircleBottomRight =
+    "assets/images/background/bg_circle_bottom_right_primary.svg";
+
 const avatarPlaceholder = "assets/images/avatar_placeholder_girl.png";
 
 const bgAuth = "assets/images/background/bg_auth.svg";
