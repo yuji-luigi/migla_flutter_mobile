@@ -29,9 +29,17 @@ flutter_macos_podfile_setup
 target 'Runner' do
   use_frameworks!
   use_modular_headers!
-  pod 'FirebaseFirestore',
-    :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git',
-    :tag => '10.29.0'
+  # pod 'Firebase/Firestore'
+  # pod 'FirebaseFirestore',
+  #   :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git',
+  #   :tag => '10.29.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Auth'
+  # pod 'Firebase/Analytics'
+  # pod 'Firebase/Messaging'
+  pod 'Firebase/Firestore', 
+    :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', 
+    :tag => '10.29.0' # ✅ Prebuilt SDK
   flutter_install_all_macos_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths

@@ -1,7 +1,10 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
+import 'package:flutter/foundation.dart';
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -14,6 +17,12 @@ class MyApp extends StatelessWidget {
   });
 
   final SettingsController settingsController;
+  Future<void> initializeDefault() async {
+    FirebaseApp app = await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Initialized default app $app');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,7 @@ class MyApp extends StatelessWidget {
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
         return MaterialApp(
-          locale: const Locale("en", ""),
+          locale: const Locale("ja", ""),
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
           // returns to the app after it has been killed while running in the

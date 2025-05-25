@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/screens/auth/login_screen.dart';
 import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
@@ -35,7 +36,7 @@ class GetStartedScreen extends StatelessWidget {
         Spacer(),
         Button(
           onPressed: () {
-            RegisterScreen().launch(context);
+            LoginScreen().launch(context);
           },
           text: context.t.getStarted,
         ),
