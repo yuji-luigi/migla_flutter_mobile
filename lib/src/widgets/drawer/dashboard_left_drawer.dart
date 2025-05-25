@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/objects/nav_item.dart';
+import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_top.dart';
 import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_top_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';

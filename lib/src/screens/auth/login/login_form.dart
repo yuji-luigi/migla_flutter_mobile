@@ -4,21 +4,21 @@ import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/auth/register_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/form_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
-import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
+import 'package:migla_flutter/src/widgets/inputs/controled_inputs/input_rounded_white_controlled.dart';
 import 'package:migla_flutter/src/widgets/link_text.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LoginForm extends StatelessWidget {
+  const LoginForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AuthScaffold(
-      spacing: 8,
+    FormViewModel formViewModel = $formViewModel(context);
+    return AuthScaffoldColumn(
       children: [
         Spacer(),
         Text(
@@ -31,10 +31,12 @@ class LoginScreen extends StatelessWidget {
         Column(
           spacing: spacingAuthForm,
           children: [
-            InputRoundedWhite(
+            InputRoundedWhiteControlled(
+              name: 'email',
               hintText: context.t.labelEmail,
             ),
-            InputRoundedWhite(
+            InputRoundedWhiteControlled(
+              name: 'password',
               hintText: context.t.labelPassword,
             ),
           ],
@@ -47,11 +49,10 @@ class LoginScreen extends StatelessWidget {
         ),
         Spacer(),
         Button(
-          text: context.t.login,
-          onPressed: () {
-            DashboardHomeScreen().launch(context, isNewTask: true);
-          },
-        ),
+            text: context.t.login,
+            onPressed: () {
+              formViewModel.submitForm();
+            }),
         16.height,
         Row(
           spacing: 4,

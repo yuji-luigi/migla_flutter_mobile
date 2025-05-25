@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/screens/auth/login_screen.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
@@ -14,7 +14,7 @@ class GetStartedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
-      children: [
+      child: AuthScaffoldColumn(children: [
         Spacer(),
         Center(
           child: Image.asset(
@@ -41,7 +41,7 @@ class GetStartedScreen extends StatelessWidget {
           text: context.t.getStarted,
         ),
         24.height,
-      ],
+      ]),
     );
   }
 }

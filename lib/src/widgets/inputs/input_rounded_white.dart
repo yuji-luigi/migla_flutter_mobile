@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class InputRoundedWhite extends StatelessWidget {
   final String? hintText;
-  const InputRoundedWhite({super.key, required this.hintText});
+  final TextEditingController? controller;
+  const InputRoundedWhite({super.key, required this.hintText, this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(90)),

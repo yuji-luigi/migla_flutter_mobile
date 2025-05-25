@@ -9,9 +9,9 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class AuthScaffold extends StatelessWidget {
-  final List<Widget> children;
+  final Widget child;
   final double spacing;
-  const AuthScaffold({super.key, required this.children, this.spacing = 0});
+  const AuthScaffold({super.key, required this.child, this.spacing = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -89,18 +89,30 @@ class AuthScaffold extends StatelessWidget {
             child: Center(
               child: SingleChildScrollView(
                 child: IntrinsicHeight(
-                  child: Column(
-                    spacing: spacing,
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: children,
-                  ),
+                  child: child,
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class AuthScaffoldColumn extends StatelessWidget {
+  final List<Widget> children;
+  final double spacing;
+  const AuthScaffoldColumn(
+      {super.key, required this.children, this.spacing = 8});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      spacing: spacing,
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: children,
     );
   }
 }
