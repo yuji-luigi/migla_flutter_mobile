@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:migla_flutter/env_vars.dart';
+import 'package:migla_flutter/src/models/internal/strage.dart';
 
 class ApiClient {
   final String baseUrl;
@@ -26,11 +27,15 @@ class ApiClient {
   Future<http.Response> post(String path,
       {String? otherUrl, Map<String, dynamic>? body}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
-
-    http.Response response =
-        await http.post(uri, body: jsonEncode(body), headers: {
+    String? token = await Storage.getToken();
+    Map<String, String> headers = {
       'Content-Type': 'application/json',
-    });
+    };
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response =
+        await http.post(uri, body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 200) {
       return response;

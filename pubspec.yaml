@@ -18,7 +18,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  flutter_secure_storage: ^9.2.4
   flutter_svg: ^2.0.17
+  graphql_flutter: ^5.2.0
   http: ^1.4.0
   intl: ^0.19.0
   intl_utils: ^2.8.9
