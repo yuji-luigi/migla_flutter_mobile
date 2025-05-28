@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/view_models/user_view_model.dart';
 import 'package:provider/provider.dart';
@@ -25,34 +26,10 @@ void main() async {
   // so we need to initialize Hive.
   await initHiveForFlutter();
 
-  final HttpLink httpLink = HttpLink(
-    'http://localhost:3000/api/graphql',
-  );
-
-  final AuthLink authLink = AuthLink(
-    getToken: () async => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.x.x',
-    // OR
-    // getToken: () => 'Bearer <YOUR_PERSONAL_ACCESS_TOKEN>',
-  );
-
-  final Link link = authLink.concat(httpLink);
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: link,
-      // The default store is the InMemoryStore, which does NOT persist to disk
-      cache: GraphQLCache(store: HiveStore()),
-    ),
-  );
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
-  runApp(GraphQLProvider(
-    client: client,
-    child: MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => UserViewModel()),
-      ],
-      child: MyApp(settingsController: settingsController),
-    ),
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => UserViewModel()),
+    ],
+    child: MyApp(settingsController: settingsController),
   ));
 }

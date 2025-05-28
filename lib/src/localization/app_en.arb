@@ -53,5 +53,6 @@
 	"navGallery": "Gallery",
 	"navSettings": "Settings",
 	"settingScreenLanguage": "Language",
-	"pushNotificationSetting": "Push Notification"
+	"pushNotificationSetting": "Push Notification",
+	"selectStudent": "Which child's information do you want to see?"
 }

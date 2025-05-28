@@ -7,14 +7,18 @@ query {
       id
       name
       surname
-      parent{
+      classroom{
+        id
         name
-        surname
+        teachers{
+          id
+          name
+        }
       }
+      slug
       createdAt,
-
-     
     }
   }
+
 }
 ''');

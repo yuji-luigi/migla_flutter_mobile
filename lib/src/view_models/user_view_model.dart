@@ -2,14 +2,23 @@
 // ignore: prefer_mixin
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:provider/provider.dart';
 
 class UserViewModel with ChangeNotifier, DiagnosticableTreeMixin {
-  int _count = 0;
+  String? token;
 
-  int get count => _count;
+  UserViewModel() {
+    init();
+  }
+  init() async {
+    String? token = await Storage.getToken();
+    this.token = token;
+    notifyListeners();
+  }
 
-  void increment() {
-    _count++;
+  void setToken(String token) {
+    this.token = token;
     notifyListeners();
   }
 
@@ -17,6 +26,9 @@ class UserViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(IntProperty('count', count));
   }
+}
+
+UserViewModel $userViewModel(BuildContext context) {
+  return Provider.of<UserViewModel>(context, listen: true);
 }
