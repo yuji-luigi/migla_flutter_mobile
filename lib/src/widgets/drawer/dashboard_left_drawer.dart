@@ -16,12 +16,14 @@ class DashboardLeftDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double paddingTop = MediaQuery.of(context).padding.top;
     return Drawer(
       backgroundColor: colorTertiary,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: paddingTop),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -66,15 +68,18 @@ class DashboardLeftDrawer extends StatelessWidget {
                     onTap: () => item.widget.launch(context),
                     leading: SvgPicture.asset(
                       item.icon,
-                      width: 24,
-                      height: 24,
+                      width: 42,
+                      height: 42,
                       colorFilter: ColorFilter.mode(
                         colorBlack,
                         BlendMode.srcIn,
                       ),
                     ),
-                    title:
-                        Text(item.title, style: TextStyle(color: colorBlack)),
+                    title: Text(item.title,
+                        style: TextStyle(
+                            color: colorBlack,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500)),
                   ),
                 );
               },
@@ -103,5 +108,10 @@ List<NavItem> getDrawerItem(BuildContext context) {
       title: context.t.navSettings,
       widget: SettingsScreen(),
     ),
+    NavItem(
+        icon: svgChangeBoyGirl,
+        title: context.t.navSettings,
+        widget: SizedBox.shrink(),
+        onTap: () {}),
   ];
 }

@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/firebase_options.dart';
-import 'package:migla_flutter/src/view_models/user_view_model.dart';
+import 'package:migla_flutter/src/providers/feature_providers.dart';
+import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'src/app.dart';
@@ -28,8 +31,11 @@ void main() async {
 
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => UserViewModel()),
+      ChangeNotifierProvider(create: (context) => MeViewModel()),
+      // ChangeNotifierProvider(create: (context) => StudentsViewModel()),
     ],
-    child: MyApp(settingsController: settingsController),
+    child: MyGraphqlProvider(
+        child: FeatureProviders(
+            child: MyApp(settingsController: settingsController))),
   ));
 }

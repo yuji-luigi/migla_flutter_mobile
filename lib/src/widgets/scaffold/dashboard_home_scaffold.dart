@@ -78,6 +78,7 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
                     child: Image.asset(bgCircleTopLeft),
                   ),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 56),
                       Center(

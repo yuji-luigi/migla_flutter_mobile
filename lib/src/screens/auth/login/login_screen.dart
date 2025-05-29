@@ -7,7 +7,7 @@ import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_form.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
-import 'package:migla_flutter/src/view_models/user_view_model.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -18,14 +18,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UserViewModel userViewModel = $userViewModel(context);
+    MeViewModel meViewModel = $meViewModel(context);
     Future<void> login(Map<String, dynamic> formData) async {
       Response res = await _apiClient.post('/users/login?role-name=parent',
           body: formData);
       // print('login: ${res.body}');
       Map<String, dynamic> body = jsonDecode(res.body);
       await Storage.saveToken(body['token']);
-      userViewModel.setToken(body['token']);
+      meViewModel.setToken(body['token']);
       DashboardHomeScreen().launch(context);
     }
 

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:provider/provider.dart';
 
-class UserViewModel with ChangeNotifier, DiagnosticableTreeMixin {
+class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   String? token;
 
-  UserViewModel() {
+  MeViewModel() {
     init();
   }
   init() async {
@@ -22,13 +22,13 @@ class UserViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  /// Makes ` UserProvider` readable inside the devtools by listing all of its properties
+  /// Makes `UserProvider` readable inside the devtools by listing all of its properties
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
   }
 }
 
-UserViewModel $userViewModel(BuildContext context) {
-  return Provider.of<UserViewModel>(context, listen: true);
+MeViewModel $meViewModel(BuildContext context) {
+  return Provider.of<MeViewModel>(context, listen: true);
 }

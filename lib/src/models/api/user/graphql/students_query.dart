@@ -22,3 +22,21 @@ query {
 
 }
 ''');
+
+String Function(String) getStudentByIdQuery = ((String studentId) => '''
+query{
+  Student(id:$studentId){
+    id
+    name
+    surname
+    classroom{
+    id
+      name
+      teachers{
+        id
+        name
+      }
+    }
+  }
+}
+''');

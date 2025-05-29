@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/env_vars.dart';
-import 'package:migla_flutter/src/view_models/user_view_model.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MyGraphqlProvider extends StatelessWidget {
   final Widget child;
-  const MyGraphqlProvider({Key? key, required this.child}) : super(key: key);
+  const MyGraphqlProvider({
+    super.key,
+    required this.child,
+  });
 
-  @override
   Widget build(BuildContext context) {
-    return Selector<UserViewModel, String?>(
+    return Selector<MeViewModel, String?>(
       selector: (_, vm) => vm.token,
       builder: (context, token, _) {
         final httpLink = HttpLink(apiGraphqlUrl);

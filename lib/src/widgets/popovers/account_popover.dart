@@ -29,10 +29,10 @@ class AccountPopover extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Demo Username',
-                  style: textStyleCaptionMd.copyWith(
+                  style: textStyleBodyMedium.copyWith(
                       overflow: TextOverflow.ellipsis)),
               Text('demo_email@demo.com',
-                  style: textStyleCaptionMd.copyWith(
+                  style: textStyleBodyMedium.copyWith(
                     overflow: TextOverflow.ellipsis,
                     color: colorTextDisabled,
                   )),
