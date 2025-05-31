@@ -20,13 +20,22 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     MeViewModel meViewModel = $meViewModel(context);
     Future<void> login(Map<String, dynamic> formData) async {
-      Response res = await _apiClient.post('/users/login?role-name=parent',
-          body: formData);
-      // print('login: ${res.body}');
-      Map<String, dynamic> body = jsonDecode(res.body);
-      await Storage.saveToken(body['token']);
-      meViewModel.setToken(body['token']);
-      DashboardHomeScreen().launch(context);
+      try {
+        Response res = await _apiClient.post('/users/login?role-name=parent',
+            body: formData);
+        // print('login: ${res.body}');
+        Map<String, dynamic> body = jsonDecode(res.body);
+        await Storage.saveToken(body['token']);
+        meViewModel.setToken(body['token']);
+        DashboardHomeScreen().launch(context);
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login failed: ${error.toString()}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
 
     return AuthScaffold(

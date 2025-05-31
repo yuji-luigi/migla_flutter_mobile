@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/inputs/controled_inputs/input_rounded_white_controlled.dart';
+import 'package:migla_flutter/src/widgets/inputs/controled_inputs/password_input_controlled.dart';
 import 'package:migla_flutter/src/widgets/link_text.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -35,7 +36,7 @@ class LoginForm extends StatelessWidget {
               name: 'email',
               hintText: context.t.labelEmail,
             ),
-            InputRoundedWhiteControlled(
+            PasswordInputControlled(
               name: 'password',
               hintText: context.t.labelPassword,
             ),
@@ -49,9 +50,11 @@ class LoginForm extends StatelessWidget {
         ),
         Spacer(),
         Button(
+            key: ValueKey(formViewModel.isSubmitting),
             text: context.t.login,
-            onPressed: () {
-              formViewModel.submitForm();
+            isLoading: formViewModel.isSubmitting,
+            onPressed: () async {
+              await formViewModel.submitForm();
             }),
         16.height,
         Row(

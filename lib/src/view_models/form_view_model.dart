@@ -61,16 +61,28 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
+  void setIsSubmitting(bool value) {
+    _isSubmitting = value;
+    notifyListeners();
+  }
+
   Future<void> submitForm() async {
     _isSubmitting = true;
     notifyListeners();
-    await _onSubmit(formData);
-    _isSubmitting = false;
+    try {
+      await _onSubmit(formData);
+    } catch (error) {
+      print('error: $error');
+      rethrow;
+    } finally {
+      _isSubmitting = false;
+      notifyListeners();
+    }
   }
 }
 
 FormViewModel $formViewModel(BuildContext context) =>
-    context.read<FormViewModel>();
+    Provider.of<FormViewModel>(context, listen: true);
 
 FormViewModel getFormViewModel(BuildContext context) =>
-    context.read<FormViewModel>();
+    Provider.of<FormViewModel>(context, listen: false);

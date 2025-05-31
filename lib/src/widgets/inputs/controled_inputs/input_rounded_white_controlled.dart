@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/models/enums/input/input_types.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
 import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
 
 class InputRoundedWhiteControlled extends StatefulWidget {
-  final String name;
   final String? hintText;
+  final TextEditingController? controller;
+  final InputType inputType;
+  final Widget? suffixIcon;
+  final String name;
+  final bool obscureText;
   const InputRoundedWhiteControlled({
     super.key,
+    required this.hintText,
     required this.name,
-    this.hintText,
+    this.controller,
+    this.inputType = InputType.text,
+    this.suffixIcon,
+    this.obscureText = false,
   });
 
   @override
@@ -34,6 +43,11 @@ class _InputRoundedWhiteControlledState
 
   @override
   Widget build(BuildContext context) {
-    return InputRoundedWhite(hintText: widget.hintText, controller: controller);
+    return InputRoundedWhite(
+      hintText: widget.hintText,
+      controller: controller,
+      obscureText: widget.obscureText,
+      suffixIcon: widget.suffixIcon,
+    );
   }
 }

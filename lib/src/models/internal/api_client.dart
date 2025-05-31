@@ -34,13 +34,14 @@ class ApiClient {
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
+    print('POST: uri: $uri');
     http.Response response =
         await http.post(uri, body: jsonEncode(body), headers: headers);
 
     if (response.statusCode == 200) {
       return response;
     } else {
-      throw Exception('Failed to load data');
+      throw Exception(response.body);
     }
   }
 
