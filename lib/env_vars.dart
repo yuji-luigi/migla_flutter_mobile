@@ -1,9 +1,14 @@
+/// deployed url production
 const String prodApiUrl = "https://migla.yuji-luigi.com/api";
+
+/// localhost url
 const String devApiUrl = 'http://localhost:3000/api';
 
+/// returns true on build (not debug-apk) also TestFlight returns true
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
-const bool useProdUrl = true;
+/// use this bool to switch the api url so you can forget about the isProduction bool
+const bool useProdUrl = false;
 
 const String apiUrl = isProduction || useProdUrl ? prodApiUrl : devApiUrl;
 const String apiGraphqlUrl = '$apiUrl/graphql';

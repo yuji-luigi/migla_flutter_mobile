@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/user/graphql/students_query.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/students_avatar_stack_container.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -15,6 +16,7 @@ class DashboardHomeTopSection extends StatelessWidget {
   Widget build(BuildContext context) {
     StudentsViewModel selectedStudentViewModel =
         $selectedStudentViewModel(context);
+    final userViewModel = $meViewModel(context);
     return Query(
       options: QueryOptions(
         document: gql(getStudentsByParentId(

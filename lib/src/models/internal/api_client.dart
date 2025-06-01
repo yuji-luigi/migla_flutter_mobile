@@ -14,8 +14,15 @@ class ApiClient {
   });
 
   Future<http.Response> get(String path, {String? otherUrl}) async {
+    String? token = await Storage.getToken();
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
-    http.Response response = await http.get(uri);
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    if (token != null) {
+      headers['Authorization'] = 'Bearer $token';
+    }
+    http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {
       return response;

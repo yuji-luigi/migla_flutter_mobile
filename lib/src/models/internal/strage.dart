@@ -7,7 +7,7 @@ class Storage {
   static const String _selectedStudentId = 'selectedStudentId';
 
   static Future<void> saveToken(String token) async {
-    await storage.write(key: token, value: token);
+    await storage.write(key: _token, value: token);
   }
 
   static Future<void> saveSelectedStudentId(int studentId) async {
