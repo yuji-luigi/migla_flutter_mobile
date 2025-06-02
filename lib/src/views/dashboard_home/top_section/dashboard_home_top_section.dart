@@ -16,18 +16,23 @@ class DashboardHomeTopSection extends StatelessWidget {
   Widget build(BuildContext context) {
     StudentsViewModel selectedStudentViewModel =
         $selectedStudentViewModel(context);
-    final userViewModel = $meViewModel(context);
+    final meVm = $meViewModel(context);
+    if (meVm.me == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Query(
       options: QueryOptions(
         document: gql(getStudentsByParentId(
-            16)), // this is the query string you just created
-
-        pollInterval: const Duration(seconds: 10),
+            meVm.me!.id)), // this is the query string you just created
       ),
       builder: (result, {fetchMore, refetch}) {
         List<StudentModel> students = result.data?['Students']['docs']
             .map<StudentModel>((e) => StudentModel.fromJson(e))
             .toList();
+        bool hasStudents = students.length > 0;
+        String title = hasStudents
+            ? context.t.dashboardHomeScreenHeader
+            : context.t.home_title_noStudent;
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -36,14 +41,19 @@ class DashboardHomeTopSection extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   child: Text(
-                    context.t.dashboardHomeScreenHeader,
+                    title,
                     textAlign: TextAlign.center,
-                    style: textStyleBodySmall,
+                    style: hasStudents
+                        ? textStyleBodySmall
+                        : textStyleBodyLarge.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
                   ),
                 ),
-                Center(
-                  child: StudentsAvatarStackContainer(students: students),
-                ),
+                if (hasStudents)
+                  Center(
+                    child: StudentsAvatarStackContainer(students: students),
+                  ),
                 Text(
                   selectedStudentViewModel.selectedStudent?.fullName ?? '',
                   textAlign: TextAlign.center,

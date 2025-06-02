@@ -10,14 +10,12 @@ import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:provider/provider.dart';
 
-class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
+class AuthViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   String? token;
-  UserModel? _me;
-  UserModel? get me => _me;
-  bool get hasMe => _me != null;
+  bool isLoggedIn = false;
   ApiClient _apiClient = ApiClient();
 
-  MeViewModel() {
+  AuthViewModel() {
     init();
   }
   init() async {
@@ -28,13 +26,6 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
 
   void setToken(String token) {
     this.token = token;
-    notifyListeners();
-  }
-
-  Future<void> getMe() async {
-    final res = await _apiClient.get(apiUrlMe);
-    final data = jsonDecode(res.body);
-    _me = UserModel.fromJson(data['user']);
     notifyListeners();
   }
 
@@ -57,6 +48,6 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-MeViewModel $meViewModel(BuildContext context) {
-  return Provider.of<MeViewModel>(context, listen: true);
+AuthViewModel $meViewModel(BuildContext context) {
+  return Provider.of<AuthViewModel>(context, listen: true);
 }

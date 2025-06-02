@@ -5,6 +5,8 @@ class Storage {
   static FlutterSecureStorage storage = FlutterSecureStorage();
   static const String _token = 'token';
   static const String _selectedStudentId = 'selectedStudentId';
+  static const String _email = 'email';
+  static const String _password = 'password';
 
   static Future<void> saveToken(String token) async {
     await storage.write(key: _token, value: token);
@@ -27,7 +29,13 @@ class Storage {
     await storage.delete(key: _token);
   }
 
+  static Future<void> saveCredentials(String email, String password) async {
+    await storage.write(key: _email, value: email);
+    await storage.write(key: _password, value: password);
+  }
+
   static Future<void> removeAll() async {
     await storage.deleteAll();
+    print(await storage.readAll());
   }
 }

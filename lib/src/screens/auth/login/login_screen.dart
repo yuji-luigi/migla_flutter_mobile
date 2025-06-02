@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         // print('login: ${res.body}');
         Map<String, dynamic> body = jsonDecode(res.body);
         await Storage.saveToken(body['token']);
-        await meViewModel.getMe();
+        meViewModel.setToken(body['token']);
         DashboardHomeScreen().launch(context);
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
         create: (context) => FormViewModel(
           onSubmit: login,
           initialValues: {
-            'email': 'u.ji.jp777+parent@gmail.com',
+            'email': 'u.ji.jp777+parent.a@gmail.com',
             'password': 'user\$\$\$',
           },
         ),

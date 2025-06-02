@@ -35,6 +35,7 @@ class ApiClient {
       {String? otherUrl, Map<String, dynamic>? body}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
     String? token = await Storage.getToken();
+
     Map<String, String> headers = {
       'Content-Type': 'application/json',
     };

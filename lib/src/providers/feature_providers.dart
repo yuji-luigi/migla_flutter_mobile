@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,7 @@ class FeatureProviders extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => MeViewModel()),
         ChangeNotifierProvider(
             create: (ctx) => StudentsViewModel(
                   client,

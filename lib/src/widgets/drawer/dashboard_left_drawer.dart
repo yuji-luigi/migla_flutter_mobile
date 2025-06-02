@@ -8,6 +8,8 @@ import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_v
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/drawer/tiles/drawer_list_tile.dart';
+import 'package:migla_flutter/src/widgets/drawer/tiles/student_switch_tile.dart';
 import 'package:migla_flutter/src/widgets/popovers/account_popover.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -52,36 +54,12 @@ class DashboardLeftDrawer extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: getDrawerItem(context).length,
+              itemCount: getDrawerTiles(context).length,
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
-                final item = getDrawerItem(context)[index];
-                return Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: paddingXDashboardMd,
-                  ),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(900),
-                    ),
-                    onTap: () => item.widget.launch(context),
-                    leading: SvgPicture.asset(
-                      item.icon,
-                      width: 42,
-                      height: 42,
-                      colorFilter: ColorFilter.mode(
-                        colorBlack,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    title: Text(item.title,
-                        style: TextStyle(
-                            color: colorBlack,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500)),
-                  ),
-                );
+                final item = getDrawerTiles(context)[index];
+                return item;
               },
             ),
           )
@@ -91,27 +69,26 @@ class DashboardLeftDrawer extends StatelessWidget {
   }
 }
 
-List<NavItem> getDrawerItem(BuildContext context) {
+List<Widget> getDrawerTiles(BuildContext context) {
   return [
-    NavItem(
+    DrawerListTile(
+        item: NavItem(
       icon: svgGallery,
       title: context.t.navGallery,
       widget: PhotoVideosTopScreen(),
-    ),
-    NavItem(
+    )),
+    DrawerListTile(
+        item: NavItem(
       icon: svgMail,
       title: context.t.notificationTitle,
       widget: NotificationTopScreen(),
-    ),
-    NavItem(
+    )),
+    DrawerListTile(
+        item: NavItem(
       icon: svgCog,
       title: context.t.navSettings,
       widget: SettingsScreen(),
-    ),
-    NavItem(
-        icon: svgChangeBoyGirl,
-        title: context.t.navSettings,
-        widget: SizedBox.shrink(),
-        onTap: () {}),
+    )),
+    StudentSwitchTile(),
   ];
 }
