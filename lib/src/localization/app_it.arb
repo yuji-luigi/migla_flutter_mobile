@@ -56,5 +56,6 @@
 	"pushNotificationSetting": "Notifiche Push",
 	"selectStudent": "Quale bambino vuoi vedere?",
 	"switchStudent": "Cambia bambino",
-	"home_title_noStudent": "Figli non trovati. Contatta la tua scuola."
+	"home_title_noStudent": "Figli non trovati. Contatta la tua scuola.",
+	"home_pleaseSelectStudent": "Quale bambino vuoi vedere?\n(ancora non selezionato)"
 }

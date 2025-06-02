@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_form.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthTokenProvider authTokenProvider = $authTokenProvider(context);
     MeViewModel meViewModel = $meViewModel(context);
     Future<void> login(Map<String, dynamic> formData) async {
       try {
@@ -25,8 +27,8 @@ class LoginScreen extends StatelessWidget {
             body: formData);
         // print('login: ${res.body}');
         Map<String, dynamic> body = jsonDecode(res.body);
-        await Storage.saveToken(body['token']);
-        meViewModel.setToken(body['token']);
+        await authTokenProvider.setToken(body['token']);
+        await meViewModel.getMe();
         DashboardHomeScreen().launch(context);
       } catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(

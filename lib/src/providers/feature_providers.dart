@@ -15,11 +15,15 @@ class FeatureProviders extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => MeViewModel()),
         ChangeNotifierProvider(
-            create: (ctx) => StudentsViewModel(
-                  client,
-                )),
+          create: (context) => MeViewModel(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => StudentsViewModel(
+            client,
+          ),
+        ),
       ],
       child: child,
     );

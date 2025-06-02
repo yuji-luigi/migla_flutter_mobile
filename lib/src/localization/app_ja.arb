@@ -56,5 +56,6 @@
 	"pushNotificationSetting": "プッシュ通知",
 	"selectStudent": "どの子供の情報を見ますか？",
 	"switchStudent": "交代",
-	"home_title_noStudent": "あなたの子供がまだ登録されていません。学校にお問い合わせください。"
+	"home_title_noStudent": "あなたの子供がまだ登録されていません。学校にお問い合わせください。",
+	"home_pleaseSelectStudent": "どの子供の情報を見ますか？\n(まだ選択されていません)"
 }

@@ -36,37 +36,43 @@ class DashboardHomeTopSection extends StatelessWidget {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: Text(
-                    title,
+            Flexible(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: hasStudents
+                          ? textStyleBodySmall
+                          : textStyleBodyLarge.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                    ),
+                  ),
+                  if (hasStudents)
+                    Center(
+                      child: StudentsAvatarStackContainer(students: students),
+                    ),
+                  Text(
+                    selectedStudentViewModel.selectedStudent?.fullName ?? '',
                     textAlign: TextAlign.center,
-                    style: hasStudents
-                        ? textStyleBodySmall
-                        : textStyleBodyLarge.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                    style:
+                        textStyleHeadingMedium.copyWith(color: textColorWhite),
                   ),
-                ),
-                if (hasStudents)
-                  Center(
-                    child: StudentsAvatarStackContainer(students: students),
+                  4.height,
+                  Text(
+                    selectedStudentViewModel.selectedStudent?.classroom.name ??
+                        context.t.home_pleaseSelectStudent,
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    style: textStyleHeadingMedium.copyWith(
+                      color: textColorWhite,
+                    ),
                   ),
-                Text(
-                  selectedStudentViewModel.selectedStudent?.fullName ?? '',
-                  textAlign: TextAlign.center,
-                  style: textStyleHeadingMedium.copyWith(color: textColorWhite),
-                ),
-                4.height,
-                Text(
-                  selectedStudentViewModel.selectedStudent?.classroom.name ??
-                      '',
-                  textAlign: TextAlign.center,
-                  style: textStyleHeadingMedium.copyWith(color: textColorWhite),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         );

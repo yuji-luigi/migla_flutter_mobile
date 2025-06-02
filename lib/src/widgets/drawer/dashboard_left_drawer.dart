@@ -44,8 +44,8 @@ class DashboardLeftDrawer extends StatelessWidget {
             padding: const EdgeInsets.only(
               left: paddingXDashboardMd + 12,
               right: paddingXDashboardMd + 12,
-              top: 12,
-              bottom: 3,
+              top: 20,
+              bottom: 12,
             ),
             child: Divider(
               color: colorTextDisabled,
@@ -53,15 +53,21 @@ class DashboardLeftDrawer extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: getDrawerTiles(context).length,
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                final item = getDrawerTiles(context)[index];
-                return item;
-              },
+            child: Column(
+              spacing: 12,
+              children: [
+                ...getDrawerTiles(context),
+              ],
             ),
+            // child: ListView.builder(
+            //   itemCount: getDrawerTiles(context).length,
+            //   shrinkWrap: true,
+            //   padding: EdgeInsets.zero,
+            //   itemBuilder: (context, index) {
+            //     final item = getDrawerTiles(context)[index];
+            //     return item;
+            //   },
+            // ),
           )
         ],
       ),
@@ -71,24 +77,24 @@ class DashboardLeftDrawer extends StatelessWidget {
 
 List<Widget> getDrawerTiles(BuildContext context) {
   return [
-    DrawerListTile(
-        item: NavItem(
-      icon: svgGallery,
-      title: context.t.navGallery,
-      widget: PhotoVideosTopScreen(),
-    )),
+    // DrawerListTile(
+    //     item: NavItem(
+    //   icon: svgGallery,
+    //   title: context.t.navGallery,
+    //   widget: PhotoVideosTopScreen(),
+    // )),
     DrawerListTile(
         item: NavItem(
       icon: svgMail,
       title: context.t.notificationTitle,
       widget: NotificationTopScreen(),
     )),
+    StudentSwitchTile(),
     DrawerListTile(
         item: NavItem(
       icon: svgCog,
       title: context.t.navSettings,
       widget: SettingsScreen(),
     )),
-    StudentSwitchTile(),
   ];
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/env_vars.dart';
-import 'package:migla_flutter/src/view_models/students_view_model.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:provider/provider.dart';
 
 class MyGraphqlProvider extends StatelessWidget {
@@ -13,8 +12,8 @@ class MyGraphqlProvider extends StatelessWidget {
   });
 
   Widget build(BuildContext context) {
-    return Selector<MeViewModel, String?>(
-      selector: (_, vm) => vm.token,
+    return Selector<AuthTokenProvider, String?>(
+      selector: (_, provider) => provider.token,
       builder: (context, token, _) {
         final httpLink = HttpLink(apiGraphqlUrl);
         final authLink = AuthLink(

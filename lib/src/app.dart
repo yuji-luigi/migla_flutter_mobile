@@ -7,6 +7,8 @@ import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
 import 'package:flutter/foundation.dart';
+import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';

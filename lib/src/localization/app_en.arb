@@ -56,5 +56,6 @@
 	"pushNotificationSetting": "Push Notification",
 	"selectStudent": "Which child's information do you want to see?",
 	"switchStudent": "Switch Student",
-	"home_title_noStudent": "You don't have any children yet. Please contact your school."
+	"home_title_noStudent": "You don't have any children yet. Please contact your school.",
+	"home_pleaseSelectStudent": "Which child's information do you want to see?\n (not selected yet)"
 }

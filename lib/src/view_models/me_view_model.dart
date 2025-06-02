@@ -11,7 +11,6 @@ import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:provider/provider.dart';
 
 class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
-  String? token;
   UserModel? _me;
   UserModel? get me => _me;
   bool get hasMe => _me != null;
@@ -21,14 +20,12 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     init();
   }
   init() async {
-    String? token = await Storage.getToken();
-    this.token = token;
-    notifyListeners();
-  }
-
-  void setToken(String token) {
-    this.token = token;
-    notifyListeners();
+    try {
+      await getMe();
+      notifyListeners();
+    } catch (e) {
+      print('Error getting me on init: $e');
+    }
   }
 
   Future<void> getMe() async {
@@ -42,7 +39,7 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     try {
       await _apiClient.post(apiUrlLogout);
       _me = null;
-      token = null;
+
       await Storage.removeAll();
     } catch (e) {
       print('Error logging out: $e');
@@ -57,6 +54,6 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-MeViewModel $meViewModel(BuildContext context) {
-  return Provider.of<MeViewModel>(context, listen: true);
+MeViewModel $meViewModel(BuildContext context, {bool listen = true}) {
+  return Provider.of<MeViewModel>(context, listen: listen);
 }
