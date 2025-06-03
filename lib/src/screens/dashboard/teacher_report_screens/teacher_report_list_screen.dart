@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/views/teacher_report_top/teacher_report_top_list_view.dart';
+import 'package:migla_flutter/src/views/teacher_report_list/teacher_report_list_view.dart';
 
 class TeacherReportListScreen extends StatelessWidget {
   const TeacherReportListScreen({super.key});
@@ -15,7 +15,7 @@ class TeacherReportListScreen extends StatelessWidget {
       bodyColor: Colors.transparent,
       title: context.t.teacherReport,
       padding: EdgeInsets.zero,
-      body: TeacherReportTopListView(),
+      body: TeacherReportListView(),
     );
   }
 }

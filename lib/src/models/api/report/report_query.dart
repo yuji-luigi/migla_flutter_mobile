@@ -22,11 +22,13 @@ query{
       attachments {
         id
         url
+        mimeType
+        filename
       }
       coverImage{
        id
-        url
-      }
+       url
+              }
     }
   }
 }
@@ -48,6 +50,8 @@ query{
       attachments {
         id
         url
+        mimeType
+        filename
       }
       coverImage{
         id

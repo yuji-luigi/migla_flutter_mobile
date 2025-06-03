@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/env_vars.dart';
+import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/images/swipable_image_fullscreen.dart';
 
@@ -122,7 +123,9 @@ class GalleryGridItem extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: Image.network(host + imagePath).image,
+              image: imagePath != null
+                  ? Image.network(imagePath).image
+                  : AssetImage(placeholderRainbow),
               fit: BoxFit.cover,
             ),
             color: Colors.grey[300],

@@ -28,7 +28,7 @@ class SwipableImageFullscreen extends StatelessWidget {
                 child: Hero(
                   tag: "image_$index",
                   child: Image.network(
-                    host + images[index],
+                    images[index],
                     fit: BoxFit.contain,
                   ),
                 ),

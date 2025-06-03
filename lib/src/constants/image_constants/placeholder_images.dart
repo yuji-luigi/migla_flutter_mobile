@@ -6,6 +6,8 @@ const String mockImgField = "assets/images/mock_images/field.jpeg";
 const String mockImgHouse = "assets/images/mock_images/house.jpeg";
 const String mockImgSky = "assets/images/mock_images/sky.jpeg";
 
+const String placeholderRainbow = "assets/images/rainbow.png";
+
 List<String> placeholderImages = [
   mockImgKyubi,
   mockImgSalone,

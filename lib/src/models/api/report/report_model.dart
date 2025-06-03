@@ -8,7 +8,7 @@ class ReportModel {
   final String subtitle;
   final String body;
   final MediaModel? coverImage;
-  final List<MediaModel>? attachments;
+  final List<MediaModel> attachments;
   final String createdAt;
 
   ReportModel({
@@ -19,7 +19,7 @@ class ReportModel {
     required this.createdAt,
     required this.teacher,
     this.coverImage,
-    this.attachments,
+    required this.attachments,
   });
 
   factory ReportModel.fromJson(Map<String, dynamic> json) {
@@ -36,7 +36,7 @@ class ReportModel {
         attachments: json['attachments'] != null
             ? List<MediaModel>.from(
                 json['attachments'].map((x) => MediaModel.fromJson(x)))
-            : null,
+            : [],
         createdAt: json['createdAt'],
       );
     } catch (error, stackTrace) {

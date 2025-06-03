@@ -4,13 +4,11 @@ import 'package:nb_utils/nb_utils.dart';
 
 class RowAvatarWithTitle extends StatelessWidget {
   final String text;
-  final String image;
   final Color? color;
   final double avatarSize;
   const RowAvatarWithTitle({
     super.key,
     required this.text,
-    required this.image,
     this.color,
     this.avatarSize = 24,
   });

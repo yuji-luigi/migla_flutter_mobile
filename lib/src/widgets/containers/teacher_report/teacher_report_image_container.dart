@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/env_vars.dart';
+import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class TeacherReportImageContainer extends StatelessWidget {
-  final String image;
+  final String? image;
   final String title;
   final double? height;
   final Color? gradientBottom;
   final Color? textColor;
   const TeacherReportImageContainer({
     super.key,
-    required this.image,
+    this.image,
     required this.title,
     this.height,
     this.gradientBottom,
@@ -27,11 +28,14 @@ class TeacherReportImageContainer extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       width: double.infinity,
       decoration: BoxDecoration(
+        color: colorPrimaryDark,
         borderRadius: BorderRadius.circular(radiusMedium),
         boxShadow: [buttonShadowDefault],
         image: DecorationImage(
-          image: Image.network(host + image).image,
-          fit: BoxFit.cover, // 👈 Ensures the image covers the whole container
+          image: image != null
+              ? Image.network(image!).image
+              : AssetImage(placeholderRainbow),
+          fit: BoxFit.cover,
         ),
       ),
       child: Container(
@@ -53,7 +57,6 @@ class TeacherReportImageContainer extends StatelessWidget {
             RowAvatarWithTitle(
               text: title,
               color: colorTextDisabled,
-              image: image,
             ).buildColumns([
               Text(
                 'Cerimonia del té',

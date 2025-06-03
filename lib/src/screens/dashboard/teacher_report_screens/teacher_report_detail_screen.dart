@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
+import 'package:migla_flutter/src/widgets/media_preview/media_preview.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -227,14 +228,24 @@ class TeacherReportDetailScreen extends StatelessWidget {
                     Text(report.title, style: textStyleTitleLg),
                     RowAvatarWithTitle(
                       text: report.teacher.name,
-                      image: report.coverImage?.url ?? '',
                     ),
-                    GalleryGridItem(
-                      imagePath: report.coverImage?.url ?? '',
-                      tag: "coverImage",
-                      // images: data["gallery"],
-                      height: 200,
-                    ),
+                    if (report.attachments.isNotEmpty)
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          ...report.attachments
+                              .map((e) => MediaPreview(media: e)),
+                        ],
+                      ),
+
+                    if (report.coverImage?.url != null)
+                      GalleryGridItem(
+                        imagePath: report.coverImage!.url,
+                        tag: "coverImage",
+                        // images: data["gallery"],
+                        height: 200,
+                      ),
                     // Container(
                     //   width: double.infinity,
                     //   height: 200,

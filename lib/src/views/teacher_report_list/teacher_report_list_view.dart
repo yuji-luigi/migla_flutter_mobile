@@ -13,8 +13,8 @@ import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_repo
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_list_card.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class TeacherReportTopListView extends StatelessWidget {
-  const TeacherReportTopListView({super.key});
+class TeacherReportListView extends StatelessWidget {
+  const TeacherReportListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class TeacherReportTopListView extends StatelessWidget {
                             horizontal: paddingXDashboardMd),
                         child: TeacherReportImageContainer(
                           textColor: colorWhite,
-                          image: report.coverImage?.url ?? '',
+                          image: report.coverImage?.url,
                           title: report.title,
                         ),
                       ),

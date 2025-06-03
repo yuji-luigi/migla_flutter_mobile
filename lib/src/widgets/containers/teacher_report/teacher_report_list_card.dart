@@ -54,7 +54,6 @@ class TeacherReportListCard extends StatelessWidget {
                   RowAvatarWithTitle(
                     text: subtitle,
                     color: colorTextDisabled,
-                    image: image,
                   ).buildColumns([]),
                   Text(
                     title,
@@ -74,7 +73,7 @@ class TeacherReportListCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radiusMedium),
                 color: colorPrimary,
                 image: DecorationImage(
-                  image: Image.network(host + image).image,
+                  image: Image.network(image).image,
                   fit: BoxFit
                       .cover, // 👈 Ensures the image covers the whole container
                 ),

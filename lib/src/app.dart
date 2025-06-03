@@ -2,13 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/firebase_options.dart';
-import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
-import 'package:flutter/foundation.dart';
-import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
