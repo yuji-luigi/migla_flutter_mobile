@@ -16,6 +16,7 @@ query{
       createdAt
       updatedAt
       teacher{
+        id
         name
       }
       attachments {
@@ -27,6 +28,32 @@ query{
         url
       }
     }
+  }
+}
+""";
+
+String Function(int) reportById = (int id) => """
+query{
+  Report(id:$id){
+      id
+      title
+      subtitle
+      body
+      createdAt
+      updatedAt
+      teacher{
+      id
+        name
+      }
+      attachments {
+        id
+        url
+      }
+      coverImage{
+        id
+        url
+      }
+    
   }
 }
 """;

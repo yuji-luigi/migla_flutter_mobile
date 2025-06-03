@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
@@ -29,7 +30,7 @@ class TeacherReportImageContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(radiusMedium),
         boxShadow: [buttonShadowDefault],
         image: DecorationImage(
-          image: AssetImage(image),
+          image: Image.network(host + image).image,
           fit: BoxFit.cover, // 👈 Ensures the image covers the whole container
         ),
       ),

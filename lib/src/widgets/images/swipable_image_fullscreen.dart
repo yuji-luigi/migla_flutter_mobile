@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
 class SwipableImageFullscreen extends StatelessWidget {
@@ -26,8 +27,8 @@ class SwipableImageFullscreen extends StatelessWidget {
                 maxScale: 5.0,
                 child: Hero(
                   tag: "image_$index",
-                  child: Image.asset(
-                    images[index],
+                  child: Image.network(
+                    host + images[index],
                     fit: BoxFit.contain,
                   ),
                 ),

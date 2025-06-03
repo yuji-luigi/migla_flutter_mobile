@@ -1,9 +1,12 @@
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
+import 'package:migla_flutter/src/models/api/teacher/teacher_model.dart';
 
 class ReportModel {
   final int id;
   final String title;
-  final String description;
+  final TeacherModel teacher;
+  final String subtitle;
+  final String body;
   final MediaModel? coverImage;
   final List<MediaModel>? attachments;
   final String createdAt;
@@ -11,8 +14,10 @@ class ReportModel {
   ReportModel({
     required this.id,
     required this.title,
-    required this.description,
+    required this.subtitle,
+    required this.body,
     required this.createdAt,
+    required this.teacher,
     this.coverImage,
     this.attachments,
   });
@@ -22,7 +27,9 @@ class ReportModel {
       return ReportModel(
         id: json['id'],
         title: json['title'] ?? '',
-        description: json['description'] ?? '',
+        subtitle: json['subtitle'] ?? '',
+        body: json['body'] ?? '',
+        teacher: TeacherModel.fromJson(json['teacher']),
         coverImage: json['coverImage'] != null
             ? MediaModel.fromJson(json['coverImage'])
             : null,

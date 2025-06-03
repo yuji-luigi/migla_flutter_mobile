@@ -18,12 +18,10 @@ class TeacherReportTopListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final random = Random();
     final StudentsViewModel studentsVm = $studentsViewModel(context);
     if (studentsVm.selectedStudent == null) {
       return Text('No student selected');
     }
-    print(studentsVm.selectedStudent!.id);
     return Query(
       options: QueryOptions(
         document: gql(reportByStudentIdQuery(studentsVm.selectedStudent!.id)),

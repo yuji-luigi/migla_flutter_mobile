@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
+import 'package:migla_flutter/src/models/api/report/report_model.dart';
+import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -184,61 +188,78 @@ class TeacherReportDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = teacherReportList[id];
-    return RegularLayoutScaffold(
-      bgCircleBottomRightColor: colorTertiary.withAlpha(50),
-      bgCircleTopLeftColor: colorTertiary.withAlpha(100),
-      backgroundColor: colorPrimary,
-      bodyColor: Colors.transparent,
-      // bodyGradient: LinearGradient(
-      //   colors: [colorPrimary, colorWhite],
-      //   begin: Alignment.topCenter,
-      //   end: Alignment.bottomCenter,
-      // ),
-      title: data["date"],
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      body: SingleChildScrollView(
-        child: Column(
-          spacing: 16,
-          children: [
-            16.height,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 4,
+    return Query(
+      options: QueryOptions(
+        document: gql(reportById(id)),
+      ),
+      builder: (result, {fetchMore, refetch}) {
+        final rawReport = result.data?['Report'];
+        if (result.hasException) {
+          return Text(
+              result.exception?.graphqlErrors.toString() ?? 'error occurred');
+        }
+        if (rawReport == null) {
+          return Text('Report not found');
+        }
+        final report = ReportModel.fromJson(rawReport);
+        return RegularLayoutScaffold(
+          bgCircleBottomRightColor: colorTertiary.withAlpha(50),
+          bgCircleTopLeftColor: colorTertiary.withAlpha(100),
+          backgroundColor: colorPrimary,
+          bodyColor: Colors.transparent,
+          // bodyGradient: LinearGradient(
+          //   colors: [colorPrimary, colorWhite],
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          // ),
+          title: formatDateTime(DateTime.parse(report.createdAt)),
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          body: SingleChildScrollView(
+            child: Column(
+              spacing: 16,
               children: [
-                Text(data["subtitle"], style: textStyleBodyMedium),
-                Text(data["title"], style: textStyleTitleLg),
-                RowAvatarWithTitle(
-                  text: data["author"],
-                  image: data["coverImage"],
+                16.height,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [
+                    Text(report.subtitle, style: textStyleBodyMedium),
+                    Text(report.title, style: textStyleTitleLg),
+                    RowAvatarWithTitle(
+                      text: report.teacher.name,
+                      image: report.coverImage?.url ?? '',
+                    ),
+                    GalleryGridItem(
+                      imagePath: report.coverImage?.url ?? '',
+                      tag: "coverImage",
+                      // images: data["gallery"],
+                      height: 200,
+                    ),
+                    // Container(
+                    //   width: double.infinity,
+                    //   height: 200,
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(radiusMedium),
+                    //     image: DecorationImage(
+                    //       image: AssetImage(data['coverImage']),
+                    //       fit: BoxFit.cover,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
-                GalleryGridItem(
-                  imagePath: data["coverImage"],
-                  tag: "coverImage",
-                  // images: data["gallery"],
-                  height: 200,
-                ),
-                // Container(
-                //   width: double.infinity,
-                //   height: 200,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(radiusMedium),
-                //     image: DecorationImage(
-                //       image: AssetImage(data['coverImage']),
-                //       fit: BoxFit.cover,
-                //     ),
-                //   ),
-                // ),
+                Text(report.body, style: textStyleBodyMedium),
+                // GalleryGrid(
+                //   images: report["attachments"]
+                //       .map<String>((e) => e["url"])
+                //       .toList(),
+                //   columns: 3,
+                // )
               ],
             ),
-            Text(data["description"], style: textStyleBodyMedium),
-            GalleryGrid(
-              images: data["gallery"],
-              columns: 3,
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
