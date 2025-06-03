@@ -12,10 +12,18 @@ query{
       id
       title
       subtitle
+      body
+      createdAt
+      updatedAt
       teacher{
         name
       }
       attachments {
+        id
+        url
+      }
+      coverImage{
+       id
         url
       }
     }

@@ -42,10 +42,7 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-StudentsViewModel $selectedStudentViewModel(BuildContext context) {
+StudentsViewModel $studentsViewModel(BuildContext context,
+    {bool listen = true}) {
   return Provider.of<StudentsViewModel>(context, listen: true);
-}
-
-StudentsViewModel getSelectedStudentViewModel(BuildContext context) {
-  return Provider.of<StudentsViewModel>(context, listen: false);
 }

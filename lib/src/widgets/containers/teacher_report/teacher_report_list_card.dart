@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
@@ -27,6 +28,7 @@ class TeacherReportListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(image);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: paddingXDashboardMd),
       child: Container(
@@ -72,7 +74,7 @@ class TeacherReportListCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(radiusMedium),
                 color: colorPrimary,
                 image: DecorationImage(
-                  image: AssetImage(image),
+                  image: Image.network(host + image).image,
                   fit: BoxFit
                       .cover, // 👈 Ensures the image covers the whole container
                 ),

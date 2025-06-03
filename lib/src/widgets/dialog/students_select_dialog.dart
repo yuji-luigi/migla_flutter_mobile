@@ -9,8 +9,7 @@ class StudentsSelectDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StudentsViewModel selectedStudentViewModel =
-        $selectedStudentViewModel(context);
+    StudentsViewModel selectedStudentViewModel = $studentsViewModel(context);
     return AlertDialog(
       title: Text(context.t.selectStudent),
       content: Column(

@@ -14,8 +14,7 @@ class DashboardHomeTopSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StudentsViewModel selectedStudentViewModel =
-        $selectedStudentViewModel(context);
+    StudentsViewModel selectedStudentViewModel = $studentsViewModel(context);
     final meVm = $meViewModel(context);
     if (meVm.me == null) {
       return const Center(child: CircularProgressIndicator());
