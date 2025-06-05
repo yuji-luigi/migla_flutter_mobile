@@ -22,6 +22,17 @@ class ReportModel {
     required this.attachments,
   });
 
+  static ReportModel? tryFromJson(Map<String, dynamic>? json) {
+    try {
+      if (json == null) {
+        return null;
+      }
+      return ReportModel.fromJson(json);
+    } catch (error) {
+      return null;
+    }
+  }
+
   factory ReportModel.fromJson(Map<String, dynamic> json) {
     try {
       return ReportModel(

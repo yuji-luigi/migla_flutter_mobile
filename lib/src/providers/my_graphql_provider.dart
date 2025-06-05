@@ -17,6 +17,8 @@ class MyGraphqlProvider extends StatelessWidget {
       builder: (context, token, _) {
         final httpLink = HttpLink(apiGraphqlUrl);
         final authLink = AuthLink(
+          // getToken: () async =>
+          //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImNvbGxlY3Rpb24iOiJ1c2VycyIsImVtYWlsIjoidS5qaS5qcDc3NytwYXJlbnQuYUBnbWFpbC5jb20iLCJjdXJyZW50Um9sZSI6eyJuYW1lIjoicGFyZW50IiwiaXNTdXBlckFkbWluIjpudWxsLCJpc0FkbWluTGV2ZWwiOm51bGwsImlzVGVhY2hlciI6bnVsbCwiaXNQYXJlbnQiOnRydWV9LCJpYXQiOjE3NDkxMDE4MDcsImV4cCI6MTc0OTEwOTAwN30.FrILDsZyC-vUDM4-EtKhxZNc7SyNqQ7xVnkAYWeFvSA',
           getToken: () async => token == null ? null : 'Bearer $token',
         );
         final link = authLink.concat(httpLink);
@@ -28,7 +30,10 @@ class MyGraphqlProvider extends StatelessWidget {
           ),
         );
 
-        return GraphQLProvider(client: client, child: child);
+        return GraphQLProvider(
+          client: client,
+          child: child,
+        );
       },
     );
   }

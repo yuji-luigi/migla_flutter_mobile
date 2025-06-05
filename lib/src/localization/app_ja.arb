@@ -57,5 +57,10 @@
 	"selectStudent": "どの子供の情報を見ますか？",
 	"switchStudent": "交代",
 	"home_title_noStudent": "あなたの子供がまだ登録されていません。学校にお問い合わせください。",
-	"home_pleaseSelectStudent": "どの子供の情報を見ますか？\n(まだ選択されていません)"
+	"home_pleaseSelectStudent": "どの子供の情報を見ますか？\n(まだ選択されていません)",
+	"downloadModal_title": "ダウンロード",
+	"downloadModal_description": "このファイルをダウンロードしますか？",
+	"download": "ダウンロード",
+	"cancel": "キャンセル",
+	"attachments": "添付ファイル"
 }

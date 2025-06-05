@@ -57,5 +57,10 @@
 	"selectStudent": "Which child's information do you want to see?",
 	"switchStudent": "Switch Student",
 	"home_title_noStudent": "You don't have any children yet. Please contact your school.",
-	"home_pleaseSelectStudent": "Which child's information do you want to see?\n (not selected yet)"
+	"home_pleaseSelectStudent": "Which child's information do you want to see?\n (not selected yet)",
+	"downloadModal_title": "Download",
+	"downloadModal_description": "Are you sure you want to download this file?",
+	"download": "Download",
+	"cancel": "Cancel",
+	"attachments": "Attachments"
 }

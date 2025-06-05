@@ -1,7 +1,9 @@
-String Function(int) getStudentsByParentId = ((int userId) => '''
-query {
+const String getStudentsByParentId = r'''
+query StudentsByParentId($userId: JSON!){
   Students(where :{
-    # parent: $userId
+     parent: {
+     equals: $userId
+     }
   }) {
     docs {
       id
@@ -16,15 +18,14 @@ query {
         }
       }
       slug
-      createdAt,
+      createdAt
     }
   }
-
 }
-''');
+''';
 
-String Function(String) getStudentByIdQuery = ((String studentId) => '''
-query{
+const String getStudentByIdQuery = r'''
+query GetStudentByIdQuery($studentId: Int!){
   Student(id:$studentId){
     id
     name
@@ -39,4 +40,4 @@ query{
     }
   }
 }
-''');
+''';

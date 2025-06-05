@@ -24,7 +24,8 @@ class TeacherReportListView extends StatelessWidget {
     }
     return Query(
       options: QueryOptions(
-        document: gql(reportByStudentIdQuery(studentsVm.selectedStudent!.id)),
+        document: gql(reportByStudentIdQuery),
+        variables: {'studentId': studentsVm.selectedStudent!.id},
       ),
       builder: (result, {fetchMore, refetch}) {
         final List<ReportModel> reports = result.data?['Reports']['docs']
@@ -59,6 +60,7 @@ class TeacherReportListView extends StatelessWidget {
                           textColor: colorWhite,
                           image: report.coverImage?.url,
                           title: report.title,
+                          subtitle: report.subtitle,
                         ),
                       ),
                     );

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
-import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview.dart';
+import 'package:migla_flutter/src/widgets/media_preview/media_preview_fullscreen.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -191,18 +192,14 @@ class TeacherReportDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
       options: QueryOptions(
-        document: gql(reportById(id)),
+        document: gql(reportById),
+        variables: {'id': id},
       ),
       builder: (result, {fetchMore, refetch}) {
         final rawReport = result.data?['Report'];
-        if (result.hasException) {
-          return Text(
-              result.exception?.graphqlErrors.toString() ?? 'error occurred');
-        }
-        if (rawReport == null) {
-          return Text('Report not found');
-        }
-        final report = ReportModel.fromJson(rawReport);
+
+        final report = ReportModel.tryFromJson(rawReport);
+
         return RegularLayoutScaffold(
           bgCircleBottomRightColor: colorTertiary.withAlpha(50),
           bgCircleTopLeftColor: colorTertiary.withAlpha(100),
@@ -213,60 +210,92 @@ class TeacherReportDetailScreen extends StatelessWidget {
           //   begin: Alignment.topCenter,
           //   end: Alignment.bottomCenter,
           // ),
-          title: formatDateTime(DateTime.parse(report.createdAt)),
+          title: report != null
+              ? formatDateTime(DateTime.parse(report.createdAt))
+              : 'Report not found',
           padding: EdgeInsets.symmetric(horizontal: 24),
-          body: SingleChildScrollView(
-            child: Column(
-              spacing: 16,
-              children: [
-                16.height,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [
-                    Text(report.subtitle, style: textStyleBodyMedium),
-                    Text(report.title, style: textStyleTitleLg),
-                    RowAvatarWithTitle(
-                      text: report.teacher.name,
-                    ),
-                    if (report.attachments.isNotEmpty)
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
-                        children: [
-                          ...report.attachments
-                              .map((e) => MediaPreview(media: e)),
-                        ],
-                      ),
-
-                    if (report.coverImage?.url != null)
-                      GalleryGridItem(
-                        imagePath: report.coverImage!.url,
-                        tag: "coverImage",
-                        // images: data["gallery"],
-                        height: 200,
-                      ),
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: 200,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(radiusMedium),
-                    //     image: DecorationImage(
-                    //       image: AssetImage(data['coverImage']),
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
-                  ],
-                ),
-                Text(report.body, style: textStyleBodyMedium),
-                // GalleryGrid(
-                //   images: report["attachments"]
-                //       .map<String>((e) => e["url"])
-                //       .toList(),
-                //   columns: 3,
-                // )
-              ],
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: report == null
+                  ? Text('Report not found')
+                  : result.hasException
+                      ? Text(result.exception?.graphqlErrors.toString() ??
+                          'error occurred')
+                      : Column(
+                          spacing: 8,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 16,
+                              children: [
+                                0.height,
+                                RowAvatarWithTitle(
+                                  text: report.teacher.name,
+                                ),
+                                if (report.coverImage?.url != null)
+                                  GalleryGridItem(
+                                    imagePath: report.coverImage!.url,
+                                    tag: "coverImage",
+                                    // images: data["gallery"],
+                                    height: 200,
+                                  ),
+                                Text(report.title, style: textStyleTitleLg),
+                                Text(report.subtitle,
+                                    style: textStyleHeadingMedium),
+                              ],
+                            ),
+                            Text(report.body, style: textStyleBodyMedium),
+                            if (report.attachments.isNotEmpty) ...[
+                              Divider(
+                                color: colorTertiary,
+                                thickness: 3,
+                              ),
+                              Text(context.t.attachments,
+                                  style: textStyleHeadingMedium),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  // alignment: WrapAlignment.center,
+                                  children: [
+                                    ...report.attachments.map(
+                                      (media) => GestureDetector(
+                                        onTap: () => MediaPreviewFullscreen(
+                                          media: media,
+                                          backgroundColor: colorPrimaryDark,
+                                        ).launch(context),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0),
+                                          child: AbsorbPointer(
+                                            absorbing: true,
+                                            child: SizedBox(
+                                                height: 80,
+                                                width: 80,
+                                                child: MediaPreview(
+                                                  media: media,
+                                                  backgroundColor: colorPrimary,
+                                                )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                            40.height,
+                            // GalleryGrid(
+                            //   images: report["attachments"]
+                            //       .map<String>((e) => e["url"])
+                            //       .toList(),
+                            //   columns: 3,
+                            // )
+                          ],
+                        ),
             ),
           ),
         );

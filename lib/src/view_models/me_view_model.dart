@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
@@ -41,7 +42,6 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     try {
       await _apiClient.post(apiUrlLogout);
       _me = null;
-
       await Storage.removeAll();
     } catch (e) {
       print('Error logging out: $e');

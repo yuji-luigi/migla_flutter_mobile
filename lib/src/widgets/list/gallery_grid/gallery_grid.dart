@@ -123,9 +123,9 @@ class GalleryGridItem extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: imagePath != null
+              image: imagePath.contains('http')
                   ? Image.network(imagePath).image
-                  : AssetImage(placeholderRainbow),
+                  : AssetImage(imagePath),
               fit: BoxFit.cover,
             ),
             color: Colors.grey[300],

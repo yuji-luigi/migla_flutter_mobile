@@ -1,5 +1,4 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:migla_flutter/src/models/api/student/student_model.dart';
 
 class Storage {
   static FlutterSecureStorage storage = FlutterSecureStorage();
@@ -16,9 +15,13 @@ class Storage {
     await storage.write(key: _selectedStudentId, value: studentId.toString());
   }
 
-  static Future<String?> getSelectedStudentId() async {
+  static Future<void> removeSelectedStudentId() async {
+    await storage.delete(key: _selectedStudentId);
+  }
+
+  static Future<int?> getSelectedStudentId() async {
     String? studentId = await storage.read(key: _selectedStudentId);
-    return studentId;
+    return studentId != null ? int.parse(studentId) : null;
   }
 
   static Future<String?> getToken() async {

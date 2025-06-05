@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
+import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
+import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
   final int id;
@@ -9,48 +13,68 @@ class NotificationDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> notification = mockNotificationList[id];
-
-    return RegularLayoutScaffold(
-      title: notification['title'],
-      bodyColor: colorTertiary,
-      padding: EdgeInsets.all(0),
-      body: Column(
-        children: [
-          Container(
-            color: colorWhite,
-            padding: EdgeInsets.symmetric(
-              horizontal: paddingXDashboardLg,
-              vertical: paddingXDashboardLg,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(notification['title'],
-                    style: textStyleBodyLarge.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
-                Text(notification['subtitle'],
-                    style: textStyleBodyLarge.copyWith(
-                      fontWeight: FontWeight.bold,
-                    )),
-                Row(
-                  children: [
-                    Spacer(),
-                    Text(notification['date'],
-                        textAlign: TextAlign.end,
-                        style: textStyleCaptionMd.copyWith(
-                          color: colorTextDisabled,
-                        )),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
+    return Query(
+      options: QueryOptions(
+        document: gql(notificationDetailQuery),
+        variables: {'id': id},
       ),
+      builder: (result, {fetchMore, refetch}) {
+        Widget placeholder = const Center(child: CircularProgressIndicator());
+        if (result.hasException) {
+          placeholder = Text(
+              result.exception?.graphqlErrors.toString() ?? 'error occurred');
+        }
+        if (result.isLoading) {
+          placeholder = const Center(child: CircularProgressIndicator());
+        }
+        final NotificationModel? notification =
+            NotificationModel.tryFromJson(result.data?['Notification']);
+        return RegularLayoutScaffold(
+          title: notification?.title ?? '',
+          bodyColor: colorTertiary,
+          padding: EdgeInsets.all(0),
+          body: notification == null
+              ? placeholder
+              : Column(
+                  children: [
+                    Container(
+                      color: colorWhite,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: paddingXDashboardLg,
+                        vertical: paddingXDashboardLg,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(notification.title,
+                              style: textStyleBodyLarge.copyWith(
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(notification.body,
+                              style: textStyleBodyLarge.copyWith(
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Row(
+                            children: [
+                              Spacer(),
+                              Text(
+                                  formatDateTime(
+                                      DateTime.parse(notification.createdAt)),
+                                  textAlign: TextAlign.end,
+                                  style: textStyleCaptionMd.copyWith(
+                                    color: colorTextDisabled,
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+        );
+      },
     );
   }
 }

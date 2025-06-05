@@ -1,5 +1,5 @@
-String Function(int) reportByStudentIdQuery = (int studentId) => """
-query{
+const String reportByStudentIdQuery = r"""
+query reportByStudentIdQuery($studentId: JSON!){
   Reports(where:{
     students:{
       equals:$studentId
@@ -34,8 +34,8 @@ query{
 }
 """;
 
-String Function(int) reportById = (int id) => """
-query{
+const String reportById = r"""
+query ReportById($id: Int!){
   Report(id:$id){
       id
       title

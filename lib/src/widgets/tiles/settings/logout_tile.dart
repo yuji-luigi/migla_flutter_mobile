@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
@@ -15,6 +15,8 @@ class LogoutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final meVm = $meViewModel(context);
+
+    final gqlClient = GraphQLProvider.of(context).value;
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 0),
       title: Row(
@@ -22,6 +24,9 @@ class LogoutTile extends StatelessWidget {
           InkWell(
             onTap: () async {
               await meVm.logout();
+              gqlClient.cache.store.reset();
+              // rerun the app
+              SystemNavigator.pop();
               LoginScreen().launch(context, isNewTask: true);
             },
             child: Row(

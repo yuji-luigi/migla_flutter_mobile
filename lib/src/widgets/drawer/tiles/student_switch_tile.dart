@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
-import 'package:migla_flutter/src/models/api/user/graphql/students_query.dart';
+import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/dialog/students_select_dialog.dart';
@@ -28,7 +28,9 @@ class StudentSwitchTile extends StatelessWidget {
               onTap: () async {
                 if (meVm.hasMe) {
                   final result = await gqlClient.query(QueryOptions(
-                      document: gql(getStudentsByParentId(meVm.me!.id))));
+                    document: gql(getStudentsByParentId),
+                    variables: {'userId': meVm.me!.id},
+                  ));
                   List<StudentModel> students = result.data?['Students']['docs']
                       .map<StudentModel>((e) => StudentModel.fromJson(e))
                       .toList();

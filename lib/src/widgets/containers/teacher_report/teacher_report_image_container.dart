@@ -9,6 +9,7 @@ import 'package:nb_utils/nb_utils.dart';
 class TeacherReportImageContainer extends StatelessWidget {
   final String? image;
   final String title;
+  final String? subtitle;
   final double? height;
   final Color? gradientBottom;
   final Color? textColor;
@@ -16,6 +17,7 @@ class TeacherReportImageContainer extends StatelessWidget {
     super.key,
     this.image,
     required this.title,
+    this.subtitle,
     this.height,
     this.gradientBottom,
     this.textColor,
@@ -59,7 +61,7 @@ class TeacherReportImageContainer extends StatelessWidget {
               color: colorTextDisabled,
             ).buildColumns([
               Text(
-                'Cerimonia del té',
+                subtitle ?? '',
                 style: textStyleCaptionSmall.copyWith(
                   color: colorWhite,
                 ),
