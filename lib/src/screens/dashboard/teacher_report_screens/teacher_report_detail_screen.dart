@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
+import 'package:migla_flutter/src/widgets/list/gallery_grid/tappable_image.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview_fullscreen.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
@@ -235,7 +236,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
                                   text: report.teacher.name,
                                 ),
                                 if (report.coverImage?.url != null)
-                                  GalleryGridItem(
+                                  TappableImage(
                                     imagePath: report.coverImage!.url,
                                     tag: "coverImage",
                                     // images: data["gallery"],

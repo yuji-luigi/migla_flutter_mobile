@@ -3,6 +3,7 @@ import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/images/swipable_image_fullscreen.dart';
+import 'package:migla_flutter/src/widgets/list/gallery_grid/tappable_image.dart';
 
 class GalleryGrid extends StatelessWidget {
   final List<String> images;
@@ -52,10 +53,13 @@ class GalleryGrid extends StatelessWidget {
       itemCount: images.length, // ✅ Total number of photos
       itemBuilder: (context, index) {
         String imagePath = images[index];
-        return GalleryGridItem(
-          imagePath: imagePath,
-          index: index,
-          images: images,
+        return Container(
+          color: colorBlack,
+          child: GalleryGridItem(
+            imagePath: imagePath,
+            index: index,
+            images: images,
+          ),
         );
         // return GestureDetector(
         //   onTap: () =>
@@ -97,48 +101,68 @@ class GalleryGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void showFullScreenImage(BuildContext context, int initialIndex) {
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
-          ),
-          backgroundColor: colorBlack.withAlpha(500),
-          insetPadding: EdgeInsets.all(0), // ✅ Full-screen mode
-          child: SwipableImageFullscreen(
-            images: images ?? [imagePath],
-            initialIndex: initialIndex,
-          ),
-        ),
-      );
-    }
+    // void showFullScreenImage(BuildContext context, int initialIndex) {
+    //   showDialog(
+    //     context: context,
+    //     builder: (context) => Dialog(
+    //       shape: RoundedRectangleBorder(
+    //         borderRadius: BorderRadius.circular(0),
+    //       ),
+    //       backgroundColor: colorBlack.withAlpha(500),
+    //       insetPadding: EdgeInsets.all(0), // ✅ Full-screen mode
+    //       child: SwipableImageFullscreen(
+    //         images: images ?? [imagePath],
+    //         initialIndex: initialIndex,
+    //       ),
+    //     ),
+    //   );
+    // }
 
-    return GestureDetector(
-      onTap: () =>
-          showFullScreenImage(context, index), // ✅ Open full-screen on tap
-      child: Hero(
-        tag: tag ?? "image_$index", // ✅ Unique tag for smooth animation
-        child: Container(
-          height: height,
-          alignment: Alignment.center,
-          child: imagePath.contains('http')
-              ? Image.network(
-                  imagePath,
-                  errorBuilder: (context, error, stackTrace) {
-                    return const Icon(Icons.broken_image,
-                        size: 48, color: Colors.red);
-                  },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  },
-                )
-              : Image.asset(imagePath),
-        ),
-      ),
+    return TappableImage(
+      imagePath: imagePath,
+      images: images ?? [imagePath],
     );
+
+    // return GestureDetector(
+    //   onTap: () =>
+    //       showFullScreenImage(context, index), // ✅ Open full-screen on tap
+    //   child: Hero(
+    //     tag: tag ?? "image_$index", // ✅ Unique tag for smooth animation
+    //     child: Container(
+    //       height: height,
+    //       decoration: BoxDecoration(
+    //         image: DecorationImage(
+    //           image: imagePath.contains('http')
+    //               ? Image.network(imagePath).image
+    //               : AssetImage(imagePath),
+    //           fit: BoxFit.cover,
+    //         ),
+    //         color: Colors.grey[300],
+    //         borderRadius: BorderRadius.circular(4),
+    //       ),
+    //       alignment: Alignment.center,
+    //     ),
+
+    // child: Container(
+    //   height: height,
+    //   alignment: Alignment.center,
+    //   child: imagePath.contains('http')
+    //       ? Image.network(
+    //           imagePath,
+    //           errorBuilder: (context, error, stackTrace) {
+    //             return const Icon(Icons.broken_image,
+    //                 size: 48, color: Colors.red);
+    //           },
+    //           loadingBuilder: (context, child, loadingProgress) {
+    //             if (loadingProgress == null) return child;
+    //             return const Center(
+    //               child: CircularProgressIndicator(),
+    //             );
+    //           },
+    //         )
+    //       : Image.asset(imagePath),
+    // ),
+    //   // ),
+    // );
   }
 }

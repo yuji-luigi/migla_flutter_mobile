@@ -62,5 +62,7 @@
 	"downloadModal_description": "このファイルをダウンロードしますか？",
 	"download": "ダウンロード",
 	"cancel": "キャンセル",
-	"attachments": "添付ファイル"
+	"attachments": "添付ファイル",
+	"error_somethingWentWrong": "エラーが発生しました",
+	"refreshPage": "ページを更新"
 }

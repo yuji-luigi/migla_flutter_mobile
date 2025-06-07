@@ -62,5 +62,7 @@
 	"downloadModal_description": "Are you sure you want to download this file?",
 	"download": "Download",
 	"cancel": "Cancel",
-	"attachments": "Attachments"
+	"attachments": "Attachments",
+	"error_somethingWentWrong": "Something went wrong",
+	"refreshPage": "Refresh page"
 }

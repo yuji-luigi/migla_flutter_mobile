@@ -6,15 +6,11 @@ query{
      docs{
       id
       title
-      body
       type
+      isRead
+      hasAttachments
       createdAt
-      attachments {
-        id
-        url
-        filename
-        mimeType
-      }
+     
      
     }
     
@@ -28,6 +24,8 @@ query NotificationDetail($id: Int!) {
     title
     body
     type
+    isRead
+    hasAttachments
     createdAt
      links{
       id

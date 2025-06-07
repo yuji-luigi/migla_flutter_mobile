@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -31,8 +32,19 @@ class DashboardHomeTopSection extends StatelessWidget {
                 .toList() ??
             [];
         if (result.hasException) {
-          print(result.exception.toString());
-          return Text(result.exception.toString());
+          Logger.error(result.exception?.toString() ?? 'Unknown error');
+          return Column(children: [
+            Text(context.t.error_somethingWentWrong, style: textStyleBodyLarge),
+            8.height,
+            IconButton(
+                onPressed: () {
+                  if (refetch != null) {
+                    refetch();
+                  }
+                },
+                icon: const Icon(Icons.refresh)),
+            Text(context.t.refreshPage)
+          ]);
         }
         bool hasStudents = students.length > 0;
         String title = hasStudents
@@ -63,12 +75,14 @@ class DashboardHomeTopSection extends StatelessWidget {
                       Center(
                         child: StudentsAvatarStackContainer(students: students),
                       ),
-                    Text(
-                      selectedStudentViewModel.selectedStudent?.fullName ?? '',
-                      textAlign: TextAlign.center,
-                      style: textStyleHeadingMedium.copyWith(
-                          color: textColorWhite),
-                    ),
+                    if (selectedStudentViewModel.selectedStudent != null)
+                      Text(
+                        selectedStudentViewModel.selectedStudent?.fullName ??
+                            '',
+                        textAlign: TextAlign.center,
+                        style: textStyleHeadingMedium.copyWith(
+                            color: textColorWhite),
+                      ),
                     4.height,
                     Text(
                       selectedStudentViewModel

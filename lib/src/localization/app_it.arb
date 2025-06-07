@@ -62,5 +62,7 @@
 	"downloadModal_description": "Sei sicuro di voler scaricare questo file?",
 	"download": "Scarica",
 	"cancel": "Annulla",
-	"attachments": "Allegati"
+	"attachments": "Allegati",
+	"error_somethingWentWrong": "Qualcosa è andato storto",
+	"refreshPage": "Ricarica la pagina"
 }

@@ -7,6 +7,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class LogoutTile extends StatelessWidget {
@@ -17,6 +18,7 @@ class LogoutTile extends StatelessWidget {
     final meVm = $meViewModel(context);
 
     final gqlClient = GraphQLProvider.of(context).value;
+    final StudentsViewModel studentsVm = $studentsViewModel(context);
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 0),
       title: Row(
@@ -25,6 +27,7 @@ class LogoutTile extends StatelessWidget {
             onTap: () async {
               await meVm.logout();
               gqlClient.cache.store.reset();
+              studentsVm.clear();
               // rerun the app
               SystemNavigator.pop();
               LoginScreen().launch(context, isNewTask: true);

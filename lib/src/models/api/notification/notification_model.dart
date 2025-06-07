@@ -5,19 +5,23 @@ class NotificationModel {
   final int id;
   final String type;
   final String title;
-  final String body;
+  // final String body;
   final String createdAt;
-  final List<LinkModel> links;
-  final List<MediaModel> attachments;
+  final bool isRead;
+  final bool hasAttachments;
+  // final List<LinkModel> links;
+  // final List<MediaModel> attachments;
 
   NotificationModel({
     required this.id,
     required this.type,
     required this.title,
-    required this.body,
+    // required this.body,
     required this.createdAt,
-    required this.attachments,
-    required this.links,
+    // required this.attachments,
+    required this.isRead,
+    required this.hasAttachments,
+    // required this.links,
   });
 
   static NotificationModel? tryFromJson(Map<String, dynamic>? json) {
@@ -34,25 +38,22 @@ class NotificationModel {
   }
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     try {
       return NotificationModel(
         id: json['id'],
         type: json['type'],
         title: json['title'],
-        body: json['body'],
+        // body: json['body'],
         createdAt: json['createdAt'],
-        links: json['links'] is List && json['links'].isNotEmpty
-            ? json['links']
-                .map<LinkModel>(
-                    (linkObj) => LinkModel.fromJson(linkObj['link']))
-                .toList()
-            : [],
-        attachments: json['attachments'].isNotEmpty
-            ? json['attachments']
-                .map<MediaModel>(
-                    (attachment) => MediaModel.fromJson(attachment))
-                .toList()
-            : [],
+        isRead: json['isRead'] ?? false,
+        // links: json['links'] is List && json['links'].isNotEmpty
+        // ? json['links']
+        //     .map<LinkModel>(
+        //         (linkObj) => LinkModel.fromJson(linkObj['link']))
+        //     .toList()
+        // : [],
+        hasAttachments: json['hasAttachments'] ?? false,
       );
     } catch (error, stackTrace) {
       print(error.toString());

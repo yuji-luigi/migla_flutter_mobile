@@ -54,6 +54,12 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     }
     notifyListeners();
   }
+
+  clear() {
+    _selectedStudent = null;
+    _students = [];
+    notifyListeners();
+  }
 }
 
 StudentsViewModel $studentsViewModel(BuildContext context,
