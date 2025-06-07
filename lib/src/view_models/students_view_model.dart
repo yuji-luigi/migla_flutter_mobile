@@ -38,7 +38,7 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
           : null;
       notifyListeners();
     } catch (e, stackTrace) {
-      Logger.error(e.toString(), stackTrace);
+      Logger.error(e.toString(), stackTrace: stackTrace);
       rethrow;
     }
   }

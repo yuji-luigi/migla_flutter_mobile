@@ -1,3 +1,4 @@
+import 'package:migla_flutter/src/models/api/link/link_model.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 
 class NotificationModel {
@@ -6,6 +7,7 @@ class NotificationModel {
   final String title;
   final String body;
   final String createdAt;
+  final List<LinkModel> links;
   final List<MediaModel> attachments;
 
   NotificationModel({
@@ -15,6 +17,7 @@ class NotificationModel {
     required this.body,
     required this.createdAt,
     required this.attachments,
+    required this.links,
   });
 
   static NotificationModel? tryFromJson(Map<String, dynamic>? json) {
@@ -38,6 +41,12 @@ class NotificationModel {
         title: json['title'],
         body: json['body'],
         createdAt: json['createdAt'],
+        links: json['links'] is List && json['links'].isNotEmpty
+            ? json['links']
+                .map<LinkModel>(
+                    (linkObj) => LinkModel.fromJson(linkObj['link']))
+                .toList()
+            : [],
         attachments: json['attachments'].isNotEmpty
             ? json['attachments']
                 .map<MediaModel>(

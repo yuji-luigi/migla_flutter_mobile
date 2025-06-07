@@ -17,4 +17,5 @@ Map<String, String> svgIconMap = {
   "event": svgCalendar,
   "payment": svgPayment,
   "notification": svgNotification,
+  "general_notification": svgNotification,
 };

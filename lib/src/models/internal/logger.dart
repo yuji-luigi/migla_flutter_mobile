@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/foundation.dart';
 
 class Logger {
-  static error(String str, StackTrace? stackTrace) {
+  static error(String str, {StackTrace? stackTrace}) {
     if (kDebugMode) {
       // Use print instead of debugPrint for ANSI colors to work
       log('\x1B[31m$str\x1B[0m'); // Red color

@@ -6,6 +6,7 @@ import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
+import 'package:url_launcher/link.dart' as url_launcher;
 
 class NotificationDetailScreen extends StatelessWidget {
   final int id;
@@ -31,47 +32,69 @@ class NotificationDetailScreen extends StatelessWidget {
             NotificationModel.tryFromJson(result.data?['Notification']);
         return RegularLayoutScaffold(
           title: notification?.title ?? '',
-          bodyColor: colorTertiary,
+          // bodyColor: colorTertiary,
+          // bodyColor: colorWhite,
           padding: EdgeInsets.all(0),
           body: notification == null
               ? placeholder
-              : Column(
-                  children: [
-                    Container(
-                      color: colorWhite,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: paddingXDashboardLg,
-                        vertical: paddingXDashboardLg,
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        color: colorWhite,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: paddingXDashboardLg,
+                          vertical: paddingXDashboardLg,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(notification.title,
+                                style: textStyleBodyLarge.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            Text(notification.body,
+                                style: textStyleBodyLarge.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            Wrap(
+                              spacing: 8,
+                              children:
+                                  notification.links.map<Widget>((linkEntry) {
+                                final url = linkEntry.url;
+                                return url == null
+                                    ? const SizedBox.shrink()
+                                    : url_launcher.Link(
+                                        uri: Uri.parse(url),
+                                        target: url_launcher.LinkTarget.blank,
+                                        builder: (context, followLink) {
+                                          return TextButton(
+                                            onPressed: followLink,
+                                            child: Text(linkEntry.label),
+                                          );
+                                        },
+                                      );
+                              }).toList(),
+                            ),
+                            Row(
+                              children: [
+                                Spacer(),
+                                Text(
+                                    formatDateTime(
+                                        DateTime.parse(notification.createdAt)),
+                                    textAlign: TextAlign.end,
+                                    style: textStyleCaptionMd.copyWith(
+                                      color: colorTextDisabled,
+                                    )),
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(notification.title,
-                              style: textStyleBodyLarge.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Text(notification.body,
-                              style: textStyleBodyLarge.copyWith(
-                                fontWeight: FontWeight.bold,
-                              )),
-                          Row(
-                            children: [
-                              Spacer(),
-                              Text(
-                                  formatDateTime(
-                                      DateTime.parse(notification.createdAt)),
-                                  textAlign: TextAlign.end,
-                                  style: textStyleCaptionMd.copyWith(
-                                    color: colorTextDisabled,
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
         );
       },

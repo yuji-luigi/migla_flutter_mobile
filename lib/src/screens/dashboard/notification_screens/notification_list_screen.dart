@@ -80,7 +80,7 @@ class NotificationListScreen extends StatelessWidget {
                                   ),
                                 ),
                                 SvgPicture.asset(
-                                  svgIconMap[notifications[index].type]!,
+                                  svgIconMap[notifications[index].type] ?? '',
                                 ),
                               ],
                             ),

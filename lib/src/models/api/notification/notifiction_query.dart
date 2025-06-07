@@ -29,6 +29,21 @@ query NotificationDetail($id: Int!) {
     body
     type
     createdAt
+     links{
+      id
+      link{
+        type
+        label
+        url
+        appearance 
+        reference{
+          value{
+					... on Page { slug }
+					... on Post { slug }
+          }
+        }
+      }
+    }
     attachments {
       id
       url
