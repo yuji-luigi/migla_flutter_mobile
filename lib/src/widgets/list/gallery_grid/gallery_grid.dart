@@ -121,17 +121,22 @@ class GalleryGridItem extends StatelessWidget {
         tag: tag ?? "image_$index", // ✅ Unique tag for smooth animation
         child: Container(
           height: height,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imagePath.contains('http')
-                  ? Image.network(imagePath).image
-                  : AssetImage(imagePath),
-              fit: BoxFit.cover,
-            ),
-            color: Colors.grey[300],
-            borderRadius: BorderRadius.circular(4),
-          ),
           alignment: Alignment.center,
+          child: imagePath.contains('http')
+              ? Image.network(
+                  imagePath,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Icon(Icons.broken_image,
+                        size: 48, color: Colors.red);
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                )
+              : Image.asset(imagePath),
         ),
       ),
     );

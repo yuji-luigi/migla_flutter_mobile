@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_list_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/photo_videos_screens/photo_videos_top_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/drawer/tiles/drawer_list_tile.dart';
 import 'package:migla_flutter/src/widgets/drawer/tiles/student_switch_tile.dart';
 import 'package:migla_flutter/src/widgets/popovers/account_popover.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class DashboardLeftDrawer extends StatelessWidget {
   const DashboardLeftDrawer({super.key});
