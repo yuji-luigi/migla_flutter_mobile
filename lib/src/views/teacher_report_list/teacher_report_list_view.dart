@@ -41,6 +41,7 @@ class TeacherReportListView extends StatelessWidget {
         }
         if (reports.isEmpty) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 context.t.noReportsFound,
