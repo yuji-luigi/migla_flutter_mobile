@@ -64,5 +64,6 @@
 	"cancel": "Cancel",
 	"attachments": "Attachments",
 	"error_somethingWentWrong": "Something went wrong",
-	"refreshPage": "Refresh page"
+	"refreshPage": "Refresh page",
+	"noReportsFound": "There is no report for this student"
 }

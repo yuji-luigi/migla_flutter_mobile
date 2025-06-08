@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
@@ -36,8 +34,29 @@ class TeacherReportListView extends StatelessWidget {
           return Text(
               result.exception?.graphqlErrors.toString() ?? 'error occurred');
         }
+        if (result.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         if (reports.isEmpty) {
-          return Text('There is no report for this student');
+          return Column(
+            children: [
+              Text(
+                context.t.noReportsFound,
+                textAlign: TextAlign.center,
+                style: textStyleHeadingSmall,
+              ),
+              IconButton(
+                onPressed: () {
+                  if (refetch != null) {
+                    refetch();
+                  }
+                },
+                icon: const Icon(Icons.refresh),
+              )
+            ],
+          );
         }
         return SingleChildScrollView(
           child: Column(

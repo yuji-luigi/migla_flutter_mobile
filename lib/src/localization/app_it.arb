@@ -64,5 +64,6 @@
 	"cancel": "Annulla",
 	"attachments": "Allegati",
 	"error_somethingWentWrong": "Qualcosa è andato storto",
-	"refreshPage": "Ricarica la pagina"
+	"refreshPage": "Ricarica la pagina",
+	"noReportsFound": "Non ci sono report per questo bambino"
 }
