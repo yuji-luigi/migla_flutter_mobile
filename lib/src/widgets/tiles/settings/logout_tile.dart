@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
@@ -29,7 +28,6 @@ class LogoutTile extends StatelessWidget {
               gqlClient.cache.store.reset();
               studentsVm.clear();
               // rerun the app
-              SystemNavigator.pop();
               LoginScreen().launch(context, isNewTask: true);
             },
             child: Row(

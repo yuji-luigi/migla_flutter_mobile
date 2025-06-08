@@ -45,7 +45,7 @@ class LoginScreen extends StatelessWidget {
         create: (context) => FormViewModel(
           onSubmit: login,
           initialValues: {
-            'email': 'u.ji.jp777+parent.a@gmail.com',
+            'email': 'u.ji.jp777+parent@gmail.com',
             'password': 'user\$\$\$',
           },
         ),

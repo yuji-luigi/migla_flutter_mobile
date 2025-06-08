@@ -22,4 +22,15 @@ class ClassroomModel {
           : null,
     );
   }
+  factory ClassroomModel.empty({
+    Map<String, dynamic> overrides = const {},
+  }) {
+    Map<String, dynamic> json = {
+      'id': 0,
+      'name': 'Classroom is not set',
+      'teachers': [],
+    };
+    json.addAll(overrides);
+    return ClassroomModel.fromJson(json);
+  }
 }

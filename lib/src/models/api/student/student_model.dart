@@ -18,7 +18,9 @@ class StudentModel {
       id: json['id'],
       name: json['name'],
       surname: json['surname'],
-      classroom: ClassroomModel.fromJson(json['classroom']),
+      classroom: json['classroom'] != null
+          ? ClassroomModel.fromJson(json['classroom'])
+          : ClassroomModel.empty(),
     );
   }
 }
