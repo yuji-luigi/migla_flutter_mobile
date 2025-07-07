@@ -18,6 +18,7 @@ class SettingsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: paddingYDashboardMd,
+          horizontal: paddingXDashboardMd,
         ),
         child: Column(
           children: [

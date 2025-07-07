@@ -8,12 +8,13 @@ import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
-import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:provider/provider.dart';
 
 class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   UserModel? _me;
   UserModel? get me => _me;
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
   bool get hasMe => _me != null;
   ApiClient _apiClient = ApiClient();
 
@@ -30,13 +31,21 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<void> getMe() async {
-    final res = await _apiClient.get(apiUrlMe);
-    final data = jsonDecode(res.body);
-    if (data['user'] != null) {
-      print(data['user']);
-      _me = UserModel.fromJson(data['user']);
+    try {
+      _isLoading = true;
+      final res = await _apiClient.get(apiUrlMe);
+      final data = jsonDecode(res.body);
+      if (data['user'] != null) {
+        print(data['user']);
+        _me = UserModel.fromJson(data['user']);
+      }
+      _isLoading = false;
+      notifyListeners();
+    } catch (error) {
+      print('Error getting me: $error');
+      _isLoading = false;
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<void> logout() async {

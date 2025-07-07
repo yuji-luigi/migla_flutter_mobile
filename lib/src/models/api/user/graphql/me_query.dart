@@ -6,6 +6,7 @@ query{
       name
       surname
       email
+      fullname
       currentRole{
         isParent
         isTeacher

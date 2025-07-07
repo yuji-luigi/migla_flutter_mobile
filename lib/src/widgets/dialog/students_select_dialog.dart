@@ -29,9 +29,9 @@ class StudentsSelectDialog extends StatelessWidget {
                 },
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey,
-                  child: Text(student.fullName[0]),
+                  child: Text(student.fullname[0]),
                 ),
-                title: Text(student.fullName),
+                title: Text(student.fullname),
                 subtitle: Text(student.classroom.name),
 
                 // subtitle: Text(student.classroom.name),

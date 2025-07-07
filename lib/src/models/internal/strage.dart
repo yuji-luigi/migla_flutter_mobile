@@ -7,7 +7,7 @@ class Storage {
   static const String _email = 'email';
   static const String _password = 'password';
   static const String _seenOnboarding = 'seenOnboarding';
-
+  static const String _locale = 'locale';
   static Future<void> saveToken(String token) async {
     await storage.write(key: _token, value: token);
   }
@@ -50,5 +50,13 @@ class Storage {
   static Future<void> removeAll() async {
     await storage.deleteAll();
     print(await storage.readAll());
+  }
+
+  static Future<void> setLocale(String locale) async {
+    await storage.write(key: _locale, value: locale);
+  }
+
+  static Future<String?> getLocale() async {
+    return await storage.read(key: _locale);
   }
 }

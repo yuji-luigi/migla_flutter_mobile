@@ -1,11 +1,19 @@
 import 'package:flutter/widgets.dart';
+import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 class AccountPopover extends StatelessWidget {
   const AccountPopover({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final MeViewModel meViewModel = $meViewModel(context);
+    if (meViewModel.me == null && !meViewModel.isLoading) {
+      return Text(context.t.somethingWentWrong);
+    }
+    UserModel me = meViewModel.me!;
     return Row(
       spacing: 8,
       children: [
@@ -28,10 +36,10 @@ class AccountPopover extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Demo Username',
+              Text(me.fullname,
                   style: textStyleBodyMedium.copyWith(
                       overflow: TextOverflow.ellipsis)),
-              Text('demo_email@demo.com',
+              Text(me.email,
                   style: textStyleBodyMedium.copyWith(
                     overflow: TextOverflow.ellipsis,
                     color: colorTextDisabled,

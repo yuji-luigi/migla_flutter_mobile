@@ -77,7 +77,7 @@ class DashboardHomeTopSection extends StatelessWidget {
                       ),
                     if (selectedStudentViewModel.selectedStudent != null)
                       Text(
-                        selectedStudentViewModel.selectedStudent?.fullName ??
+                        selectedStudentViewModel.selectedStudent?.fullname ??
                             '',
                         textAlign: TextAlign.center,
                         style: textStyleHeadingMedium.copyWith(

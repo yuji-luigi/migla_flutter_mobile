@@ -12,7 +12,7 @@ class StudentModel {
     required this.surname,
     required this.classroom,
   });
-  get fullName => '$name $surname';
+  get fullname => '$name $surname';
   factory StudentModel.fromJson(Map<String, dynamic> json) {
     return StudentModel(
       id: json['id'],

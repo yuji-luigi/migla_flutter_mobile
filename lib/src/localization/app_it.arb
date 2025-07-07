@@ -65,5 +65,8 @@
 	"attachments": "Allegati",
 	"error_somethingWentWrong": "Qualcosa è andato storto",
 	"refreshPage": "Ricarica la pagina",
-	"noReportsFound": "Non ci sono report per questo bambino"
+	"noReportsFound": "Non ci sono report per questo bambino",
+	"somethingWentWrong": "Qualcosa è andato storto",
+	"noNotificationsFound": "Non ci sono notifiche",
+	"noGalleriesFound": "Non ci sono gallerie"
 }

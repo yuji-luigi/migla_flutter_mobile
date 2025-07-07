@@ -9,6 +9,7 @@ class MeModel extends UserModel {
     required super.name,
     required super.surname,
     required super.email,
+    required super.fullname,
     required this.currentRole,
   });
   factory MeModel.fromJson(Map<String, dynamic> json) {
@@ -18,6 +19,7 @@ class MeModel extends UserModel {
         name: json['name'],
         surname: json['surname'],
         email: json['email'],
+        fullname: json['fullname'],
         currentRole: RoleModel.fromJson(json['currentRole']),
       );
     } catch (e, stackTrace) {

@@ -65,5 +65,8 @@
 	"attachments": "Attachments",
 	"error_somethingWentWrong": "Something went wrong",
 	"refreshPage": "Refresh page",
-	"noReportsFound": "There is no report for this student"
+	"noReportsFound": "There is no report for this student",
+	"somethingWentWrong": "Something went wrong",
+	"noNotificationsFound": "There are no notifications",
+	"noGalleriesFound": "There are no galleries"
 }

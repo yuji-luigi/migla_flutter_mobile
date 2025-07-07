@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
-import 'package:migla_flutter/src/models/api/notification/notification_detail_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart';
 import 'package:migla_flutter/src/models/api/notification/util/build_list_by_month.dart';
-import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_detail_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
-import 'package:migla_flutter/src/widgets/list/date_mark_as_read_tile.dart';
+import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListScreen extends StatelessWidget {
   const NotificationListScreen({super.key});
@@ -26,8 +20,6 @@ class NotificationListScreen extends StatelessWidget {
       title: context.t.notificationTitle,
       body: Column(
         children: [
-          // DateMarkAsReadTile(),
-          // 2.height,
           Expanded(
             child: Query(
               options: QueryOptions(
@@ -48,6 +40,13 @@ class NotificationListScreen extends StatelessWidget {
                             NotificationModel.fromJson(notification))
                         .toList() ??
                     [];
+
+                if (notifications.isEmpty) {
+                  return InfoEmptyList(
+                      title: context.t.noNotificationsFound,
+                      onRefresh: refetch);
+                }
+
                 final display = buildDisplayList(notifications);
 
                 return ListView.builder(
