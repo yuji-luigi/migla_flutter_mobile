@@ -46,7 +46,7 @@ class LoginScreen extends StatelessWidget {
           onSubmit: login,
           initialValues: {
             'email': 'u.ji.jp777+parent@gmail.com',
-            'password': 'user\$\$\$',
+            'password': 'test777',
           },
         ),
         child: LoginForm(),

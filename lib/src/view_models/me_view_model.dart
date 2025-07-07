@@ -33,6 +33,7 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     final res = await _apiClient.get(apiUrlMe);
     final data = jsonDecode(res.body);
     if (data['user'] != null) {
+      print(data['user']);
       _me = UserModel.fromJson(data['user']);
     }
     notifyListeners();

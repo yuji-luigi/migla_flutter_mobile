@@ -6,6 +6,7 @@ class Storage {
   static const String _selectedStudentId = 'selectedStudentId';
   static const String _email = 'email';
   static const String _password = 'password';
+  static const String _seenOnboarding = 'seenOnboarding';
 
   static Future<void> saveToken(String token) async {
     await storage.write(key: _token, value: token);
@@ -30,6 +31,15 @@ class Storage {
 
   static Future<void> deleteToken() async {
     await storage.delete(key: _token);
+  }
+
+  static Future<void> setSeenOnboarding(bool seen) async {
+    await storage.write(key: _seenOnboarding, value: seen.toString());
+  }
+
+  static Future<bool> getSeenOnboarding() async {
+    String? seen = await storage.read(key: _seenOnboarding);
+    return seen != null ? bool.parse(seen) : false;
   }
 
   static Future<void> saveCredentials(String email, String password) async {

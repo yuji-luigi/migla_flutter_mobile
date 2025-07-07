@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
@@ -23,7 +24,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   @override
   void initState() {
     super.initState();
-
     // 1) Grab your MeViewModel from Provider (it already started its init() in its constructor)
     _meVm = context.read<MeViewModel>();
 
@@ -44,6 +44,16 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     };
 
     _meVm.addListener(_listener);
+    handleSeenOnboarding();
+  }
+
+  void handleSeenOnboarding() async {
+    bool seen = await Storage.getSeenOnboarding();
+    if (!seen) {
+      Storage.setSeenOnboarding(true);
+      return;
+    }
+    LoginScreen().launch(context, isNewTask: true);
   }
 
   void _goToHome() {

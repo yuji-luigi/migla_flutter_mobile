@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/models/internal/suppported_language.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
 class LanguageTile extends StatefulWidget {
@@ -30,20 +31,12 @@ class _LanguageTileState extends State<LanguageTile> {
           child: DropdownButton(
             isExpanded: true,
             underline: Container(),
-            items: [
-              DropdownMenuItem(
-                value: "en",
-                child: Text("English"),
-              ),
-              DropdownMenuItem(
-                value: "it",
-                child: Text("Italiano"),
-              ),
-              DropdownMenuItem(
-                value: "ja",
-                child: Text("日本語"),
-              ),
-            ],
+            items: supportedLanguages
+                .map((e) => DropdownMenuItem(
+                      value: e.code,
+                      child: Text(e.name),
+                    ))
+                .toList(),
             value: _selectedLanguage,
             onChanged: (value) {
               setState(() {

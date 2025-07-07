@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/models/internal/suppported_language.dart';
+import 'package:provider/provider.dart';
 
 import 'settings_service.dart';
 
@@ -9,6 +11,7 @@ import 'settings_service.dart';
 /// uses the SettingsService to store and retrieve user settings.
 class SettingsController with ChangeNotifier {
   SettingsController(this._settingsService);
+  Locale _locale = const Locale('en');
 
   // Make SettingsService a private variable so it is not used directly.
   final SettingsService _settingsService;
@@ -30,6 +33,16 @@ class SettingsController with ChangeNotifier {
     notifyListeners();
   }
 
+  Locale get locale => _locale;
+
+  void updateLocale(String localeCode) {
+    if (!supportedLanguages.any((e) => e.code == localeCode)) {
+      throw Exception('Locale $localeCode is not supported');
+    }
+    _locale = Locale(localeCode);
+    notifyListeners();
+  }
+
   /// Update and persist the ThemeMode based on the user's selection.
   Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
     if (newThemeMode == null) return;
@@ -47,4 +60,9 @@ class SettingsController with ChangeNotifier {
     // SettingService.
     await _settingsService.updateThemeMode(newThemeMode);
   }
+}
+
+SettingsController $settingsController(BuildContext context,
+    {bool listen = true}) {
+  return Provider.of<SettingsController>(context, listen: listen);
 }
