@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/suppported_language.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 
 class LanguageTile extends StatefulWidget {
@@ -14,6 +16,7 @@ class _LanguageTileState extends State<LanguageTile> {
   String _selectedLanguage = 'en';
   @override
   Widget build(BuildContext context) {
+    final SettingsController settingsController = $settingsController(context);
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 0),
       title: Text(context.t.settingScreenLanguage,
@@ -27,23 +30,30 @@ class _LanguageTileState extends State<LanguageTile> {
           borderRadius: BorderRadius.circular(900),
         ),
         child: SizedBox(
-          width: 100,
+          width: 150,
           child: DropdownButton(
             isExpanded: true,
             underline: Container(),
             items: supportedLanguages
                 .map((e) => DropdownMenuItem(
                       value: e.code,
-                      child: Text(e.name),
+                      child: SizedBox(
+                        width: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          spacing: 16,
+                          children: [
+                            Text(e.name),
+                            SvgPicture.asset(e.iconPath, width: 24, height: 24),
+                          ],
+                        ),
+                      ),
                     ))
                 .toList(),
-            value: _selectedLanguage,
+            value: settingsController.locale.languageCode,
             onChanged: (value) {
-              setState(() {
-                if (value != null) {
-                  _selectedLanguage = value;
-                }
-              });
+              if (value == null) return;
+              settingsController.updateLocale(value);
             },
           ),
         ),
