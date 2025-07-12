@@ -1,7 +1,7 @@
 const String getStudentsByParentId = r'''
 query StudentsByParentId($userId: JSON!){
   Students(where :{
-     parents: {
+     parent: {
      equals: $userId
      }
   }) {
