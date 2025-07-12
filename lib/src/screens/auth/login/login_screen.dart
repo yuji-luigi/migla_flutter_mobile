@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
+import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_form.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
@@ -22,31 +24,48 @@ class LoginScreen extends StatelessWidget {
     AuthTokenProvider authTokenProvider = $authTokenProvider(context);
     MeViewModel meViewModel = $meViewModel(context);
     Future<void> login(Map<String, dynamic> formData) async {
-      try {
-        Response res = await _apiClient.post('/users/login?role-name=parent',
-            body: formData);
-        // print('login: ${res.body}');
-        Map<String, dynamic> body = jsonDecode(res.body);
-        await authTokenProvider.setToken(body['token']);
-        await meViewModel.getMe();
-        DashboardHomeScreen().launch(context);
-      } catch (error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Login failed: ${error.toString()}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+      Response res = await _apiClient.post('/users/login?role-name=parent',
+          body: formData);
+      // print('login: ${res.body}');
+      Map<String, dynamic> body = jsonDecode(res.body);
+      await authTokenProvider.setToken(body['token']);
+      await meViewModel.getMe();
+      DashboardHomeScreen().launch(context);
+    }
+
+    Future<List<ValidationError>> onError(Object error) async {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login failed: ${error.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      if (error is Exception) {
+        Map<String, dynamic> errorRes = jsonDecode(error.getMessage);
+        Map<String, dynamic> targetError = errorRes['errors'][0];
+        if (targetError['name'] == 'ValidationError') {
+          if (targetError['data']['errors'] is List) {
+            List<ValidationError> errors = targetError['data']['errors']
+                .map((error) => ValidationError.fromJson(error))
+                .whereType<ValidationError>()
+                .toList();
+            return errors;
+          }
+        }
       }
+      return [
+        ValidationError(path: 'email', message: 'Invalid email'),
+      ];
     }
 
     return AuthScaffold(
       child: ChangeNotifierProvider(
         create: (context) => FormViewModel(
           onSubmit: login,
+          onError: onError,
           initialValues: {
-            'email': 'u.ji.jp777+parent@gmail.com',
-            'password': 'test777',
+            'email': '', // u.ji.jp777+parent@gmail.com
+            'password': '', // test777
           },
         ),
         child: LoginForm(),
