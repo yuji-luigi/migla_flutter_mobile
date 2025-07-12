@@ -7,6 +7,8 @@ class InputRoundedWhite extends StatelessWidget {
   final InputType inputType;
   final Widget? suffixIcon;
   final bool obscureText;
+  final TextInputType? keyboardType;
+  final List<String>? autofillHints;
   const InputRoundedWhite({
     super.key,
     required this.hintText,
@@ -14,6 +16,8 @@ class InputRoundedWhite extends StatelessWidget {
     this.inputType = InputType.text,
     this.suffixIcon,
     this.obscureText = false,
+    this.keyboardType,
+    this.autofillHints,
   });
 
   @override
@@ -21,6 +25,8 @@ class InputRoundedWhite extends StatelessWidget {
     return TextField(
       controller: controller,
       obscureText: obscureText,
+      keyboardType: keyboardType,
+      autofillHints: autofillHints,
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(90)),

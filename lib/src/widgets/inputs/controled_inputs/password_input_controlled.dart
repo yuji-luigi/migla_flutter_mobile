@@ -8,6 +8,8 @@ class PasswordInputControlled extends StatefulWidget {
   final InputType inputType;
   final Widget? suffixIcon;
   final String name;
+  final TextInputType? keyboardType;
+  final List<String>? autofillHints;
   const PasswordInputControlled({
     super.key,
     required this.hintText,
@@ -15,6 +17,8 @@ class PasswordInputControlled extends StatefulWidget {
     this.controller,
     this.inputType = InputType.text,
     this.suffixIcon,
+    this.keyboardType,
+    this.autofillHints,
   });
   @override
   State<PasswordInputControlled> createState() =>
@@ -31,6 +35,8 @@ class _PasswordInputControlledState extends State<PasswordInputControlled> {
       controller: widget.controller,
       inputType: widget.inputType,
       obscureText: isObscure,
+      keyboardType: widget.keyboardType,
+      autofillHints: widget.autofillHints,
       suffixIcon: widget.suffixIcon ??
           IconButton(
             onPressed: () {

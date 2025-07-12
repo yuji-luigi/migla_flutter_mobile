@@ -10,6 +10,8 @@ class InputRoundedWhiteControlled extends StatefulWidget {
   final Widget? suffixIcon;
   final String name;
   final bool obscureText;
+  final TextInputType? keyboardType;
+  final List<String>? autofillHints;
   const InputRoundedWhiteControlled({
     super.key,
     required this.hintText,
@@ -18,6 +20,8 @@ class InputRoundedWhiteControlled extends StatefulWidget {
     this.inputType = InputType.text,
     this.suffixIcon,
     this.obscureText = false,
+    this.keyboardType,
+    this.autofillHints,
   });
 
   @override
@@ -45,9 +49,11 @@ class _InputRoundedWhiteControlledState
   Widget build(BuildContext context) {
     return InputRoundedWhite(
       hintText: widget.hintText,
+      keyboardType: widget.keyboardType,
       controller: controller,
       obscureText: widget.obscureText,
       suffixIcon: widget.suffixIcon,
+      autofillHints: widget.autofillHints,
     );
   }
 }
