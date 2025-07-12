@@ -29,18 +29,24 @@ class LoginForm extends StatelessWidget {
         8.height,
         Center(child: SvgPicture.asset('assets/images/auth/mom_son.svg')),
         24.height,
-        Column(
-          spacing: spacingAuthForm,
-          children: [
-            InputRoundedWhiteControlled(
-              name: 'email',
-              hintText: context.t.labelEmail,
-            ),
-            PasswordInputControlled(
-              name: 'password',
-              hintText: context.t.labelPassword,
-            ),
-          ],
+        AutofillGroup(
+          child: Column(
+            spacing: spacingAuthForm,
+            children: [
+              InputRoundedWhiteControlled(
+                name: 'email',
+                keyboardType: TextInputType.emailAddress,
+                hintText: context.t.labelEmail,
+                autofillHints: const [AutofillHints.username], // or .email
+              ),
+              PasswordInputControlled(
+                name: 'password',
+                keyboardType: TextInputType.visiblePassword,
+                hintText: context.t.labelPassword,
+                autofillHints: const [AutofillHints.password],
+              ),
+            ],
+          ),
         ),
         Spacer(),
         LinkText(
