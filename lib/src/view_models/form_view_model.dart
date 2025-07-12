@@ -2,21 +2,28 @@
 // ignore: prefer_mixin
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:provider/provider.dart';
 
 class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
+  final Future<void> Function(Map<String, dynamic>) _onSubmit;
+
+  final Future<List<ValidationError>> Function(Object)? _onError;
   Map<String, dynamic> _formData = {};
-  Map<String, String> _formErrors = {};
-  Map<String, dynamic> get formData => _formData;
-  Map<String, String> get formErrors => _formErrors;
-  Future<void> Function(Map<String, dynamic>) _onSubmit;
+
+  List<ValidationError> _formErrors = [];
+
   bool _isSubmitting = false;
-  bool get isSubmitting => _isSubmitting;
 
   FormViewModel({
     Map<String, dynamic>? initialValues,
     required Future<void> Function(Map<String, dynamic>) onSubmit,
-  }) : _onSubmit = onSubmit {
+
+    /// must return the validation errors to set the formErrors in the catch block of submit callback.
+    Future<List<ValidationError>> Function(Object)? onError,
+  })  : _onSubmit = onSubmit,
+        _onError = onError {
     if (initialValues != null) {
       // json encode decode cloning can throw errors for DateTime kind of values. so create temp Map
       Map<String, dynamic> tempData = {};
@@ -25,6 +32,16 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       notifyListeners();
     }
   }
+
+  bool get isSubmitting => _isSubmitting;
+  Map<String, dynamic> get formData => _formData;
+  List<ValidationError> get formErrors => _formErrors;
+
+  set formErrors(List<ValidationError> value) {
+    _formErrors = value;
+    notifyListeners();
+  }
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -37,16 +54,10 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   void setFormData(String key, dynamic value) {
     _formData[key] = value;
     notifyListeners();
-    print('notified');
   }
 
   void clearFormData() {
     _formData.clear();
-    notifyListeners();
-  }
-
-  void setFormError(String key, String error) {
-    _formErrors[key] = error;
     notifyListeners();
   }
 
@@ -57,7 +68,6 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
 
   void validateForm() {
     _formErrors.clear();
-    print('set validation logic here');
     notifyListeners();
   }
 
@@ -72,8 +82,12 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     try {
       await _onSubmit(formData);
     } catch (error) {
-      print('error: $error');
-      rethrow;
+      Logger.error(error.toString());
+      if (_onError != null) {
+        List<ValidationError> errors = await _onError.call(error);
+        formErrors = errors;
+      }
+      // rethrow;
     } finally {
       _isSubmitting = false;
       notifyListeners();
