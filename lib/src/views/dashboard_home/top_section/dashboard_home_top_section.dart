@@ -46,59 +46,70 @@ class DashboardHomeTopSection extends StatelessWidget {
             Text(context.t.refreshPage)
           ]);
         }
-        bool hasStudents = students.length > 0;
+        bool hasStudents = students.isNotEmpty;
         String title = hasStudents
             ? context.t.dashboardHomeScreenHeader
             : context.t.home_title_noStudent;
-        return AnimatedOpacity(
-          opacity: result.isLoading ? 0.0 : 1.0,
-          duration: const Duration(milliseconds: 300),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      child: Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: hasStudents
-                            ? textStyleBodySmall
-                            : textStyleBodyLarge.copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
-                      ),
+
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            if (result.isLoading)
+              const Center(child: CircularProgressIndicator()),
+            AnimatedOpacity(
+              opacity: result.isLoading ? 0.5 : 1.0,
+              duration: const Duration(milliseconds: 300),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: hasStudents
+                                ? textStyleBodySmall
+                                : textStyleBodyLarge.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                          ),
+                        ),
+                        if (hasStudents)
+                          Center(
+                            child: StudentsAvatarStackContainer(
+                                students: students),
+                          ),
+                        if (selectedStudentViewModel.selectedStudent != null)
+                          Text(
+                            selectedStudentViewModel
+                                    .selectedStudent?.fullname ??
+                                '',
+                            textAlign: TextAlign.center,
+                            style: textStyleHeadingMedium.copyWith(
+                                color: textColorWhite),
+                          ),
+                        4.height,
+                        if (hasStudents)
+                          Text(
+                            selectedStudentViewModel
+                                    .selectedStudent?.classroom.name ??
+                                context.t.home_pleaseSelectStudent,
+                            textAlign: TextAlign.center,
+                            maxLines: 3,
+                            style: textStyleHeadingMedium.copyWith(
+                              color: textColorWhite,
+                            ),
+                          ),
+                      ],
                     ),
-                    if (hasStudents)
-                      Center(
-                        child: StudentsAvatarStackContainer(students: students),
-                      ),
-                    if (selectedStudentViewModel.selectedStudent != null)
-                      Text(
-                        selectedStudentViewModel.selectedStudent?.fullname ??
-                            '',
-                        textAlign: TextAlign.center,
-                        style: textStyleHeadingMedium.copyWith(
-                            color: textColorWhite),
-                      ),
-                    4.height,
-                    Text(
-                      selectedStudentViewModel
-                              .selectedStudent?.classroom.name ??
-                          context.t.home_pleaseSelectStudent,
-                      textAlign: TextAlign.center,
-                      maxLines: 3,
-                      style: textStyleHeadingMedium.copyWith(
-                        color: textColorWhite,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
     );
