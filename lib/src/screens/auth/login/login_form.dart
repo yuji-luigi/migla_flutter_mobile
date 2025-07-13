@@ -49,12 +49,6 @@ class LoginForm extends StatelessWidget {
           ),
         ),
         Spacer(),
-        LinkText(
-          context.t.forgotPassword,
-          newScreen: ForgotPasswordScreen(),
-          isNewTask: true,
-        ),
-        Spacer(),
         Button(
             key: ValueKey(formViewModel.isSubmitting),
             text: context.t.login,
@@ -62,19 +56,31 @@ class LoginForm extends StatelessWidget {
             onPressed: () async {
               await formViewModel.submitForm();
             }),
-        16.height,
+        Spacer(),
         Row(
-          spacing: 4,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text(context.t.noAccount),
             LinkText(
-              context.t.register,
-              newScreen: RegisterScreen(),
+              context.t.forgotPassword,
+              newScreen: ForgotPasswordScreen(),
               isNewTask: true,
             ),
           ],
-        )
+        ),
+        Spacer(),
+        // 16.height,
+        // Row(
+        //   spacing: 4,
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     Text(context.t.noAccount),
+        //     LinkText(
+        //       context.t.register,
+        //       newScreen: RegisterScreen(),
+        //       isNewTask: true,
+        //     ),
+        //   ],
+        // )
       ],
     );
   }

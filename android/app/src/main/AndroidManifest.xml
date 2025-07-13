@@ -48,9 +48,9 @@
               android:name="io.flutter.embedding.android.NormalTheme"
               android:resource="@style/NormalTheme"
               />
-              <meta-data
+              <!-- <meta-data
               android:name="android.autofill.service"
-              android:resource="@xml/your_autofill_service_config" />
+              android:resource="@xml/your_autofill_service_config" /> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

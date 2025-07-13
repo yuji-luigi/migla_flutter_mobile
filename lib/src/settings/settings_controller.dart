@@ -15,7 +15,7 @@ class SettingsController with ChangeNotifier {
 
   // Make SettingsService a private variable so it is not used directly.
   final SettingsService _settingsService;
-  Locale _locale = const Locale('en');
+  Locale _locale = const Locale('ja');
 
   // Make ThemeMode a private variable so it is not updated directly without
   // also persisting the changes with the SettingsService.
