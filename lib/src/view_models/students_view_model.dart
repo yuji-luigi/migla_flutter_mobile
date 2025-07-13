@@ -13,10 +13,13 @@ import 'package:provider/provider.dart';
 class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   StudentModel? _selectedStudent;
   GraphQLClient _client;
+  // bool _isLoading = false;
   List<StudentModel> _students = [];
   StudentsViewModel(this._client) {
     init();
   }
+
+  // bool get isLoading => _isLoading;
 
   init() async {
     // 1. get the saved student ID
@@ -29,6 +32,7 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       variables: {'studentId': (studentId)},
     );
     try {
+      notifyListeners();
       final result = await _client.query(options);
       if (result.hasException && result.exception != null) {
         throw result.exception!;
@@ -64,5 +68,5 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
 
 StudentsViewModel $studentsViewModel(BuildContext context,
     {bool listen = true}) {
-  return Provider.of<StudentsViewModel>(context, listen: true);
+  return Provider.of<StudentsViewModel>(context, listen: listen);
 }
