@@ -11,7 +11,7 @@ const String devApiUrl = '$devHost/api';
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
 /// use this bool to switch the api url so you can forget about the isProduction bool
-const bool useProdUrl = true;
+const bool useProdUrl = false;
 
 const String host = isProduction || useProdUrl ? prodHost : devHost;
 const String apiUrl = isProduction || useProdUrl ? prodApiUrl : devApiUrl;
