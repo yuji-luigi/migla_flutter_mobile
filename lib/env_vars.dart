@@ -1,5 +1,5 @@
 const String prodHost = 'https://migla.yuji-luigi.com';
-const String devHost = 'http://localhost:3566';
+const String devHost = 'http://localhost.com:3566';
 
 /// deployed url production
 const String prodApiUrl = "$prodHost/api";
