@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/models/api/fcm_token/graphql/mutate_create_fcm_token.dart';
+import 'package:migla_flutter/src/models/api/fcm_token/graphql/query_fcm_token.dart';
 import 'package:migla_flutter/src/models/api/user/graphql/update_fcm_token.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/bottom_section/dashboard_home_bottom_section.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/dashboard_home_top_section.dart';
@@ -40,6 +45,8 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
   }
 
   Future<void> _initMessagingForUser() async {
+    final savedFcmToken = await Storage.getFcmToken();
+
     final meViewModel = $meViewModel(context, listen: false);
     if (meViewModel.me == null) {
       Logger.error('MeViewModel is null');
@@ -52,15 +59,41 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       sound: true,
     );
 
-    final token = await FirebaseMessaging.instance.getToken();
+    // final token = await FirebaseMessaging.instance.getToken();
+    final token =
+        'c1kaHQL2TF60yAUdo29Czc:APA91bHTuw2D0HPa2lEi4MUBt2maapkywp0ys36q5MpYpRtDYtH-PEB23_I6_u8-iwRL7wZUZWBliW9iYJmgrCkUsJNW_-PIK9VKgU0jKCGIHZBNqTsPB2g';
     print('FCM Token (post-login): $token');
-
+    if (token.isEmpty) return;
+    if (savedFcmToken == token) {
+      final result = await _gqlClient.query(QueryOptions(
+        document: gql(fcmTokenQuery),
+        variables: {
+          'token': token,
+          'userId': meViewModel.me?.id,
+        },
+      ));
+      if (result.hasException) {
+        Logger.error('❌ GraphQL Error: ${result.exception}');
+      }
+      if (result.data!['FcmTokens']['totalDocs'] > 0) {
+        Logger.info('✅ FCM Token already saved: $token');
+        return;
+      }
+    }
+    await Storage.saveFcmToken(token);
     // Send this token to your server, tied to the logged-in user
+    // get user agent and device info
+    final osName = Platform.operatingSystem; // "android" or "ios"
+    final osVersion = Platform
+        .operatingSystemVersion; // e.g. "Android 14 (API 34)" or "Version 17.5 (Build 21F79)"
+
     final result = await _gqlClient.mutate(MutationOptions(
-      document: gql(updateFcmTokenMutation),
+      document: gql(createFcmTokenMutation),
       variables: {
-        'id': meViewModel.me?.id,
+        'userId': meViewModel.me?.id,
         'token': token,
+        'osName': osName,
+        'osVersion': osVersion,
       },
     ));
     if (result.hasException) {
@@ -68,7 +101,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       Logger.error('❌ GraphQL Error: ${result.exception}');
     } else {
       Logger.info('✅ FCM updated on server: '
-          '${result.data!['updateUser']['fcmToken']}');
+          '${result.data!['createdFcmToken']}');
     }
   }
 }
