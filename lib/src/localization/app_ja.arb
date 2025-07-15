@@ -68,5 +68,6 @@
 	"noReportsFound": "この子供には先生からの通信がありません",
 	"somethingWentWrong": "エラーが発生しました",
 	"noNotificationsFound": "通知はありません",
-	"noGalleriesFound": "ギャラリーはありません"
+	"noGalleriesFound": "ギャラリーはありません",
+	"rememberMe": "ログイン情報を保存する"
 }

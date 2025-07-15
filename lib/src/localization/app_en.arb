@@ -68,5 +68,6 @@
 	"noReportsFound": "There is no report for this student",
 	"somethingWentWrong": "Something went wrong",
 	"noNotificationsFound": "There are no notifications",
-	"noGalleriesFound": "There are no galleries"
+	"noGalleriesFound": "There are no galleries",
+	"rememberMe": "Remember me"
 }
