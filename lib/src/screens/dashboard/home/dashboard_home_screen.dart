@@ -1,5 +1,9 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/models/api/user/graphql/update_fcm_token.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/bottom_section/dashboard_home_bottom_section.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/dashboard_home_top_section.dart';
 import 'package:migla_flutter/src/widgets/scaffold/dashboard_home_scaffold.dart';
@@ -12,15 +16,15 @@ class DashboardHomeScreen extends StatefulWidget {
 }
 
 class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
+  late GraphQLClient _gqlClient;
+
   @override
   void initState() {
     super.initState();
-    // initFirebaseMessaging();
-  }
-
-  Future<void> initFirebaseMessaging() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    print('fcmToken: $fcmToken');
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _gqlClient = GraphQLProvider.of(context).value;
+      _initMessagingForUser();
+    });
   }
 
   @override
@@ -33,5 +37,38 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _initMessagingForUser() async {
+    final meViewModel = $meViewModel(context, listen: false);
+    if (meViewModel.me == null) {
+      Logger.error('MeViewModel is null');
+      return;
+    }
+    // (Re-)request permissions in case user denied earlier
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    final token = await FirebaseMessaging.instance.getToken();
+    print('FCM Token (post-login): $token');
+
+    // Send this token to your server, tied to the logged-in user
+    final result = await _gqlClient.mutate(MutationOptions(
+      document: gql(updateFcmTokenMutation),
+      variables: {
+        'id': meViewModel.me?.id,
+        'token': token,
+      },
+    ));
+    if (result.hasException) {
+      // handle errors
+      Logger.error('❌ GraphQL Error: ${result.exception}');
+    } else {
+      Logger.info('✅ FCM updated on server: '
+          '${result.data!['updateUser']['fcmToken']}');
+    }
   }
 }
