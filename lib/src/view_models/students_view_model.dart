@@ -7,7 +7,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:provider/provider.dart';
 
 class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
