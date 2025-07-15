@@ -1,4 +1,10 @@
 {
+  "workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#000",
+    "titleBar.inactiveForeground": "#000",
+    "titleBar.activeBackground": "#fb831a",
+    "titleBar.inactiveBackground": "#fb831add"
+  },
   "cSpell.words": [
     "Migla"
   ]

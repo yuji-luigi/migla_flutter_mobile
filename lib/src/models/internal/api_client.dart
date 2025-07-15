@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:migla_flutter/env_vars.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 
 class ApiClient {
   final String baseUrl;

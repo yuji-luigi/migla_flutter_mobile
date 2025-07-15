@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:provider/provider.dart';
 

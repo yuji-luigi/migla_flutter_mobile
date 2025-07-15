@@ -95,8 +95,8 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-FormViewModel $formViewModel(BuildContext context) =>
-    Provider.of<FormViewModel>(context, listen: true);
+FormViewModel $formViewModel(BuildContext context, {bool listen = true}) =>
+    Provider.of<FormViewModel>(context, listen: listen);
 
-FormViewModel getFormViewModel(BuildContext context) =>
+FormViewModel getFormViewModel(BuildContext context, {bool listen = false}) =>
     Provider.of<FormViewModel>(context, listen: false);

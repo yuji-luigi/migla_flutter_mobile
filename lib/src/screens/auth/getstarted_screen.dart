@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/models/internal/strage.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
@@ -59,6 +59,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   void _goToHome() {
     // Use addPostFrameCallback to avoid doing Navigator.push during build
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const DashboardHomeScreen()),
       );

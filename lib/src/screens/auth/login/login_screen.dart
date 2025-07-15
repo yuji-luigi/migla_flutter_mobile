@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
 import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_form.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
@@ -28,6 +29,9 @@ class LoginScreen extends StatelessWidget {
           body: formData);
       // print('login: ${res.body}');
       Map<String, dynamic> body = jsonDecode(res.body);
+      if (formData['rememberMe'] == true) {
+        await Storage.saveCredentials(formData['email'], formData['password']);
+      }
       await authTokenProvider.setToken(body['token']);
       await meViewModel.getMe();
       DashboardHomeScreen().launch(context);
@@ -59,17 +63,34 @@ class LoginScreen extends StatelessWidget {
     }
 
     return AuthScaffold(
-      child: ChangeNotifierProvider(
-        create: (context) => FormViewModel(
-          onSubmit: login,
-          onError: onError,
-          initialValues: {
-            'email': '', // u.ji.jp777+parent@gmail.com
-            'password': '', // test777
-          },
-        ),
-        child: LoginForm(),
-      ),
+      child: FutureBuilder<Map<String, String>?>(
+          future: Storage.getLoginCredentials(),
+          builder: (ctx, snap) {
+            if (snap.connectionState != ConnectionState.done) {
+              return Stack(children: [
+                CircularProgressIndicator(),
+                ChangeNotifierProvider(
+                    create: (context) => FormViewModel(
+                        onSubmit: login, onError: onError, initialValues: {}),
+                    child: LoginForm())
+              ]);
+            }
+            final credential = snap.data;
+            final initialValues = {
+              'email': credential?.keys.first ?? '',
+              'password': credential?.values.first ?? '',
+              'rememberMe': credential != null,
+            };
+
+            return ChangeNotifierProvider(
+              create: (context) => FormViewModel(
+                onSubmit: login,
+                onError: onError,
+                initialValues: initialValues,
+              ),
+              child: LoginForm(),
+            );
+          }),
     );
   }
 }
