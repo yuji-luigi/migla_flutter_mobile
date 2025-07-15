@@ -59,7 +59,11 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       sound: true,
     );
 
-    final String? token = await FirebaseMessaging.instance.getToken();
+    final String? token =
+        await FirebaseMessaging.instance.getToken().catchError((e) {
+      Logger.error('❌ Error getting FCM token: $e');
+      return null;
+    });
 
     print('FCM Token (post-login): $token');
     if (token == null || token.isEmpty) return;
