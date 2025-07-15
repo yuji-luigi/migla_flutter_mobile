@@ -8,11 +8,20 @@ class Storage {
   static const String _password = 'password';
   static const String _seenOnboarding = 'seenOnboarding';
   static const String _locale = 'locale';
+  static const String _fcmToken = 'fcmToken';
 
   static Future<Map<String, String>?> getLoginCredentials() async {
     String? email = await storage.read(key: _email);
     String? password = await storage.read(key: _password);
     return email != null && password != null ? {email: password} : null;
+  }
+
+  static Future<void> saveFcmToken(String fcmToken) async {
+    await storage.write(key: _fcmToken, value: fcmToken);
+  }
+
+  static Future<String?> getFcmToken() async {
+    return await storage.read(key: _fcmToken);
   }
 
   static Future<void> saveToken(String token) async {
