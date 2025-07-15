@@ -16,4 +16,8 @@ class Logger {
   static void warn(String text) {
     log('\x1B[33m$text\x1B[0m');
   }
+
+  static void info(String text) {
+    log('\x1B[32m$text\x1B[0m');
+  }
 }
