@@ -59,11 +59,10 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       sound: true,
     );
 
-    // final token = await FirebaseMessaging.instance.getToken();
-    final token =
-        'c1kaHQL2TF60yAUdo29Czc:APA91bHTuw2D0HPa2lEi4MUBt2maapkywp0ys36q5MpYpRtDYtH-PEB23_I6_u8-iwRL7wZUZWBliW9iYJmgrCkUsJNW_-PIK9VKgU0jKCGIHZBNqTsPB2g';
+    final String? token = await FirebaseMessaging.instance.getToken();
+
     print('FCM Token (post-login): $token');
-    if (token.isEmpty) return;
+    if (token == null || token.isEmpty) return;
     if (savedFcmToken == token) {
       final result = await _gqlClient.query(QueryOptions(
         document: gql(fcmTokenQuery),
