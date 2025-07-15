@@ -14,10 +14,11 @@ class Logger {
   }
 
   static void warn(String text) {
-    log('\x1B[33m$text\x1B[0m');
+    // show call stack show #1 only
+    log('\x1B[33m$text\x1B[0m ${StackTrace.current.toString().split('\n')[1]}');
   }
 
   static void info(String text) {
-    log('\x1B[32m$text\x1B[0m');
+    log('\x1B[32m$text\x1B[0m ${StackTrace.current.toString().split('\n')[1]}');
   }
 }
