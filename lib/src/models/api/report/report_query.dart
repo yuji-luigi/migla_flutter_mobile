@@ -1,6 +1,8 @@
 const String reportByStudentIdQuery = r"""
-query reportByStudentIdQuery($studentId: JSON!){
-  Reports(where:{
+query reportByStudentIdQuery($studentId: JSON!, $locale: LocaleInputType!){
+  Reports(
+  locale: $locale
+  where:{
     students:{
       equals:$studentId
     }
@@ -35,8 +37,8 @@ query reportByStudentIdQuery($studentId: JSON!){
 """;
 
 const String reportById = r"""
-query ReportById($id: Int!){
-  Report(id:$id){
+query ReportById($id: Int!, $locale: LocaleInputType!){
+   Report(id:$id locale: $locale){
       id
       title
       subtitle

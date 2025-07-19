@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -17,13 +18,17 @@ class TeacherReportListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StudentsViewModel studentsVm = $studentsViewModel(context);
+    final locale = $settingsController(context).locale;
     if (studentsVm.selectedStudent == null) {
       return Text('No student selected');
     }
     return Query(
       options: QueryOptions(
         document: gql(reportByStudentIdQuery),
-        variables: {'studentId': studentsVm.selectedStudent!.id},
+        variables: {
+          'studentId': studentsVm.selectedStudent!.id,
+          'locale': locale.languageCode,
+        },
       ),
       builder: (result, {fetchMore, refetch}) {
         final List<ReportModel> reports = result.data?['Reports']['docs']

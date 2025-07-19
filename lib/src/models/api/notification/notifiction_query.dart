@@ -1,6 +1,8 @@
 const String notificationListQuery = r"""
-query{
-  Notifications(where:{
+query NotificationListQuery($locale: LocaleInputType!) {
+  Notifications(
+  locale: $locale
+  where:{
     
   }){
      docs{

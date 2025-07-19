@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:migla_flutter/firebase_options.dart';
+import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
 
 import 'settings/settings_controller.dart';
@@ -73,21 +74,44 @@ class MyApp extends StatelessWidget {
           themeMode: settingsController.themeMode,
           debugShowCheckedModeBanner: false,
           // Define a function to handle named routes in order to support
-          // Flutter web url navigation and deep linking.
-          onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
-              settings: routeSettings,
-              builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
+          /// you can wrap all the routes in the auth gate
+          // builder: (context, child) {
+          // child here is whatever onGenerateRoute / home / initial route produced
+          //   return AuthGate(child: child!);
+          // },
+          onGenerateRoute: (RouteSettings settings) {
+            switch (settings.name) {
+              case SettingsView.routeName:
+                return MaterialPageRoute(
+                  builder: (_) => SettingsView(controller: settingsController),
+                  settings: settings,
+                );
 
-                  default:
-                    return const GetStartedScreen();
-                }
-              },
-            );
+              default:
+                return MaterialPageRoute(
+                  builder: (_) {
+                    // return _buildAppRoute(settings);
+                    return AuthGate();
+                  },
+                  settings: settings,
+                );
+            }
           },
+          // Flutter web url navigation and deep linking.
+          // onGenerateRoute: (RouteSettings routeSettings) {
+          //   return MaterialPageRoute<void>(
+          //     settings: routeSettings,
+          //     builder: (BuildContext context) {
+          //       switch (routeSettings.name) {
+          //         case SettingsView.routeName:
+          //           return SettingsView(controller: settingsController);
+
+          //         default:
+          //           return const GetStartedScreen();
+          //       }
+          //     },
+          //   );
+          // },
         );
       },
     );

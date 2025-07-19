@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -16,6 +17,7 @@ class DashboardHomeTopSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     StudentsViewModel selectedStudentViewModel = $studentsViewModel(context);
+    final locale = $settingsController(context).locale;
     final meVm = $meViewModel(context);
     if (meVm.me == null) {
       return const Center(child: CircularProgressIndicator());
@@ -23,7 +25,10 @@ class DashboardHomeTopSection extends StatelessWidget {
     return Query(
       options: QueryOptions(
         document: gql(getStudentsByParentId),
-        variables: {'userId': meVm.me!.id},
+        variables: {
+          'userId': meVm.me!.id,
+          'locale': locale.languageCode,
+        },
         // this is the query string you just created
       ),
       builder: (result, {fetchMore, refetch}) {

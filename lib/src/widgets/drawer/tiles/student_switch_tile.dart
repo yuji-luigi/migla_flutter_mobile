@@ -5,6 +5,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/dialog/students_select_dialog.dart';
 import 'package:migla_flutter/src/widgets/drawer/tiles/drawer_list_tile.dart';
@@ -15,6 +16,7 @@ class StudentSwitchTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final meVm = $meViewModel(context);
+    final locale = $settingsController(context).locale;
     final gqlClient = GraphQLProvider.of(context).value;
 
     return AnimatedOpacity(
@@ -29,7 +31,10 @@ class StudentSwitchTile extends StatelessWidget {
                 if (meVm.hasMe) {
                   final result = await gqlClient.query(QueryOptions(
                     document: gql(getStudentsByParentId),
-                    variables: {'userId': meVm.me!.id},
+                    variables: {
+                      'userId': meVm.me!.id,
+                      'locale': locale.languageCode,
+                    },
                   ));
                   List<StudentModel> students = result.data?['Students']['docs']
                       .map<StudentModel>((e) => StudentModel.fromJson(e))

@@ -5,6 +5,7 @@ import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart';
 import 'package:migla_flutter/src/models/api/notification/util/build_list_by_month.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile.dart';
@@ -14,6 +15,8 @@ class NotificationListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = $settingsController(context).locale;
+    print(locale.languageCode);
     return RegularLayoutScaffold(
       padding: EdgeInsets.zero,
       bodyColor: colorTertiary,
@@ -25,6 +28,9 @@ class NotificationListScreen extends StatelessWidget {
               options: QueryOptions(
                 document: gql(notificationListQuery),
                 fetchPolicy: FetchPolicy.cacheAndNetwork,
+                variables: {
+                  'locale': locale.languageCode,
+                },
               ),
               builder: (result, {fetchMore, refetch}) {
                 if (result.hasException) {

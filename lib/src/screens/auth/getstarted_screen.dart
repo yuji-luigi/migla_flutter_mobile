@@ -25,25 +25,27 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
   void initState() {
     super.initState();
     // 1) Grab your MeViewModel from Provider (it already started its init() in its constructor)
-    _meVm = context.read<MeViewModel>();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _meVm = $meViewModel(context, listen: false);
 
-    // 2) If it already has “me” (e.g. if the HTTP call resolved very quickly),
-    //    then jump directly to your “home” or “dashboard” route:
-    if (_meVm.hasMe) {
-      _goToHome();
-      return;
-    }
-
-    // 3) Otherwise, attach a listener so that the moment me becomes non‐null, we navigate.
-    _listener = () {
+      // 2) If it already has “me” (e.g. if the HTTP call resolved very quickly),
+      //    then jump directly to your “home” or “dashboard” route:
       if (_meVm.hasMe) {
-        // prevent further listener calls once we’ve navigated
-        _meVm.removeListener(_listener);
         _goToHome();
+        return;
       }
-    };
 
-    _meVm.addListener(_listener);
+      // 3) Otherwise, attach a listener so that the moment me becomes non‐null, we navigate.
+      _listener = () {
+        if (_meVm.hasMe) {
+          // prevent further listener calls once we’ve navigated
+          _meVm.removeListener(_listener);
+          _goToHome();
+        }
+      };
+
+      _meVm.addListener(_listener);
+    });
     handleSeenOnboarding();
   }
 

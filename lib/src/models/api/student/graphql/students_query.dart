@@ -1,6 +1,8 @@
 const String getStudentsByParentId = r'''
-query StudentsByParentId($userId: JSON!){
-  Students(where :{
+query StudentsByParentId($userId: JSON!, $locale: LocaleInputType!){
+  Students(
+  locale: $locale
+  where :{
      parent: {
      equals: $userId
      }
@@ -25,8 +27,8 @@ query StudentsByParentId($userId: JSON!){
 ''';
 
 const String getStudentByIdQuery = r'''
-query GetStudentByIdQuery($studentId: Int!){
-  Student(id:$studentId){
+query GetStudentByIdQuery($studentId: Int!, $locale: LocaleInputType!){
+  Student(id:$studentId locale: $locale){
     id
     name
     surname

@@ -5,6 +5,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/gallery_grid.dart';
@@ -191,10 +192,14 @@ class TeacherReportDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = $settingsController(context).locale;
     return Query(
       options: QueryOptions(
         document: gql(reportById),
-        variables: {'id': id},
+        variables: {
+          'id': id,
+          'locale': locale.languageCode,
+        },
       ),
       builder: (result, {fetchMore, refetch}) {
         final rawReport = result.data?['Report'];
