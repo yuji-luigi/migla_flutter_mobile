@@ -1,6 +1,7 @@
 import 'package:migla_flutter/env_switch.dart';
 
 /// NOTE: prodHost always points to this url
+// const String prodHost = 'http://10.73.28.222';
 const String prodHost = 'https://migla.yuji-luigi.com';
 
 // const String devHost = 'http://localhost.com:3566';

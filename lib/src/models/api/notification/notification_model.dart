@@ -43,10 +43,11 @@ class NotificationModel {
       return NotificationModel(
         id: json['id'],
         type: json['type'],
-        title: json['title'],
+        title: json['title'] ?? '',
         // body: json['body'],
         createdAt: json['createdAt'],
-        isRead: json['isRead'] ?? false,
+        isRead: json['readRecords'] != null &&
+            json['readRecords']['docs'].isNotEmpty,
         // links: json['links'] is List && json['links'].isNotEmpty
         // ? json['links']
         //     .map<LinkModel>(
@@ -56,6 +57,7 @@ class NotificationModel {
         hasAttachments: json['hasAttachments'] ?? false,
       );
     } catch (error, stackTrace) {
+      print(json);
       print(error.toString());
       print(stackTrace.toString());
       rethrow;

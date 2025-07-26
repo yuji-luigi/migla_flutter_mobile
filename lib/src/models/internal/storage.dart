@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Storage {
@@ -10,9 +11,19 @@ class Storage {
   static const String _locale = 'locale';
   static const String _fcmToken = 'fcmToken';
 
+  static Future<String?> _read({required String key}) async {
+    try {
+      return await storage.read(key: key);
+    } on PlatformException catch (e) {
+      // failed to decrypt (or any other storage error) → clear it and use defaults
+      await storage.delete(key: key);
+      return null;
+    }
+  }
+
   static Future<Map<String, String>?> getLoginCredentials() async {
-    String? email = await storage.read(key: _email);
-    String? password = await storage.read(key: _password);
+    String? email = await _read(key: _email);
+    String? password = await _read(key: _password);
     return email != null && password != null ? {email: password} : null;
   }
 
@@ -21,7 +32,7 @@ class Storage {
   }
 
   static Future<String?> getFcmToken() async {
-    return await storage.read(key: _fcmToken);
+    return await _read(key: _fcmToken);
   }
 
   static Future<void> saveToken(String token) async {
@@ -37,12 +48,12 @@ class Storage {
   }
 
   static Future<int?> getSelectedStudentId() async {
-    String? studentId = await storage.read(key: _selectedStudentId);
+    String? studentId = await _read(key: _selectedStudentId);
     return studentId != null ? int.parse(studentId) : null;
   }
 
   static Future<String?> getToken() async {
-    return await storage.read(key: _token);
+    return await _read(key: _token);
   }
 
   static Future<void> deleteToken() async {
@@ -54,7 +65,7 @@ class Storage {
   }
 
   static Future<bool> getSeenOnboarding() async {
-    String? seen = await storage.read(key: _seenOnboarding);
+    String? seen = await _read(key: _seenOnboarding);
     return seen != null ? bool.parse(seen) : false;
   }
 
@@ -64,8 +75,8 @@ class Storage {
   }
 
   static Future<void> removeAll() async {
-    String? email = await storage.read(key: _email);
-    String? password = await storage.read(key: _password);
+    String? email = await _read(key: _email);
+    String? password = await _read(key: _password);
     await storage.deleteAll();
     if (email != null && password != null) {
       await saveCredentials(email, password);
@@ -76,7 +87,7 @@ class Storage {
     await storage.write(key: _locale, value: locale);
   }
 
-  static Future<String?> getLocale() async {
-    return await storage.read(key: _locale);
+  static Future<String> getLocale() async {
+    return await _read(key: _locale) ?? 'ja';
   }
 }

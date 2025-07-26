@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
-import 'package:migla_flutter/src/models/internal/suppported_language.dart';
 import 'package:provider/provider.dart';
 
 import 'settings_service.dart';

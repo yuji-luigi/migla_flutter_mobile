@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:provider/provider.dart';
 
 class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
@@ -25,11 +26,14 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     // 1. get the saved student ID
     final int? studentId = await Storage.getSelectedStudentId();
     if (studentId == null) return;
-
+    String localeCode = await Storage.getLocale();
     // 2. run a GQL query
     final options = QueryOptions(
       document: gql(getStudentByIdQuery),
-      variables: {'studentId': (studentId)},
+      variables: {
+        'studentId': (studentId),
+        'locale': localeCode,
+      },
     );
     try {
       notifyListeners();

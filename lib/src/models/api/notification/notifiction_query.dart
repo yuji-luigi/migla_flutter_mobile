@@ -9,7 +9,11 @@ query NotificationListQuery($locale: LocaleInputType!) {
       id
       title
       type
-      isRead
+      readRecords{
+        docs{
+          id
+        }
+      }
       hasAttachments
       createdAt
      
@@ -20,13 +24,12 @@ query NotificationListQuery($locale: LocaleInputType!) {
 }
 """;
 const String notificationDetailQuery = r'''
-query NotificationDetail($id: Int!) {
-  Notification(id: $id) {
+query NotificationDetail($id: Int! $locale: LocaleInputType!) {
+  Notification(id: $id, locale: $locale) {
     id
     title
     body
     type
-    isRead
     hasAttachments
     createdAt
      links{

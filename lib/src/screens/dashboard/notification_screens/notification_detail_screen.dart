@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_detail_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
@@ -14,10 +15,11 @@ class NotificationDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = $settingsController(context).locale;
     return Query(
       options: QueryOptions(
         document: gql(notificationDetailQuery),
-        variables: {'id': id},
+        variables: {'id': id, 'locale': locale.languageCode},
       ),
       builder: (result, {fetchMore, refetch}) {
         Widget placeholder = const Center(child: CircularProgressIndicator());
