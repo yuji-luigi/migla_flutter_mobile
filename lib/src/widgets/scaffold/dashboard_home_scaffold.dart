@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
+import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_list_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/drawer/dashboard_left_drawer.dart';
 
@@ -46,7 +47,7 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const DashboardLeftDrawer(),
-      // appBar: appBar,
+
       backgroundColor: bgColorSecondary,
       // body: body
       body: CustomScrollView(
@@ -64,7 +65,20 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
                 ),
               );
             }),
-
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const NotificationListScreen()));
+                  },
+                  icon: const Icon(
+                    Icons.notifications,
+                    size: 35,
+                  ))
+            ],
             backgroundColor: Colors.transparent,
             expandedHeight: _topSectionHeight + 30, // Adjust height as needed
             floating: false,

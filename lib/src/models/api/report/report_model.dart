@@ -9,7 +9,7 @@ class ReportModel {
   final String body;
   final MediaModel? coverImage;
   final List<MediaModel> attachments;
-  final String createdAt;
+  final DateTime createdAt;
 
   ReportModel({
     required this.id,
@@ -48,7 +48,7 @@ class ReportModel {
             ? List<MediaModel>.from(
                 json['attachments'].map((x) => MediaModel.fromJson(x)))
             : [],
-        createdAt: json['createdAt'],
+        createdAt: DateTime.parse(json['createdAt']),
       );
     } catch (error, stackTrace) {
       print(error);

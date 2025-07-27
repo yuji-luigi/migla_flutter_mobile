@@ -217,7 +217,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
           //   end: Alignment.bottomCenter,
           // ),
           title: report != null
-              ? formatDateTime(DateTime.parse(report.createdAt))
+              ? formatDateTime(report.createdAt)
               : 'Report not found',
           padding: EdgeInsets.symmetric(horizontal: 24),
           body: SizedBox(

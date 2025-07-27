@@ -7,6 +7,7 @@ import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teach
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_list_card.dart';
@@ -96,7 +97,7 @@ class TeacherReportListView extends StatelessWidget {
                     },
                     child: TeacherReportListCard(
                       image: report.coverImage?.url ?? '',
-                      subtitle: report.title,
+                      subtitle: formatDateTime(report.createdAt),
                       title: report.title,
                     ),
                   );

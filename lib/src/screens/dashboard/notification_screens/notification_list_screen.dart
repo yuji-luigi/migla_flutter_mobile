@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
@@ -10,9 +11,15 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile.dart';
 
-class NotificationListScreen extends StatelessWidget {
+class NotificationListScreen extends StatefulWidget {
   const NotificationListScreen({super.key});
 
+  @override
+  State<NotificationListScreen> createState() => _NotificationListScreenState();
+}
+
+class _NotificationListScreenState extends State<NotificationListScreen>
+    with RouteAwareRefetchMixin {
   @override
   Widget build(BuildContext context) {
     final locale = $settingsController(context).locale;
@@ -33,6 +40,9 @@ class NotificationListScreen extends StatelessWidget {
                 },
               ),
               builder: (result, {fetchMore, refetch}) {
+                // Store the refetch function for later use
+                setRefetchFunction(refetch);
+
                 if (result.hasException) {
                   return Text(result.exception?.graphqlErrors.toString() ??
                       'error occurred');

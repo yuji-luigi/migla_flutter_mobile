@@ -18,6 +18,10 @@ class MyApp extends StatelessWidget {
 
   final SettingsController settingsController;
 
+  // Create a RouteObserver for RouteAware widgets
+  static final RouteObserver<ModalRoute<void>> routeObserver =
+      RouteObserver<ModalRoute<void>>();
+
   Future<void> initializeDefault() async {
     FirebaseApp app = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -41,6 +45,9 @@ class MyApp extends StatelessWidget {
           // returns to the app after it has been killed while running in the
           // background.
           restorationScopeId: 'app',
+
+          // Add RouteObserver for RouteAware widgets
+          navigatorObservers: [routeObserver],
 
           // Provide the generated AppLocalizations to the MaterialApp. This
           // allows descendant Widgets to display the correct translations

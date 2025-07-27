@@ -28,12 +28,12 @@ class TeacherReportListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(image);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: paddingXDashboardMd),
       child: Container(
+        // alignment: Alignment.topLeft,
         height: height ?? 120,
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         clipBehavior: Clip.hardEdge,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -42,13 +42,15 @@ class TeacherReportListCard extends StatelessWidget {
           boxShadow: [buttonShadowDefault],
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           spacing: 8,
           children: [
             Expanded(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                // mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 spacing: 6,
                 children: [
                   RowAvatarWithTitle(
@@ -66,22 +68,23 @@ class TeacherReportListCard extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              width: 90,
-              height: 90,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(radiusMedium),
-                color: colorPrimary,
-                image: DecorationImage(
-                  image: Image.network(image).image,
-                  fit: BoxFit
-                      .cover, // 👈 Ensures the image covers the whole container
+            if (image.isNotEmpty)
+              Container(
+                width: 100,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(radiusMedium),
+                  color: colorPrimary,
+                  image: DecorationImage(
+                    image: Image.network(image).image,
+                    fit: BoxFit
+                        .cover, // 👈 Ensures the image covers the whole container
+                  ),
+                ),
+                child: Column(
+                  children: [],
                 ),
               ),
-              child: Column(
-                children: [],
-              ),
-            ),
           ],
         ),
       ),
