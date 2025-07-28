@@ -69,5 +69,6 @@
 	"somethingWentWrong": "Something went wrong",
 	"noNotificationsFound": "There are no notifications",
 	"noGalleriesFound": "There are no galleries",
-	"rememberMe": "Remember me"
+	"rememberMe": "Remember me",
+	"navPayment": "Payment"
 }

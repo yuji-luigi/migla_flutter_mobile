@@ -3,7 +3,6 @@ import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 
 class NotificationDetailModel extends NotificationModel {
-  final String body;
   final List<LinkModel> links;
   final List<MediaModel> attachments;
 
@@ -11,7 +10,7 @@ class NotificationDetailModel extends NotificationModel {
     required super.id,
     required super.type,
     required super.title,
-    required this.body,
+    required super.body,
     required super.createdAt,
     required this.attachments,
     required super.isRead,

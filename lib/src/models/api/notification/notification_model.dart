@@ -1,11 +1,8 @@
-import 'package:migla_flutter/src/models/api/link/link_model.dart';
-import 'package:migla_flutter/src/models/api/media/media_model.dart';
-
 class NotificationModel {
   final int id;
   final String type;
   final String title;
-  // final String body;
+  final String body;
   final String createdAt;
   final bool isRead;
   final bool hasAttachments;
@@ -16,7 +13,7 @@ class NotificationModel {
     required this.id,
     required this.type,
     required this.title,
-    // required this.body,
+    required this.body,
     required this.createdAt,
     // required this.attachments,
     required this.isRead,
@@ -44,7 +41,7 @@ class NotificationModel {
         id: json['id'],
         type: json['type'],
         title: json['title'] ?? '',
-        // body: json['body'],
+        body: json['body'] ?? '',
         createdAt: json['createdAt'],
         isRead: json['readRecords'] != null &&
             json['readRecords']['docs'].isNotEmpty,

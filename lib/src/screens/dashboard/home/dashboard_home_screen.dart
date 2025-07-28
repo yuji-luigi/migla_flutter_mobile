@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/models/api/fcm_token/graphql/mutate_create_fcm_token.dart';
 import 'package:migla_flutter/src/models/api/fcm_token/graphql/query_fcm_token.dart';
-import 'package:migla_flutter/src/models/api/user/graphql/update_fcm_token.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
@@ -20,7 +19,8 @@ class DashboardHomeScreen extends StatefulWidget {
   State<DashboardHomeScreen> createState() => _DashboardHomeScreenState();
 }
 
-class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
+class _DashboardHomeScreenState extends State<DashboardHomeScreen>
+    with RouteAware {
   late GraphQLClient _gqlClient;
 
   @override
@@ -65,7 +65,6 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       return null;
     });
 
-    print('FCM Token (post-login): $token');
     if (token == null || token.isEmpty) return;
     if (savedFcmToken == token) {
       final result = await _gqlClient.query(QueryOptions(

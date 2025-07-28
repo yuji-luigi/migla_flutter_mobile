@@ -4,7 +4,7 @@ import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
-import 'package:migla_flutter/src/models/api/notification/notifiction_query.dart';
+import 'package:migla_flutter/src/models/api/notification/notification_query.dart';
 import 'package:migla_flutter/src/models/api/notification/util/build_list_by_month.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';

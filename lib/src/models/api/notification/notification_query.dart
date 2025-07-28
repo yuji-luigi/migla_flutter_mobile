@@ -9,6 +9,7 @@ query NotificationListQuery($locale: LocaleInputType!) {
       id
       title
       type
+      body
       readRecords{
         docs{
           id

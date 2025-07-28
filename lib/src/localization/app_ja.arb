@@ -69,5 +69,6 @@
 	"somethingWentWrong": "エラーが発生しました",
 	"noNotificationsFound": "通知はありません",
 	"noGalleriesFound": "ギャラリーはありません",
-	"rememberMe": "ログイン情報を保存する"
+	"rememberMe": "ログイン情報を保存する",
+	"navPayment": "支払い"
 }

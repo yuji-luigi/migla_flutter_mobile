@@ -46,6 +46,8 @@ class NotificationListTile extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   svgIconMap[notification.type] ?? '',
+                  height: 32,
+                  width: 32,
                 ),
               ],
             ),
@@ -54,11 +56,25 @@ class NotificationListTile extends StatelessWidget {
               style: textStyleBodyLarge.copyWith(
                 fontWeight: FontWeight.bold,
               )),
-          subtitle: Text(
-            formatDateTime(DateTime.parse(notification.createdAt)),
-            style: textStyleCaptionMd.copyWith(
-              color: colorTextDisabled,
-            ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(notification.body,
+                  style: textStyleBodyMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+              Row(
+                children: [
+                  Spacer(),
+                  Text(
+                    formatDateTime(DateTime.parse(notification.createdAt)),
+                    style: textStyleCaptionMd.copyWith(
+                      color: colorTextDisabled,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           onTap: () {
             NotificationDetailScreen(id: notification.id).launch(context);
