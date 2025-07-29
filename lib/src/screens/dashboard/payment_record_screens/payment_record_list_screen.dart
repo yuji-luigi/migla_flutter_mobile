@@ -4,9 +4,10 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/payment_record/graphql/payment_records_query.dart';
-import 'package:migla_flutter/src/models/api/payment_record/payment_record_model.dart';
+import 'package:migla_flutter/src/models/api/payment_record/payment_record_summary_model.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/views/payment_record_list/payment_record_list_card.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 
 class PaymentListScreen extends StatefulWidget {
@@ -59,10 +60,10 @@ class _PaymentListScreenState extends State<PaymentListScreen>
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                final List<PaymentRecordModel> paymentRecords = result
+                final List<PaymentRecordSummaryModel> paymentRecords = result
                         .data?['PaymentRecords']['docs']
-                        .map<PaymentRecordModel>((paymentRecord) =>
-                            PaymentRecordModel.fromJson(paymentRecord))
+                        .map<PaymentRecordSummaryModel>((paymentRecord) =>
+                            PaymentRecordSummaryModel.fromJson(paymentRecord))
                         .toList() ??
                     [];
 
@@ -82,25 +83,9 @@ class _PaymentListScreenState extends State<PaymentListScreen>
                         paymentRecord.paymentSchedule?.notificationTitle ??
                             'Payment Record ID: ${paymentRecord.id}';
 
-                    return Card(
-                      margin: const EdgeInsets.only(bottom: 8),
-                      child: ListTile(
-                        title: Text(
-                          title,
-                          style: textStyleBodyMedium,
-                        ),
-                        subtitle: Text(
-                          'Paid: ${paymentRecord.paid ? "Yes" : "No"}',
-                          style: textStyleBodySmall,
-                        ),
-                        trailing:
-                            paymentRecord.paymentSchedule?.paymentDue != null
-                                ? Text(
-                                    'Due: ${paymentRecord.paymentSchedule!.paymentDue}',
-                                    style: textStyleBodySmall,
-                                  )
-                                : null,
-                      ),
+                    return PaymentRecordListCard(
+                      title: title,
+                      paymentRecord: paymentRecord,
                     );
                   },
                 );

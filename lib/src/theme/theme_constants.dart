@@ -76,6 +76,9 @@ Color colorWhite = const Color(0xFFFFFFFF);
 
 Color colorTextDisabled = const Color(0xFFA1AEB1);
 
+Color colorSuccess = const Color(0xFF008000);
+Color colorError = const Color(0xFFFF0000);
+
 BoxShadow buttonShadowDefault = BoxShadow(
   color: colorBlack.withAlpha(90),
   blurRadius: 10,
