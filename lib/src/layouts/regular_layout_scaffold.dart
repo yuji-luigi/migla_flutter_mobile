@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
 
 class RegularLayoutScaffold extends StatelessWidget {
   final Widget body;
@@ -39,7 +40,7 @@ class RegularLayoutScaffold extends StatelessWidget {
               title!,
             )
           : null,
-      actions: appBarActions,
+      actions: appBarActions ?? [const NotificationAppbarActionButton()],
     );
     double appBarHeight = appBar.preferredSize.height;
     return Scaffold(

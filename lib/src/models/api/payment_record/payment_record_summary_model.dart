@@ -1,11 +1,11 @@
 class PaymentRecordSummaryModel {
   final int id;
-  final PaymentScheduleModel? paymentSchedule;
+  final PaymentScheduleModel paymentSchedule;
   final bool paid;
 
   PaymentRecordSummaryModel({
     required this.id,
-    this.paymentSchedule,
+    required this.paymentSchedule,
     required this.paid,
   });
 
@@ -27,9 +27,7 @@ class PaymentRecordSummaryModel {
     try {
       return PaymentRecordSummaryModel(
         id: json['id'],
-        paymentSchedule: json['paymentSchedule'] != null
-            ? PaymentScheduleModel.fromJson(json['paymentSchedule'])
-            : null,
+        paymentSchedule: PaymentScheduleModel.fromJson(json['paymentSchedule']),
         paid: json['paid'] ?? false,
       );
     } catch (error, stackTrace) {
@@ -42,12 +40,14 @@ class PaymentRecordSummaryModel {
 }
 
 class PaymentScheduleModel {
+  final int id;
   final String notificationTitle;
   final DateTime paymentDue;
   final String notificationScheduledAt;
   final String createdAt;
 
   PaymentScheduleModel({
+    required this.id,
     required this.notificationTitle,
     required this.paymentDue,
     required this.notificationScheduledAt,
@@ -56,6 +56,7 @@ class PaymentScheduleModel {
 
   factory PaymentScheduleModel.fromJson(Map<String, dynamic> json) {
     return PaymentScheduleModel(
+      id: json['id'],
       notificationTitle: json['notificationTitle'] ?? '',
       paymentDue: DateTime.parse(json['paymentDue']),
       notificationScheduledAt: json['notificationScheduledAt'] ?? '',

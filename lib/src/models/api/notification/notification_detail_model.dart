@@ -15,6 +15,8 @@ class NotificationDetailModel extends NotificationModel {
     required this.attachments,
     required super.isRead,
     required super.hasAttachments,
+    required super.collection,
+    required super.collectionRecordId,
     this.links = const [],
   });
 
@@ -41,6 +43,8 @@ class NotificationDetailModel extends NotificationModel {
         body: json['body'],
         createdAt: json['createdAt'],
         isRead: json['isRead'] ?? false,
+        collection: json['data']['collection'],
+        collectionRecordId: json['data']['id'],
         links: json['links'] is List && json['links'].isNotEmpty
             ? json['links']
                 .map<LinkModel>(

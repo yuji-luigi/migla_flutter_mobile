@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
-import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_detail_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
+import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile/notification_list_tile_on_tap_controller.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListTile extends StatelessWidget {
@@ -77,7 +77,9 @@ class NotificationListTile extends StatelessWidget {
             ],
           ),
           onTap: () {
-            NotificationDetailScreen(id: notification.id).launch(context);
+            final controller =
+                NotificationListTileOnTapController(notification: notification);
+            controller.handleOnTap(context);
           },
           // trailing: Text(mockNotificationList[index]['trailing']),
         ),

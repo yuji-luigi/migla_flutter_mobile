@@ -1,11 +1,14 @@
+import 'package:migla_flutter/src/models/api/product_model.dart';
+
 class PaymentRecordModel {
   final int id;
-  final PaymentScheduleDetailModel? paymentSchedule;
+  final PaymentScheduleDetailModel paymentSchedule;
   final String tuitionFeeDescription;
   final String tuitionFeeTotalAndSingle;
   final String totalString;
   final int studentCount;
   final double materialFee;
+  final double tuitionFee;
   final String materialFeeTotalAndSingle;
   final String materialFeeDescription;
   final bool paid;
@@ -13,12 +16,13 @@ class PaymentRecordModel {
 
   PaymentRecordModel({
     required this.id,
-    this.paymentSchedule,
+    required this.paymentSchedule,
     required this.tuitionFeeDescription,
     required this.tuitionFeeTotalAndSingle,
     required this.totalString,
     required this.studentCount,
     required this.materialFee,
+    required this.tuitionFee,
     required this.materialFeeTotalAndSingle,
     required this.materialFeeDescription,
     required this.paid,
@@ -42,14 +46,14 @@ class PaymentRecordModel {
     try {
       return PaymentRecordModel(
         id: json['id'],
-        paymentSchedule: json['paymentSchedule'] != null
-            ? PaymentScheduleDetailModel.fromJson(json['paymentSchedule'])
-            : null,
+        paymentSchedule:
+            PaymentScheduleDetailModel.fromJson(json['paymentSchedule']),
         tuitionFeeDescription: json['tuitionFeeDescription'],
         tuitionFeeTotalAndSingle: json['tuitionFeeTotalAndSingle'] ?? '',
         totalString: json['totalString'],
         studentCount: json['studentCount'],
         materialFee: json['materialFee']?.toDouble() ?? 0,
+        tuitionFee: json['tuitionFee']?.toDouble() ?? 0,
         materialFeeTotalAndSingle: json['materialFeeTotalAndSingle'] ?? '',
         materialFeeDescription: json['materialFeeDescription'],
         paid: json['paid'] ?? false,
@@ -69,14 +73,14 @@ class PaymentRecordModel {
 class PaymentScheduleDetailModel {
   final String notificationTitle;
   final String? notificationAlertMessage;
-  final String? notificationBody;
+  final String notificationBody;
   final DateTime paymentDue;
   final String createdAt;
 
   PaymentScheduleDetailModel({
     required this.notificationTitle,
     this.notificationAlertMessage,
-    this.notificationBody,
+    required this.notificationBody,
     required this.paymentDue,
     required this.createdAt,
   });
@@ -110,7 +114,6 @@ class PurchaseModel {
 class ProductAndQuantityModel {
   final int quantity;
   final ProductModel product;
-
   ProductAndQuantityModel({
     required this.quantity,
     required this.product,
@@ -120,23 +123,6 @@ class ProductAndQuantityModel {
     return ProductAndQuantityModel(
       quantity: json['quantity'] ?? 0,
       product: ProductModel.fromJson(json['product']),
-    );
-  }
-}
-
-class ProductModel {
-  final String name;
-  final double price;
-
-  ProductModel({
-    required this.name,
-    required this.price,
-  });
-
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      name: json['name'] ?? '',
-      price: json['price']?.toDouble() ?? 0.0,
     );
   }
 }

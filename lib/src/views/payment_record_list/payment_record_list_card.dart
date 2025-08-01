@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/payment_record/payment_record_summary_model.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_detail_screen.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 class PaymentRecordListCard extends StatelessWidget {
   const PaymentRecordListCard(
@@ -19,8 +21,9 @@ class PaymentRecordListCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                PaymentRecordDetailScreen(id: paymentRecord.id),
+            builder: (context) => PaymentRecordDetailScreen(
+              scheduleId: paymentRecord.paymentSchedule.id,
+            ),
           ),
         );
       },
@@ -35,7 +38,7 @@ class PaymentRecordListCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${context.t.dueDate}: ${formatDateTime(paymentRecord.paymentSchedule!.paymentDue)}',
+                '${context.t.dueDate}: ${formatDateTime(paymentRecord.paymentSchedule.paymentDue, localeCode: $settingsController(context).locale.languageCode)}',
                 style: textStyleBodySmall,
               ),
               Text.rich(
