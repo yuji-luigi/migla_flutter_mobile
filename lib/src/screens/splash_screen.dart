@@ -6,6 +6,8 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthScaffold(child: Center(child: CircularProgressIndicator()));
+    return AuthScaffold(
+      child: Center(child: CircularProgressIndicator()),
+    );
   }
 }
