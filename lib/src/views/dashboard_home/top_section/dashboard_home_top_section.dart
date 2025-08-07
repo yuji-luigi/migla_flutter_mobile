@@ -4,8 +4,10 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/students_avatar_stack_container.dart';
@@ -24,6 +26,7 @@ class DashboardHomeTopSection extends StatelessWidget {
     }
     return Query(
       options: QueryOptions(
+        pollInterval: const Duration(minutes: 30),
         document: gql(getStudentsByParentId),
         variables: {
           'userId': meVm.me!.id,
@@ -38,6 +41,14 @@ class DashboardHomeTopSection extends StatelessWidget {
             [];
         if (result.hasException) {
           Logger.error(result.exception?.toString() ?? 'Unknown error');
+          if (gqlResultHas403(result)) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              // check still mounted before navigating:
+              if (context.mounted) {
+                LoginScreen().launch(context, isNewTask: true);
+              }
+            });
+          }
           return Column(children: [
             Text(context.t.error_somethingWentWrong, style: textStyleBodyLarge),
             8.height,

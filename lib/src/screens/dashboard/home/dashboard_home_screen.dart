@@ -7,6 +7,7 @@ import 'package:migla_flutter/src/models/api/fcm_token/graphql/mutate_create_fcm
 import 'package:migla_flutter/src/models/api/fcm_token/graphql/query_fcm_token.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
+import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/bottom_section/dashboard_home_bottom_section.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/dashboard_home_top_section.dart';
@@ -34,12 +35,14 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return DashboardHomeScaffold(
-      topSection: DashboardHomeTopSection(),
-      bottomSection: Column(
-        children: [
-          DashboardHomeBottomSection(),
-        ],
+    return AuthGate(
+      child: DashboardHomeScaffold(
+        topSection: DashboardHomeTopSection(),
+        bottomSection: Column(
+          children: [
+            DashboardHomeBottomSection(),
+          ],
+        ),
       ),
     );
   }

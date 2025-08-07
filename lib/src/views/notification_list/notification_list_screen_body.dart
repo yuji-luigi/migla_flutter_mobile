@@ -5,10 +5,13 @@ import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_query.dart';
 import 'package:migla_flutter/src/models/api/notification/util/build_list_by_month.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile/notification_list_tile.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListScreenBody extends StatefulWidget {
   const NotificationListScreenBody({super.key});
@@ -40,6 +43,14 @@ class _NotificationListScreenBodyState extends State<NotificationListScreenBody>
               setRefetchFunction(refetch);
 
               if (result.hasException) {
+                if (gqlResultHas403(result)) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    // check still mounted before navigating:
+                    if (context.mounted) {
+                      LoginScreen().launch(context, isNewTask: true);
+                    }
+                  });
+                }
                 return Text(result.exception?.graphqlErrors.toString() ??
                     'error occurred');
               }
@@ -61,10 +72,13 @@ class _NotificationListScreenBodyState extends State<NotificationListScreenBody>
               final display = buildDisplayList(notifications);
 
               return ListView.builder(
-                itemCount: display.length,
+                itemCount: display.length + 1,
                 shrinkWrap: true,
                 padding: EdgeInsets.all(0),
                 itemBuilder: (context, index) {
+                  if (index == display.length) {
+                    return 100.height;
+                  }
                   if (display[index] is String) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -74,6 +88,7 @@ class _NotificationListScreenBodyState extends State<NotificationListScreenBody>
                       ),
                     );
                   }
+
                   return NotificationListTile(
                     notification: display[index] as NotificationModel,
                   );

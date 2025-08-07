@@ -5,10 +5,13 @@ import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/payment_record/graphql/payment_records_query.dart';
 import 'package:migla_flutter/src/models/api/payment_record/payment_record_summary_model.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/payment_record_list/payment_record_list_card.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class PaymentListScreen extends StatefulWidget {
   const PaymentListScreen({super.key});
@@ -53,6 +56,14 @@ class _PaymentListScreenState extends State<PaymentListScreen>
                 setRefetchFunction(refetch);
 
                 if (result.hasException) {
+                  if (gqlResultHas403(result)) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      // check still mounted before navigating:
+                      if (context.mounted) {
+                        LoginScreen().launch(context, isNewTask: true);
+                      }
+                    });
+                  }
                   return Text(result.exception?.graphqlErrors.toString() ??
                       'error occurred');
                 }

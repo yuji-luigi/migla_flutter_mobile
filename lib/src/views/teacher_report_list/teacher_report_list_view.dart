@@ -3,10 +3,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';
@@ -37,6 +39,14 @@ class TeacherReportListView extends StatelessWidget {
                 .toList() ??
             [];
         if (result.hasException) {
+          if (gqlResultHas403(result)) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              // check still mounted before navigating:
+              if (context.mounted) {
+                LoginScreen().launch(context, isNewTask: true);
+              }
+            });
+          }
           return Text(
               result.exception?.graphqlErrors.toString() ?? 'error occurred');
         }
