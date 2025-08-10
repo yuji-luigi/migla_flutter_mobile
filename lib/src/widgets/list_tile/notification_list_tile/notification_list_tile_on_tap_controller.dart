@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
+import 'package:migla_flutter/src/models/api/read_notification/create_read_notification_query.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_detail_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListTileOnTapController {
   final NotificationModel notification;
+  final BuildContext context;
+  final int userId;
+  final GraphQLClient _gqlClient;
 
-  NotificationListTileOnTapController({required this.notification});
+  NotificationListTileOnTapController({
+    required this.notification,
+    required this.context,
+    required this.userId,
+  }) : _gqlClient = getGqlClient(context);
 
-  void handleOnTap(BuildContext context) {
-    print(notification.collection);
+  void handleOnTap() {
     switch (notification.collection) {
       case 'payment-schedules':
+        _callReadNotification();
         _navigateToPaymentRecordDetail(context);
         break;
       case 'reports':
@@ -42,6 +53,19 @@ class NotificationListTileOnTapController {
     } else {
       _showErrorDialog(context, 'Invalid report ID');
     }
+  }
+
+  Future<void> _callReadNotification() async {
+    final gqlClient = getGqlClient(context);
+
+    final result = await gqlClient.mutate(MutationOptions(
+      document: gql(createReadNotificationQuery),
+      variables: {
+        'notificationId': notification.id,
+        'userId': userId,
+      },
+    ));
+    Logger.info('✅ Read notification result: $result');
   }
 
   void _showDefaultNotificationDetail(BuildContext context) {

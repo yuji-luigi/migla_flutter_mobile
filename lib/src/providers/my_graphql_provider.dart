@@ -36,3 +36,7 @@ class MyGraphqlProvider extends StatelessWidget {
     );
   }
 }
+
+GraphQLClient getGqlClient(BuildContext context) {
+  return GraphQLProvider.of(context).value;
+}

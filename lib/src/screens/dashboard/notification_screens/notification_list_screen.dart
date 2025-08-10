@@ -10,10 +10,11 @@ class NotificationListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RegularLayoutScaffold(
-        padding: EdgeInsets.zero,
-        bodyColor: colorTertiary,
-        title: context.t.notificationTitle,
-        appBarActions: [],
-        body: const NotificationListScreenBody());
+      padding: EdgeInsets.zero,
+      bodyColor: colorTertiary,
+      title: context.t.notificationTitle,
+      appBarActions: [],
+      body: const NotificationListScreenBody(),
+    );
   }
 }
