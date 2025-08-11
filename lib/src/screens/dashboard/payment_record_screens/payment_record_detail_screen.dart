@@ -13,12 +13,10 @@ import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 class PaymentRecordDetailScreen extends StatefulWidget {
   final int scheduleId;
-  final int? notificationId;
 
   const PaymentRecordDetailScreen({
     super.key,
     required this.scheduleId,
-    this.notificationId,
   });
 
   @override
@@ -41,16 +39,13 @@ class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
       title: context.t.paymentDetails,
       body: Query(
         options: QueryOptions(
-          document:
-              gql(getPaymentRecordByScheduleIdAndPayerIdWithReadNotification),
+          document: gql(getPaymentRecordByScheduleIdAndPayerIdQuery),
           fetchPolicy: FetchPolicy.cacheAndNetwork,
           cacheRereadPolicy: CacheRereadPolicy
               .ignoreAll, // NOTE: ← crucial: disables the problematic re-read/merge I don't know why I need set this.
           variables: {
             'payerId': meVM.me!.id,
             'scheduleId': widget.scheduleId,
-            'userId': meVM.me!.id,
-            'notificationId': widget.notificationId,
           },
         ),
         builder: (result, {fetchMore, refetch}) {

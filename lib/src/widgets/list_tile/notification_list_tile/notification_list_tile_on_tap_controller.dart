@@ -41,7 +41,6 @@ class NotificationListTileOnTapController {
     if (notification.collectionRecordId > 0) {
       PaymentRecordDetailScreen(
         scheduleId: notification.collectionRecordId,
-        notificationId: notification.id,
       ).launch(context);
     } else {
       _showErrorDialog(context, 'Invalid payment record ID');
@@ -52,7 +51,6 @@ class NotificationListTileOnTapController {
     if (notification.collectionRecordId > 0) {
       TeacherReportDetailScreen(
         id: notification.collectionRecordId,
-        notificationId: notification.id,
       ).launch(context);
     } else {
       _showErrorDialog(context, 'Invalid report ID');

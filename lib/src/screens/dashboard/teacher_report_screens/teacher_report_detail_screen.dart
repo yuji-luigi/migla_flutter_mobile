@@ -189,11 +189,9 @@ List<Map<String, dynamic>> teacherReportList = [
 
 class TeacherReportDetailScreen extends StatelessWidget {
   final int id;
-  final int? notificationId;
   const TeacherReportDetailScreen({
     super.key,
     required this.id,
-    this.notificationId,
   });
 
   @override
