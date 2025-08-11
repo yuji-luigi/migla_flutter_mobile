@@ -21,9 +21,9 @@ class NotificationListTileOnTapController {
   }) : _gqlClient = getGqlClient(context);
 
   void handleOnTap() {
+    _callReadNotification();
     switch (notification.collection) {
       case 'payment-schedules':
-        _callReadNotification();
         _navigateToPaymentRecordDetail(context);
         break;
       case 'reports':
@@ -39,8 +39,10 @@ class NotificationListTileOnTapController {
 
   void _navigateToPaymentRecordDetail(BuildContext context) {
     if (notification.collectionRecordId > 0) {
-      PaymentRecordDetailScreen(scheduleId: notification.collectionRecordId)
-          .launch(context);
+      PaymentRecordDetailScreen(
+        scheduleId: notification.collectionRecordId,
+        notificationId: notification.id,
+      ).launch(context);
     } else {
       _showErrorDialog(context, 'Invalid payment record ID');
     }
@@ -48,8 +50,10 @@ class NotificationListTileOnTapController {
 
   void _navigateToReportDetail(BuildContext context) {
     if (notification.collectionRecordId > 0) {
-      TeacherReportDetailScreen(id: notification.collectionRecordId)
-          .launch(context);
+      TeacherReportDetailScreen(
+        id: notification.collectionRecordId,
+        notificationId: notification.id,
+      ).launch(context);
     } else {
       _showErrorDialog(context, 'Invalid report ID');
     }

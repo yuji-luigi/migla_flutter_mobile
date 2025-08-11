@@ -5,7 +5,6 @@ class ReportModel {
   final int id;
   final String title;
   final TeacherModel teacher;
-  final String subtitle;
   final String body;
   final MediaModel? coverImage;
   final List<MediaModel> attachments;
@@ -14,7 +13,6 @@ class ReportModel {
   ReportModel({
     required this.id,
     required this.title,
-    required this.subtitle,
     required this.body,
     required this.createdAt,
     required this.teacher,
@@ -38,7 +36,6 @@ class ReportModel {
       return ReportModel(
         id: json['id'],
         title: json['title'] ?? '',
-        subtitle: json['subtitle'] ?? '',
         body: json['body'] ?? '',
         teacher: TeacherModel.fromJson(json['teacher']),
         coverImage: json['coverImage'] != null

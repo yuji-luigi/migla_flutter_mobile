@@ -6,11 +6,10 @@ mutation CreateReadNotification(
   createReadNotification(
     data: {
       user: $userId
-      notification:
+      notification: $notificationId
     }
   ) {
     id
   }
 }
-
 """;

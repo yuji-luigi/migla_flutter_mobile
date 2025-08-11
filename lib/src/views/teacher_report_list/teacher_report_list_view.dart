@@ -96,7 +96,6 @@ class TeacherReportListView extends StatelessWidget {
                           textColor: colorWhite,
                           image: report.coverImage?.url,
                           title: report.title,
-                          subtitle: report.subtitle,
                         ),
                       ),
                     );
