@@ -257,11 +257,21 @@ class TeacherReportDetailScreen extends StatelessWidget {
                                     height: 200,
                                   ),
                                 Text(report.title, style: textStyleTitleLg),
-                                Text('report.subtitle',
-                                    style: textStyleHeadingMedium),
                               ],
                             ),
                             Text(report.body, style: textStyleBodyMedium),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  formatDateTime(report.createdAt,
+                                      localeCode: $settingsController(context)
+                                          .locale
+                                          .languageCode),
+                                  style: textStyleHeadingMedium,
+                                ),
+                              ],
+                            ),
                             if (report.attachments.isNotEmpty) ...[
                               Divider(
                                 color: colorTertiary,
