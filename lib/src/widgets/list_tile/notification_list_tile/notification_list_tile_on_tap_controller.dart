@@ -21,7 +21,9 @@ class NotificationListTileOnTapController {
   }) : _gqlClient = getGqlClient(context);
 
   void handleOnTap() {
-    _callReadNotification();
+    if (!notification.isRead) {
+      _callReadNotification();
+    }
     switch (notification.collection) {
       case 'payment-schedules':
         _navigateToPaymentRecordDetail(context);
@@ -59,7 +61,6 @@ class NotificationListTileOnTapController {
 
   Future<void> _callReadNotification() async {
     final gqlClient = getGqlClient(context);
-
     final result = await gqlClient.mutate(MutationOptions(
       document: gql(createReadNotificationQuery),
       variables: {
