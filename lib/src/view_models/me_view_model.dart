@@ -18,18 +18,6 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   bool get hasMe => _me != null;
   ApiClient _apiClient = ApiClient();
 
-  MeViewModel() {
-    init();
-  }
-  init() async {
-    try {
-      await getMe();
-      notifyListeners();
-    } catch (e) {
-      print('Error getting me on init: $e');
-    }
-  }
-
   Future<void> getMe() async {
     try {
       _isLoading = true;

@@ -211,7 +211,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
       builder: (result, {fetchMore, refetch}) {
         final rawReport = result.data?['Report'];
 
-        final report = ReportModel.tryFromJson(rawReport);
+        final report = ReportDetailModel.tryFromJson(rawReport);
 
         return RegularLayoutScaffold(
           bgCircleBottomRightColor: colorTertiary.withAlpha(50),

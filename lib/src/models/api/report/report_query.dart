@@ -20,6 +20,11 @@ query reportByStudentIdQuery($studentId: JSON!, $locale: LocaleInputType!){
         id
         name
       }
+      readRecords{
+        docs{
+          id
+        }
+      }
       attachments {
         id
         url

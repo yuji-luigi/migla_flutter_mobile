@@ -13,6 +13,7 @@ class TeacherReportImageContainer extends StatelessWidget {
   final double? height;
   final Color? gradientBottom;
   final Color? textColor;
+  final bool isRead;
   const TeacherReportImageContainer({
     super.key,
     this.image,
@@ -21,64 +22,79 @@ class TeacherReportImageContainer extends StatelessWidget {
     this.height,
     this.gradientBottom,
     this.textColor,
+    required this.isRead,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height ?? 260,
-      clipBehavior: Clip.hardEdge,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: colorPrimaryDark,
-        borderRadius: BorderRadius.circular(radiusMedium),
-        boxShadow: [buttonShadowDefault],
-        image: DecorationImage(
-          image: image != null
-              ? Image.network(image!).image
-              : AssetImage(placeholderRainbow),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.black.withAlpha(0),
-              colorBlack.withAlpha(200),
-            ],
+    return Stack(
+      alignment: Alignment.topRight,
+      children: [
+        Container(
+          height: height ?? 260,
+          clipBehavior: Clip.hardEdge,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: colorPrimaryDark,
+            borderRadius: BorderRadius.circular(radiusMedium),
+            boxShadow: [buttonShadowDefault],
+            image: DecorationImage(
+              image: image != null
+                  ? Image.network(image!).image
+                  : AssetImage(placeholderRainbow),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withAlpha(0),
+                  colorBlack.withAlpha(200),
+                ],
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RowAvatarWithTitle(
+                  text: title,
+                  color: colorTextDisabled,
+                ).buildColumns([
+                  Text(
+                    subtitle ?? '',
+                    style: textStyleCaptionSmall.copyWith(
+                      color: colorWhite,
+                    ),
+                  ),
+                  Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: context.textTheme.headlineSmall!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: textColor ?? colorWhite,
+                    ),
+                  ),
+                ])
+              ],
+            ),
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RowAvatarWithTitle(
-              text: title,
-              color: colorTextDisabled,
-            ).buildColumns([
-              Text(
-                subtitle ?? '',
-                style: textStyleCaptionSmall.copyWith(
-                  color: colorWhite,
-                ),
-              ),
-              Text(
-                title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: context.textTheme.headlineSmall!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: textColor ?? colorWhite,
-                ),
-              ),
-            ])
-          ],
-        ),
-      ),
+        if (!isRead)
+          Container(
+            margin: EdgeInsets.only(top: 16, right: 16),
+            child: Icon(
+              Icons.fiber_new_rounded,
+              color: colorWhite,
+              size: 50,
+            ),
+          ),
+      ],
     );
   }
 }

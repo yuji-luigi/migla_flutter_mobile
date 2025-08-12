@@ -87,6 +87,13 @@ class MyApp extends StatelessWidget {
           //   return AuthGate(child: child!);
           // },
           onGenerateRoute: (RouteSettings settings) {
+            return MaterialPageRoute(
+              builder: (_) {
+                // return _buildAppRoute(settings);
+                return AuthGate(child: GetStartedScreen());
+              },
+              settings: settings,
+            );
             switch (settings.name) {
               case SettingsView.routeName:
                 return MaterialPageRoute(
@@ -104,21 +111,6 @@ class MyApp extends StatelessWidget {
                 );
             }
           },
-          // Flutter web url navigation and deep linking.
-          // onGenerateRoute: (RouteSettings routeSettings) {
-          //   return MaterialPageRoute<void>(
-          //     settings: routeSettings,
-          //     builder: (BuildContext context) {
-          //       switch (routeSettings.name) {
-          //         case SettingsView.routeName:
-          //           return SettingsView(controller: settingsController);
-
-          //         default:
-          //           return const GetStartedScreen();
-          //       }
-          //     },
-          //   );
-          // },
         );
       },
     );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
+import 'package:migla_flutter/src/models/api/report/report_sum_model.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
@@ -15,9 +17,15 @@ import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_repo
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_list_card.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class TeacherReportListView extends StatelessWidget {
+class TeacherReportListView extends StatefulWidget {
   const TeacherReportListView({super.key});
 
+  @override
+  State<TeacherReportListView> createState() => _TeacherReportListViewState();
+}
+
+class _TeacherReportListViewState extends State<TeacherReportListView>
+    with RouteAwareRefetchMixin {
   @override
   Widget build(BuildContext context) {
     final StudentsViewModel studentsVm = $studentsViewModel(context);
@@ -34,8 +42,10 @@ class TeacherReportListView extends StatelessWidget {
         },
       ),
       builder: (result, {fetchMore, refetch}) {
-        final List<ReportModel> reports = result.data?['Reports']['docs']
-                .map<ReportModel>((e) => ReportModel.fromJson(e))
+        setRefetchFunction(refetch);
+
+        final List<ReportSumModel> reports = result.data?['Reports']['docs']
+                .map<ReportSumModel>((e) => ReportSumModel.fromJson(e))
                 .toList() ??
             [];
         if (result.hasException) {
@@ -82,7 +92,7 @@ class TeacherReportListView extends StatelessWidget {
               16.height,
               ...reports.asMap().entries.map(
                 (e) {
-                  final ReportModel report = e.value;
+                  final ReportSumModel report = e.value;
                   if (e.key == 0) {
                     return GestureDetector(
                       onTap: () {
@@ -96,6 +106,7 @@ class TeacherReportListView extends StatelessWidget {
                           textColor: colorWhite,
                           image: report.coverImage?.url,
                           title: report.title,
+                          isRead: report.isRead,
                         ),
                       ),
                     );
@@ -108,6 +119,7 @@ class TeacherReportListView extends StatelessWidget {
                       image: report.coverImage?.url ?? '',
                       subtitle: formatDateTime(report.createdAt),
                       title: report.title,
+                      isRead: report.isRead,
                     ),
                   );
                 },
