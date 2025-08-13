@@ -77,7 +77,7 @@ class TeacherReportListCard extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(radiusMedium),
-                    color: colorPrimary,
+                    color: colorBlack.withAlpha(125),
                     image: DecorationImage(
                       image: image.isNotEmpty
                           ? Image.network(image).image

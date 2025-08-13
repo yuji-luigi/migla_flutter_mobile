@@ -19,9 +19,7 @@ query NotificationListQuery($locale: LocaleInputType!) {
           id
         }
       }
-  
-      isRead: _count(readRecords) > 0
-      hasAttachments
+        hasAttachments
       createdAt
     }
     

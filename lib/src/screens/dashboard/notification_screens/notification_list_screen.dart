@@ -14,6 +14,7 @@ class NotificationListScreen extends StatelessWidget {
       bodyColor: colorTertiary,
       title: context.t.notificationTitle,
       appBarActions: [],
+      showStudentName: false,
       body: const NotificationListScreenBody(),
     );
   }

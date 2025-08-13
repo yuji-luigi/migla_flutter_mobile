@@ -16,12 +16,13 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   GraphQLClient _client;
   // bool _isLoading = false;
   List<StudentModel> _students = [];
+
   StudentsViewModel(this._client) {
     init();
   }
 
   // bool get isLoading => _isLoading;
-
+  List<StudentModel> get students => _students;
   init() async {
     // 1. get the saved student ID
     final int? studentId = await Storage.getSelectedStudentId();
@@ -61,6 +62,29 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       Storage.removeSelectedStudentId();
     }
     notifyListeners();
+  }
+
+  Future<List<StudentModel>> getStudents(int userId) async {
+    final localeCode = await Storage.getLocale();
+
+    final options = QueryOptions(
+      document: gql(getStudentsByParentId),
+      variables: {
+        'userId': userId,
+        'locale': localeCode,
+      },
+    );
+    final result = await _client.query(options);
+    if (result.hasException && result.exception != null) {
+      throw result.exception!;
+    }
+    _students = result.data?['Students']['docs']
+        .map<StudentModel>((e) => StudentModel.fromJson(e))
+        .toList();
+    notifyListeners();
+    return result.data?['Students']['docs']
+        .map<StudentModel>((e) => StudentModel.fromJson(e))
+        .toList();
   }
 
   clear() {

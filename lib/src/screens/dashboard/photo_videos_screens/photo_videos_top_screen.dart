@@ -4,6 +4,8 @@ import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/views/photo_video_top/gallery_section_photo_video_top.dart';
 import 'package:migla_flutter/src/widgets/buttons/chip_button.dart';
+import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
+import 'package:migla_flutter/src/widgets/buttons/student_switch_appbar_action_button.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 String _week = 'week';
@@ -32,6 +34,10 @@ class _PhotoVideosTopScreenState extends State<PhotoVideosTopScreen> {
       title: 'Photo & Videos',
       backgroundColor: bgPrimaryColor,
       bodyColor: Colors.transparent,
+      appBarActions: [
+        const StudentSwitchAppbarActionButton(),
+        const NotificationAppbarActionButton()
+      ],
       body: SingleChildScrollView(
         child: Column(
           children: [

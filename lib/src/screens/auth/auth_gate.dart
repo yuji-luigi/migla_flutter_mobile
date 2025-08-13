@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/screens/splash_screen.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:provider/provider.dart';
 
 class AuthGate extends StatefulWidget {
@@ -21,9 +22,15 @@ class _AuthGateState extends State<AuthGate> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       MeViewModel meVm = $meViewModel(context, listen: false);
-      meVm.getMe();
+      StudentsViewModel studentsViewModel =
+          $studentsViewModel(context, listen: false);
+      await meVm.getMe();
+      studentsViewModel.init();
+      if (meVm.me != null) {
+        studentsViewModel.getStudents(meVm.me!.id);
+      }
     });
   }
 

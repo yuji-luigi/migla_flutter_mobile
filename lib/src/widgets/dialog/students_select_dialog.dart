@@ -2,11 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 
-class StudentsSelectDialog extends StatelessWidget {
-  final List<StudentModel> students;
-  const StudentsSelectDialog({super.key, required this.students});
+class StudentsSelectDialog extends StatefulWidget {
+  const StudentsSelectDialog({
+    super.key,
+  });
+
+  @override
+  State<StudentsSelectDialog> createState() => _StudentsSelectDialogState();
+}
+
+class _StudentsSelectDialogState extends State<StudentsSelectDialog> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      StudentsViewModel stVm = $studentsViewModel(context, listen: false);
+      final meVm = $meViewModel(context, listen: false);
+      if (meVm.me != null) {
+        stVm.getStudents(meVm.me!.id);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +36,7 @@ class StudentsSelectDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ...students.map((student) => ListTile(
+          ...stVm.students.map((student) => ListTile(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

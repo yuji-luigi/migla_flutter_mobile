@@ -13,7 +13,7 @@ class StudentsAvatarStackContainer extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (context) => StudentsSelectDialog(students: students),
+          builder: (context) => StudentsSelectDialog(),
         );
       },
       child: Container(
