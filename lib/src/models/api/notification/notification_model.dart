@@ -1,8 +1,9 @@
 import 'dart:ffi';
 
+import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 
-class NotificationModel {
+class NotificationModel extends ApiModel {
   final int id;
   final String type;
   final String title;

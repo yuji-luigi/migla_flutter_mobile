@@ -40,6 +40,7 @@ class _PaymentListScreenState extends State<PaymentListScreen>
       padding: EdgeInsets.zero,
       bodyColor: colorTertiary,
       title: context.t.navPayment,
+      showStudentName: false,
       body: Column(
         children: [
           Expanded(

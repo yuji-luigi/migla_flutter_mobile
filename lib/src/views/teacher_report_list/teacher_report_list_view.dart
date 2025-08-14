@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
-import 'package:migla_flutter/src/models/api/report/report_model.dart';
 import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/models/api/report/report_sum_model.dart';
-import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_image_container.dart';
 import 'package:migla_flutter/src/widgets/containers/teacher_report/teacher_report_list_card.dart';
+import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_error_view.dart';
+import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_list_view_general.dart';
+import 'package:migla_flutter/src/widgets/list_view_widgets/list_view_general.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class TeacherReportListView extends StatefulWidget {
@@ -34,6 +34,58 @@ class _TeacherReportListViewState extends State<TeacherReportListView>
     if (studentsVm.selectedStudent == null) {
       return Text('No student selected');
     }
+    return GraphqlListViewGeneral<ReportSumModel>(
+      fromJson: ReportSumModel.fromJson,
+      options: QueryOptions(
+        document: gql(reportByStudentIdQuery),
+        variables: {
+          'studentId': studentsVm.selectedStudent!.id,
+          'locale': locale.languageCode,
+        },
+      ),
+      dataKey: 'Reports',
+      separatorBuilder: (context, index) {
+        return 8.height;
+      },
+      itemBuilder: (context, index, reports) {
+        if (index == reports.length) {
+          return 16.height;
+        }
+        final ReportSumModel report = reports[index];
+        if (index == 0) {
+          return Container(
+            margin: const EdgeInsets.only(
+                top: paddingXDashboardMd, right: paddingXDashboardMd),
+            child: GestureDetector(
+              onTap: () {
+                TeacherReportDetailScreen(id: report.id).launch(context);
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: paddingXDashboardMd),
+                child: TeacherReportImageContainer(
+                  textColor: colorWhite,
+                  image: report.coverImage?.url,
+                  title: report.title,
+                  isRead: report.isRead,
+                ),
+              ),
+            ),
+          );
+        }
+        return GestureDetector(
+          onTap: () {
+            TeacherReportDetailScreen(id: report.id).launch(context);
+          },
+          child: TeacherReportListCard(
+            image: report.coverImage?.url ?? '',
+            subtitle: formatDateTime(report.createdAt),
+            title: report.title,
+            isRead: report.isRead,
+          ),
+        );
+      },
+    );
     return Column(
       children: [
         Expanded(
@@ -53,50 +105,8 @@ class _TeacherReportListViewState extends State<TeacherReportListView>
                       .map<ReportSumModel>((e) => ReportSumModel.fromJson(e))
                       .toList() ??
                   [];
-              if (true) {
+              if (result.hasException) {
                 return GraphqlErrorView(result: result, refetch: refetch);
-                // if (gqlResultHas403(result)) {
-                //   WidgetsBinding.instance.addPostFrameCallback((_) {
-                //     // check still mounted before navigating:
-                //     if (context.mounted) {
-                //       LoginScreen().launch(context, isNewTask: true);
-                //     }
-                //   });
-                // }
-                // return RefreshIndicator(
-                //   onRefresh: () async {
-                //     if (refetch != null) {
-                //       refetch();
-                //     }
-                //   },
-                //   child: Column(
-                //     mainAxisSize: MainAxisSize.max,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Expanded(
-                //         child: Center(
-                //           child: Column(
-                //             mainAxisAlignment: MainAxisAlignment.center,
-                //             children: [
-                //               Text(result.exception?.graphqlErrors.toString() ??
-                //                   context.t.error_somethingWentWrong),
-                //               IconButton(
-                //                 iconSize: 48,
-                //                 icon: const Icon(Icons.refresh),
-                //                 onPressed: () {
-                //                   if (refetch != null) {
-                //                     refetch();
-                //                   }
-                //                 },
-                //               ),
-                //               Text(context.t.refreshPage),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // );
               }
               if (result.isLoading) {
                 return const Center(
@@ -104,25 +114,55 @@ class _TeacherReportListViewState extends State<TeacherReportListView>
                 );
               }
               if (reports.isEmpty) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      context.t.noReportsFound,
-                      textAlign: TextAlign.center,
-                      style: textStyleHeadingSmall,
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        if (refetch != null) {
-                          refetch();
-                        }
-                      },
-                      icon: const Icon(Icons.refresh),
-                    )
-                  ],
+                return InfoEmptyList(
+                  title: context.t.noReportsFound,
+                  onRefresh: refetch,
                 );
               }
+              return ListViewGeneral(
+                items: reports,
+                itemCount: reports.length,
+                refetch: refetch,
+                itemBuilder: (context, index) {
+                  if (index == reports.length) {
+                    return 16.height;
+                  }
+                  final ReportSumModel report = reports[index];
+                  if (index == 0) {
+                    return Container(
+                      margin: const EdgeInsets.only(
+                          top: paddingXDashboardMd, right: paddingXDashboardMd),
+                      child: GestureDetector(
+                        onTap: () {
+                          TeacherReportDetailScreen(id: report.id)
+                              .launch(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: paddingXDashboardMd),
+                          child: TeacherReportImageContainer(
+                            textColor: colorWhite,
+                            image: report.coverImage?.url,
+                            title: report.title,
+                            isRead: report.isRead,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                  return GestureDetector(
+                      onTap: () {
+                        TeacherReportDetailScreen(id: report.id)
+                            .launch(context);
+                      },
+                      child: TeacherReportListCard(
+                        image: report.coverImage?.url ?? '',
+                        subtitle: formatDateTime(report.createdAt),
+                        title: report.title,
+                        isRead: report.isRead,
+                      ));
+                },
+              );
               return RefreshIndicator(
                   onRefresh: () async {
                     if (refetch != null) {

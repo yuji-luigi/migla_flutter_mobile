@@ -18,6 +18,7 @@ class RegularLayoutScaffold extends StatelessWidget {
   final Color? bgCircleTopLeftColor;
   final Color? bgCircleBottomRightColor;
   final bool showStudentName;
+  final bool centerTitle;
   const RegularLayoutScaffold({
     super.key,
     required this.body,
@@ -31,6 +32,7 @@ class RegularLayoutScaffold extends StatelessWidget {
     this.bgCircleTopLeftColor,
     this.bgCircleBottomRightColor,
     this.showStudentName = true,
+    this.centerTitle = true,
   });
 
   @override
@@ -39,6 +41,7 @@ class RegularLayoutScaffold extends StatelessWidget {
     AppBar appBar = AppBar(
       backgroundColor:
           appBarBackgroundColor ?? bgColorSecondary.withOpacity(0.5),
+      centerTitle: centerTitle,
       title: title != null
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -94,5 +94,6 @@
 	"materialFee": "Tassa Materiali",
 	"materialFeeDescription": "Descrizione Tassa Materiali",
 	"purchases": "Acquisti",
-	"quantity": "Quantità"
+	"quantity": "Quantità",
+	"noDataFound": "Nessun dato trovato"
 }

@@ -34,6 +34,5 @@ class InfoEmptyList extends StatelessWidget {
           )
       ],
     );
-    ;
   }
 }

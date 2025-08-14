@@ -1,14 +1,15 @@
 import 'package:intl/intl.dart';
 
-String formatDateTime(DateTime dateTime, {String localeCode = 'en'}) {
+String formatDateTime(DateTime dateTime,
+    {String localeCode = 'en', yearMonth = false}) {
   if (localeCode == 'ja') {
+    final format = yearMonth ? 'yyyy年MMMM' : 'yyyy年MMMMd日';
     // 8月8日
-    return DateFormat('yyyy年MMMMd日', localeCode).format(
+    return DateFormat(format, localeCode).format(
       dateTime,
     );
   } else {
-    return DateFormat('dd MMMM yyyy', localeCode).format(
-      dateTime,
-    );
+    final format = yearMonth ? 'MMMM yyyy' : 'dd MMMM yyyy';
+    return DateFormat(format, localeCode).format(dateTime);
   }
 }

@@ -93,5 +93,6 @@
 	"materialFee": "教材費",
 	"materialFeeDescription": "教材費説明",
 	"purchases": "購入品",
-	"quantity": "数量"
+	"quantity": "数量",
+	"noDataFound": "データが見つかりません"
 }

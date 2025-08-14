@@ -94,5 +94,6 @@
 	"materialFee": "Material Fee",
 	"materialFeeDescription": "Material Fee Description",
 	"purchases": "Purchases",
-	"quantity": "Quantity"
+	"quantity": "Quantity",
+	"noDataFound": "No data found"
 }

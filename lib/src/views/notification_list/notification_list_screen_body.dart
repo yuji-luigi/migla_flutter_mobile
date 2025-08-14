@@ -11,6 +11,7 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
 import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile/notification_list_tile.dart';
+import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_list_view_general.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListScreenBody extends StatefulWidget {
@@ -23,10 +24,49 @@ class NotificationListScreenBody extends StatefulWidget {
 
 class _NotificationListScreenBodyState extends State<NotificationListScreenBody>
     with RouteAwareRefetchMixin {
+  List<Object> display = [];
   @override
   Widget build(BuildContext context) {
     final locale = $settingsController(context).locale;
+    return GraphqlListViewGeneral<NotificationModel>(
+      fromJson: NotificationModel.fromJson,
+      options: QueryOptions(
+        document: gql(notificationListQuery),
+        variables: {
+          'locale': locale.languageCode,
+        },
+        onComplete: (result) {
+          setState(() {
+            display = buildDisplayList(
+                result?['Notifications']['docs']
+                    .map<NotificationModel>((notification) =>
+                        NotificationModel.fromJson(notification))
+                    .toList(),
+                localeCode: locale.languageCode);
+          });
+        },
+      ),
+      dataKey: 'Notifications',
+      itemCount: display.length,
+      itemBuilder: (context, index, notifications) {
+        if (index == display.length) {
+          return 100.height;
+        }
+        if (display[index] is String) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              display[index] as String,
+              style: textStyleHeadingMedium,
+            ),
+          );
+        }
 
+        return NotificationListTile(
+          notification: display[index] as NotificationModel,
+        );
+      },
+    );
     return Column(
       children: [
         Expanded(

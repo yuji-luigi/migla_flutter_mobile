@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
@@ -77,7 +78,10 @@ class NotificationListTile extends StatelessWidget {
                 children: [
                   Spacer(),
                   Text(
-                    formatDateTime(DateTime.parse(notification.createdAt)),
+                    formatDateTime(DateTime.parse(notification.createdAt),
+                        localeCode: $settingsController(context, listen: false)
+                            .locale
+                            .languageCode),
                     style: textStyleCaptionMd.copyWith(
                       color: colorTextDisabled,
                     ),
