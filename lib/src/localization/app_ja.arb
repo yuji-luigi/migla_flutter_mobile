@@ -88,7 +88,6 @@
 	"alertMessage": "アラートメッセージ",
 	"body": "本文",
 	"createdAt": "作成日時",
-	"paymentDetails": "支払い詳細",
 	"tuitionFee": "授業料",
 	"studentCount": "生徒数",
 	"materialFee": "教材費",
