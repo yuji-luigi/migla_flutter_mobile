@@ -1,4 +1,6 @@
-class PaymentRecordSummaryModel {
+import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
+
+class PaymentRecordSummaryModel extends ApiModel {
   final int id;
   final PaymentScheduleModel paymentSchedule;
   final bool paid;
