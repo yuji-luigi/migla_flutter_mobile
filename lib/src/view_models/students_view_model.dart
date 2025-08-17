@@ -9,6 +9,7 @@ import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:provider/provider.dart';
 
 class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
@@ -17,13 +18,13 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   // bool _isLoading = false;
   List<StudentModel> _students = [];
 
-  StudentsViewModel(this._client) {
-    init();
-  }
+  StudentsViewModel(this._client);
 
   // bool get isLoading => _isLoading;
   List<StudentModel> get students => _students;
-  init() async {
+  StudentModel? get selectedStudent => _selectedStudent;
+
+  setSelectedStudentFromCache() async {
     // 1. get the saved student ID
     final int? studentId = await Storage.getSelectedStudentId();
     if (studentId == null) return;
@@ -52,8 +53,6 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     }
   }
 
-  StudentModel? get selectedStudent => _selectedStudent;
-
   void setSelectedStudent(StudentModel? student) {
     _selectedStudent = student;
     if (student != null) {
@@ -64,27 +63,36 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
-  Future<List<StudentModel>> getStudents(int userId) async {
-    final localeCode = await Storage.getLocale();
-
-    final options = QueryOptions(
-      document: gql(getStudentsByParentId),
-      variables: {
-        'userId': userId,
-        'locale': localeCode,
-      },
-    );
-    final result = await _client.query(options);
-    if (result.hasException && result.exception != null) {
-      throw result.exception!;
+  Future<List<StudentModel>> getStudents(BuildContext context) async {
+    try {
+      MeViewModel meVm = $meViewModel(context, listen: false);
+      if (meVm.me == null) {
+        throw Exception('meVM is called in getStudents before me is loaded');
+      }
+      final localeCode = await Storage.getLocale();
+      final options = QueryOptions(
+        document: gql(getStudentsByParentId),
+        variables: {
+          'userId': meVm.me!.id,
+          'locale': localeCode,
+        },
+      );
+      final result = await _client.query(options);
+      if (result.hasException && result.exception != null) {
+        throw result.exception!;
+      }
+      _students = result.data?['Students']['docs']
+          .map<StudentModel>((e) => StudentModel.fromJson(e))
+          .toList();
+      notifyListeners();
+      return result.data?['Students']['docs']
+          .map<StudentModel>((e) => StudentModel.fromJson(e))
+          .toList();
+    } catch (e, stackTrace) {
+      print('error in getStudents: $e');
+      Logger.error(e.toString(), stackTrace: stackTrace);
+      rethrow;
     }
-    _students = result.data?['Students']['docs']
-        .map<StudentModel>((e) => StudentModel.fromJson(e))
-        .toList();
-    notifyListeners();
-    return result.data?['Students']['docs']
-        .map<StudentModel>((e) => StudentModel.fromJson(e))
-        .toList();
   }
 
   clear() {

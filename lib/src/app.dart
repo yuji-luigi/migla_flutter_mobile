@@ -80,12 +80,7 @@ class MyApp extends StatelessWidget {
           // darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
           debugShowCheckedModeBanner: false,
-          // Define a function to handle named routes in order to support
-          /// you can wrap all the routes in the auth gate
-          // builder: (context, child) {
-          // child here is whatever onGenerateRoute / home / initial route produced
-          //   return AuthGate(child: child!);
-          // },
+
           onGenerateRoute: (RouteSettings settings) {
             return MaterialPageRoute(
               builder: (_) {
@@ -94,22 +89,6 @@ class MyApp extends StatelessWidget {
               },
               settings: settings,
             );
-            switch (settings.name) {
-              case SettingsView.routeName:
-                return MaterialPageRoute(
-                  builder: (_) => SettingsView(controller: settingsController),
-                  settings: settings,
-                );
-
-              default:
-                return MaterialPageRoute(
-                  builder: (_) {
-                    // return _buildAppRoute(settings);
-                    return AuthGate(child: GetStartedScreen());
-                  },
-                  settings: settings,
-                );
-            }
           },
         );
       },

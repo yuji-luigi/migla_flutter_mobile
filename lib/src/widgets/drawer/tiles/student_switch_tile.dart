@@ -8,7 +8,7 @@ import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
-import 'package:migla_flutter/src/widgets/dialog/students_select_dialog.dart';
+import 'package:migla_flutter/src/widgets/dialog/students_select_dialog/students_select_dialog.dart';
 import 'package:migla_flutter/src/widgets/drawer/tiles/drawer_list_tile.dart';
 import 'package:provider/provider.dart';
 

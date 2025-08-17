@@ -24,6 +24,13 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     AuthTokenProvider authTokenProvider = $authTokenProvider(context);
     MeViewModel meViewModel = $meViewModel(context);
+    if (meViewModel.hasMe) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          DashboardHomeScreen().launch(context, isNewTask: true);
+        }
+      });
+    }
     Future<void> login(Map<String, dynamic> formData) async {
       Response res = await _apiClient.post('/users/login?role-name=parent',
           body: formData);
@@ -34,7 +41,7 @@ class LoginScreen extends StatelessWidget {
       }
       await authTokenProvider.setToken(body['token']);
       await meViewModel.getMe();
-      DashboardHomeScreen().launch(context);
+      // DashboardHomeScreen().launch(context, isNewTask: true);
     }
 
     Future<List<ValidationError>> onError(Object error) async {

@@ -9,6 +9,7 @@ import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/bottom_section/dashboard_home_bottom_section.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/dashboard_home_top_section.dart';
 import 'package:migla_flutter/src/widgets/scaffold/dashboard_home_scaffold.dart';
@@ -27,8 +28,16 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(DashboardHomeScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _gqlClient = GraphQLProvider.of(context).value;
+      StudentsViewModel studentsViewModel =
+          $studentsViewModel(context, listen: false);
+      studentsViewModel.getStudents(context);
       _initMessagingForUser();
     });
   }

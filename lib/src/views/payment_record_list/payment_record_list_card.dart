@@ -5,7 +5,6 @@ import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payme
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
 
 class PaymentRecordListCard extends StatelessWidget {
   const PaymentRecordListCard(
