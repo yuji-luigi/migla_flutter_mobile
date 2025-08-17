@@ -12,6 +12,7 @@ class GraphqlListViewGeneral<T extends ApiModel> extends StatefulWidget {
   final String? emptyListTitle;
   final String dataKey;
   final int? itemCount;
+  final List<T>? items;
   final T Function(Map<String, dynamic> json) fromJson;
   final Widget Function(BuildContext context, int index)? separatorBuilder;
   final Widget Function(BuildContext context, int index, List<T> items)
@@ -26,6 +27,7 @@ class GraphqlListViewGeneral<T extends ApiModel> extends StatefulWidget {
     this.itemCount,
     this.separatorBuilder,
     required this.fromJson,
+    this.items,
   });
 
   @override
@@ -44,7 +46,8 @@ class _GraphqlListViewState<T extends ApiModel>
             builder: (result, {fetchMore, refetch}) {
               setRefetchFunction(refetch);
 
-              final List<T> items = result.data?[widget.dataKey]['docs']
+              final List<T> items = widget.items ??
+                  result.data?[widget.dataKey]['docs']
                       .map<T>((e) => widget.fromJson(e))
                       .toList() ??
                   [];

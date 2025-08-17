@@ -10,6 +10,7 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/payment_record_list/payment_record_list_card.dart';
 import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_list_view_general.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class PaymentListScreen extends StatefulWidget {
   const PaymentListScreen({super.key});
@@ -34,6 +35,7 @@ class _PaymentListScreenState extends State<PaymentListScreen>
         body: const Center(child: CircularProgressIndicator()),
       );
     }
+    DateTime now = DateTime.now();
     return RegularLayoutScaffold(
         padding: EdgeInsets.zero,
         bodyColor: colorTertiary,
@@ -42,6 +44,8 @@ class _PaymentListScreenState extends State<PaymentListScreen>
         body: GraphqlListViewGeneral<PaymentRecordSummaryModel>(
           fromJson: PaymentRecordSummaryModel.fromJson,
           dataKey: 'PaymentRecords',
+          items: _filteredItems,
+          itemCount: _filteredItems.length,
           itemBuilder: (context, index, items) {
             return Container(
               padding: EdgeInsets.only(
@@ -71,7 +75,13 @@ class _PaymentListScreenState extends State<PaymentListScreen>
               setState(() {
                 if (paymentRecords.isNotEmpty) {
                   setState(() {
-                    _filteredItems = paymentRecords;
+                    _filteredItems = paymentRecords
+                        .where((paymentRecord) =>
+                            now.isAfter(paymentRecord
+                                .paymentSchedule.notificationScheduledAt) ||
+                            paymentRecord.paymentSchedule
+                                .notificationScheduledAt.isToday)
+                        .toList();
                   });
                 }
               });
