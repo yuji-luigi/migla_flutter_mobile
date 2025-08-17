@@ -22,7 +22,6 @@ class PhotoVideosTopScreen extends StatefulWidget {
 class _PhotoVideosTopScreenState extends State<PhotoVideosTopScreen> {
   String currentCategory = _category;
   void setCurrentCategory(String category) {
-    print('setCurrentCategory: $category');
     setState(() {
       currentCategory = category;
     });

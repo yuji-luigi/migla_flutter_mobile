@@ -79,19 +79,16 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       );
       final result = await _client.query(options);
       if (result.hasException && result.exception != null) {
-        print('result.exception: ${result.exception}');
         throw result.exception!;
       }
       _students = result.data?['Students']['docs']
           .map<StudentModel>((e) => StudentModel.fromJson(e))
           .toList();
       notifyListeners();
-      print('result.data: ${result.data}');
       return result.data?['Students']['docs']
           .map<StudentModel>((e) => StudentModel.fromJson(e))
           .toList();
     } catch (e, stackTrace) {
-      print('error in getStudents: $e');
       Logger.error(e.toString(), stackTrace: stackTrace);
       rethrow;
     }

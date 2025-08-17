@@ -1,6 +1,7 @@
 import 'package:migla_flutter/src/models/api/link/link_model.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class NotificationDetailModel extends NotificationModel {
   final List<LinkModel> links;
@@ -27,14 +28,12 @@ class NotificationDetailModel extends NotificationModel {
       }
       return NotificationDetailModel.fromJson(json);
     } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(error.toString());
       return null;
     }
   }
 
   factory NotificationDetailModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     try {
       return NotificationDetailModel(
         id: json['id'],
@@ -60,8 +59,7 @@ class NotificationDetailModel extends NotificationModel {
             : [],
       );
     } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(error.toString());
       rethrow;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/teacher/teacher_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class ReportSumModel extends ApiModel {
   final int id;
@@ -52,9 +53,8 @@ class ReportSumModel extends ApiModel {
             : [],
         createdAt: DateTime.parse(json['createdAt']),
       );
-    } catch (error, stackTrace) {
-      print(error);
-      print(stackTrace);
+    } catch (error) {
+      Logger.error(error.toString());
       rethrow;
     }
   }

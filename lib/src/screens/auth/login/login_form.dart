@@ -65,7 +65,6 @@ class LoginForm extends StatelessWidget {
         formViewModel.setIsSubmitting(true);
         Response res = await _apiClient.post('/users/login?role-name=parent',
             body: formData);
-        // print('login: ${res.body}');
         Map<String, dynamic> body = jsonDecode(res.body);
         if (formData['rememberMe'] == true) {
           await Storage.saveCredentials(

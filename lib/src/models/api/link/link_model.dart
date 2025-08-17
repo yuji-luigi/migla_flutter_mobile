@@ -34,7 +34,6 @@ class LinkModel {
   });
 
   factory LinkModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     String? url;
     if (LinkTypeX.fromJson(json['type']) == LinkType.reference.name) {
       url = '$host/${json['reference']['value']['slug']}';

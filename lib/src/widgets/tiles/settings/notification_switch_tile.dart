@@ -32,7 +32,6 @@ class _NotificationSwitchTileState extends State<NotificationSwitchTile> {
         thumbColor: WidgetStateProperty.all(colorWhite),
         onChanged: (value) {
           setState(() {
-            print('Call api...');
             _isNotificationEnabled = value;
           });
         },

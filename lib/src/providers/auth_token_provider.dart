@@ -13,7 +13,6 @@ class AuthTokenProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
   init() async {
     String? token = await Storage.getToken();
-    print(token);
     this.token = token;
     notifyListeners();
   }

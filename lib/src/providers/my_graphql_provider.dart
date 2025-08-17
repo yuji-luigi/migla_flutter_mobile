@@ -21,7 +21,9 @@ class _MyGraphqlProviderState extends State<MyGraphqlProvider> {
   @override
   void initState() {
     super.initState();
-    final httpLink = HttpLink(apiGraphqlUrl);
+    final httpLink = HttpLink(
+      apiGraphqlUrl,
+    );
 
     // Capture the provider INSTANCE, not the token value.
     final auth = context.read<AuthTokenProvider>();

@@ -1,4 +1,5 @@
 import 'package:migla_flutter/src/models/api/product_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class PaymentRecordModel {
   final int id;
@@ -36,8 +37,7 @@ class PaymentRecordModel {
       }
       return PaymentRecordModel.fromJson(json);
     } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(error.toString());
       return null;
     }
   }
@@ -61,10 +61,9 @@ class PaymentRecordModel {
             .map((purchase) => PurchaseModel.fromJson(purchase))
             .toList(),
       );
-    } catch (error, stackTrace) {
-      print(json);
-      print(error.toString());
-      print(stackTrace.toString());
+    } catch (error) {
+      Logger.error(json.toString());
+      Logger.error(error.toString());
       rethrow;
     }
   }

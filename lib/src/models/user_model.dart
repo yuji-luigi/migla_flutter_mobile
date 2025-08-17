@@ -12,7 +12,6 @@ class UserModel {
     required this.email,
   });
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return UserModel(
       id: json['id'],
       surname: json['surname'],

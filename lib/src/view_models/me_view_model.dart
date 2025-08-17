@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:provider/provider.dart';
@@ -24,13 +25,12 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       final res = await _apiClient.get(apiUrlMe);
       final data = jsonDecode(res.body);
       if (data['user'] != null) {
-        print(data['user']);
         _me = UserModel.fromJson(data['user']);
       }
       _isLoading = false;
       notifyListeners();
     } catch (error) {
-      print('Error getting me: $error');
+      Logger.error('Error getting me: $error');
       _isLoading = false;
       notifyListeners();
     }
@@ -42,7 +42,7 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       _me = null;
       await Storage.removeAll();
     } catch (e) {
-      print('Error logging out: $e');
+      Logger.error('Error logging out: $e');
     }
     notifyListeners();
   }

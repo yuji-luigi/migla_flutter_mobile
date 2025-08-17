@@ -1,4 +1,5 @@
 import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class PaymentRecordSummaryModel extends ApiModel {
   final int id;
@@ -17,15 +18,13 @@ class PaymentRecordSummaryModel extends ApiModel {
         return null;
       }
       return PaymentRecordSummaryModel.fromJson(json);
-    } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+    } catch (error) {
+      Logger.error(error.toString());
       return null;
     }
   }
 
   factory PaymentRecordSummaryModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     try {
       return PaymentRecordSummaryModel(
         id: json['id'],
@@ -33,9 +32,8 @@ class PaymentRecordSummaryModel extends ApiModel {
         paid: json['paid'] ?? false,
       );
     } catch (error, stackTrace) {
-      print(json);
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(json.toString());
+      Logger.error(error.toString());
       rethrow;
     }
   }
@@ -45,7 +43,7 @@ class PaymentScheduleModel {
   final int id;
   final String notificationTitle;
   final DateTime paymentDue;
-  final String notificationScheduledAt;
+  final DateTime notificationScheduledAt;
   final String createdAt;
 
   PaymentScheduleModel({
@@ -61,44 +59,8 @@ class PaymentScheduleModel {
       id: json['id'],
       notificationTitle: json['notificationTitle'] ?? '',
       paymentDue: DateTime.parse(json['paymentDue']),
-      notificationScheduledAt: json['notificationScheduledAt'] ?? '',
+      notificationScheduledAt: DateTime.parse(json['notificationScheduledAt']),
       createdAt: json['createdAt'] ?? '',
     );
   }
 }
-
-// class PaymentRecordSummary {
-//   final List<PaymentRecordModel> docs;
-
-//   PaymentRecordSummary({
-//     required this.docs,
-//   });
-
-//   static PaymentRecordSummary? tryFromJson(Map<String, dynamic>? json) {
-//     try {
-//       if (json == null) {
-//         return null;
-//       }
-//       return PaymentRecordSummary.fromJson(json);
-//     } catch (error, stackTrace) {
-//       print(error.toString());
-//       print(stackTrace.toString());
-//       return null;
-//     }
-//   }
-
-//   factory PaymentRecordSummary.fromJson(Map<String, dynamic> json) {
-//     print(json);
-//     try {
-//       final docsList = json['docs'] as List<dynamic>? ?? [];
-//       return PaymentRecordSummary(
-//         docs: docsList.map((doc) => PaymentRecordModel.fromJson(doc)).toList(),
-//       );
-//     } catch (error, stackTrace) {
-//       print(json);
-//       print(error.toString());
-//       print(stackTrace.toString());
-//       rethrow;
-//     }
-//   }
-// }

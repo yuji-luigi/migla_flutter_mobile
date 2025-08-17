@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
 import 'package:migla_flutter/src/screens/splash_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
     FirebaseApp app = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    print('Initialized default app $app');
+    Logger.info('Initialized default app $app');
   }
 
   static bool _didPrecache = false;
