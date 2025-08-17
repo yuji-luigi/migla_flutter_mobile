@@ -4,39 +4,60 @@ import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:provider/provider.dart';
 
-class MyGraphqlProvider extends StatelessWidget {
+/// Make the cache store a singleton so it isn't recreated on rebuilds.
+final HiveStore _hiveStore = HiveStore();
+
+class MyGraphqlProvider extends StatefulWidget {
   final Widget child;
-  const MyGraphqlProvider({
-    super.key,
-    required this.child,
-  });
+  const MyGraphqlProvider({super.key, required this.child});
 
-  Widget build(BuildContext context) {
-    return Selector<AuthTokenProvider, String?>(
-      selector: (_, provider) => provider.token,
-      builder: (context, token, _) {
-        final httpLink = HttpLink(apiGraphqlUrl);
-        final authLink = AuthLink(
-          getToken: () async => token == null ? null : 'Bearer $token',
-        );
-        final link = authLink.concat(httpLink);
+  @override
+  State<MyGraphqlProvider> createState() => _MyGraphqlProviderState();
+}
 
-        final client = ValueNotifier(
-          GraphQLClient(
-            link: link,
-            cache: GraphQLCache(store: HiveStore()),
-          ),
-        );
+class _MyGraphqlProviderState extends State<MyGraphqlProvider> {
+  late final ValueNotifier<GraphQLClient> _client;
 
-        return GraphQLProvider(
-          client: client,
-          child: child,
-        );
+  @override
+  void initState() {
+    super.initState();
+    final httpLink = HttpLink(apiGraphqlUrl);
+
+    // Capture the provider INSTANCE, not the token value.
+    final auth = context.read<AuthTokenProvider>();
+
+    final authLink = AuthLink(
+      getToken: () async {
+        final t = auth.token; // always current
+        return t == null ? null : 'Bearer $t';
       },
     );
+
+    final link = authLink.concat(httpLink);
+
+    _client = ValueNotifier(
+      GraphQLClient(
+        link: link,
+        cache: GraphQLCache(store: _hiveStore),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // No rebuild needed on token changes; getToken reads latest at request time.
+    return GraphQLProvider(
+      client: _client,
+      child: widget.child,
+    );
+  }
+
+  @override
+  void dispose() {
+    _client.dispose();
+    super.dispose();
   }
 }
 
-GraphQLClient getGqlClient(BuildContext context) {
-  return GraphQLProvider.of(context).value;
-}
+GraphQLClient getGqlClient(BuildContext context) =>
+    GraphQLProvider.of(context).value;

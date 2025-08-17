@@ -7,9 +7,6 @@ import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:provider/provider.dart';
 
 class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
-  final Future<void> Function(Map<String, dynamic>) _onSubmit;
-
-  final Future<List<ValidationError>> Function(Object)? _onError;
   Map<String, dynamic> _formData = {};
 
   List<ValidationError> _formErrors = [];
@@ -18,12 +15,10 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
 
   FormViewModel({
     Map<String, dynamic>? initialValues,
-    required Future<void> Function(Map<String, dynamic>) onSubmit,
 
     /// must return the validation errors to set the formErrors in the catch block of submit callback.
     Future<List<ValidationError>> Function(Object)? onError,
-  })  : _onSubmit = onSubmit,
-        _onError = onError {
+  }) {
     if (initialValues != null) {
       // json encode decode cloning can throw errors for DateTime kind of values. so create temp Map
       Map<String, dynamic> tempData = {};
@@ -74,24 +69,6 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   void setIsSubmitting(bool value) {
     _isSubmitting = value;
     notifyListeners();
-  }
-
-  Future<void> submitForm() async {
-    _isSubmitting = true;
-    notifyListeners();
-    try {
-      await _onSubmit(formData);
-    } catch (error) {
-      Logger.error(error.toString());
-      if (_onError != null) {
-        List<ValidationError> errors = await _onError.call(error);
-        formErrors = errors;
-      }
-      // rethrow;
-    } finally {
-      _isSubmitting = false;
-      notifyListeners();
-    }
   }
 }
 

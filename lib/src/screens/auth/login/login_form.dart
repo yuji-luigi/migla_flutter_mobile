@@ -1,10 +1,20 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
+import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
+import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/storage.dart';
+import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/inputs/controled_inputs/input_rounded_white_controlled.dart';
 import 'package:migla_flutter/src/widgets/inputs/controled_inputs/password_input_controlled.dart';
@@ -14,11 +24,63 @@ import 'package:migla_flutter/src/widgets/switch/switch_base.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
+  final ApiClient _apiClient = ApiClient();
+  LoginForm({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     FormViewModel formViewModel = $formViewModel(context);
+    AuthTokenProvider authTokenProvider = $authTokenProvider(context);
+    MeViewModel meViewModel = $meViewModel(context);
+
+    Future<List<ValidationError>> onError(Object error) async {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login failed: ${error.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      if (error is Exception) {
+        Map<String, dynamic> errorRes = jsonDecode(error.getMessage);
+        Map<String, dynamic> targetError = errorRes['errors'][0];
+        if (targetError['name'] == 'ValidationError') {
+          if (targetError['data']['errors'] is List) {
+            List<ValidationError> errors = targetError['data']['errors']
+                .map((error) => ValidationError.fromJson(error))
+                .whereType<ValidationError>()
+                .toList();
+            return errors;
+          }
+        }
+      }
+      return [
+        ValidationError(path: 'email', message: 'Invalid email'),
+      ];
+    }
+
+    Future<void> onSubmit(Map<String, dynamic> formData) async {
+      try {
+        formViewModel.setIsSubmitting(true);
+        Response res = await _apiClient.post('/users/login?role-name=parent',
+            body: formData);
+        // print('login: ${res.body}');
+        Map<String, dynamic> body = jsonDecode(res.body);
+        if (formData['rememberMe'] == true) {
+          await Storage.saveCredentials(
+              formData['email'], formData['password']);
+        }
+        await authTokenProvider.setToken(body['token']);
+        await meViewModel.getMe();
+        formViewModel.setIsSubmitting(false);
+        DashboardHomeScreen().launch(context);
+      } catch (error) {
+        await onError(error);
+        formViewModel.setIsSubmitting(false);
+      }
+    }
+
     return AuthScaffoldColumn(
       children: [
         Spacer(),
@@ -54,7 +116,7 @@ class LoginForm extends StatelessWidget {
             text: context.t.login,
             isLoading: formViewModel.isSubmitting,
             onPressed: () async {
-              await formViewModel.submitForm();
+              onSubmit(formViewModel.formData);
             }),
         Row(
           spacing: 8,

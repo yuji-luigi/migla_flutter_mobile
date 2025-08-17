@@ -28,6 +28,13 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _gqlClient = GraphQLProvider.of(context).value;
+      StudentsViewModel studentsViewModel =
+          $studentsViewModel(context, listen: false);
+      studentsViewModel.getStudents(context);
+      _initMessagingForUser();
+    });
   }
 
   @override
