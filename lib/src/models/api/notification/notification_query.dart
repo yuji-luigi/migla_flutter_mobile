@@ -8,16 +8,19 @@ query NotificationListQuery($locale: LocaleInputType!) {
      docs{
       id
       title
-      type
+      body
+      data{
+        type
+        collection
+        collectionRecordId
+      }
       readRecords{
         docs{
           id
         }
       }
-      hasAttachments
+        hasAttachments
       createdAt
-     
-     
     }
     
   }

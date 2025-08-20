@@ -8,75 +8,11 @@ import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:provider/provider.dart';
 
-class GetStartedScreen extends StatefulWidget {
+class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
-  @override
-  State<GetStartedScreen> createState() => _GetStartedScreenState();
-}
-
-class _GetStartedScreenState extends State<GetStartedScreen> {
-  late final MeViewModel _meVm;
-  late VoidCallback _listener;
-
-  @override
-  void initState() {
-    super.initState();
-    // 1) Grab your MeViewModel from Provider (it already started its init() in its constructor)
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _meVm = $meViewModel(context, listen: false);
-
-      // 2) If it already has “me” (e.g. if the HTTP call resolved very quickly),
-      //    then jump directly to your “home” or “dashboard” route:
-      if (_meVm.hasMe) {
-        _goToHome();
-        return;
-      }
-
-      // 3) Otherwise, attach a listener so that the moment me becomes non‐null, we navigate.
-      _listener = () {
-        if (_meVm.hasMe) {
-          // prevent further listener calls once we’ve navigated
-          _meVm.removeListener(_listener);
-          _goToHome();
-        }
-      };
-
-      _meVm.addListener(_listener);
-    });
-    handleSeenOnboarding();
-  }
-
-  void handleSeenOnboarding() async {
-    bool seen = await Storage.getSeenOnboarding();
-    if (!seen) {
-      Storage.setSeenOnboarding(true);
-      return;
-    }
-    LoginScreen().launch(context, isNewTask: true);
-  }
-
-  void _goToHome() {
-    // Use addPostFrameCallback to avoid doing Navigator.push during build
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const DashboardHomeScreen()),
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    // Clean up the listener if we never navigated
-    if (!_meVm.hasMe) {
-      _meVm.removeListener(_listener);
-    }
-    super.dispose();
-  }
-
+  // @override
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(

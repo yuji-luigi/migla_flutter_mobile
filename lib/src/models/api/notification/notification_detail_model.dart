@@ -1,9 +1,9 @@
 import 'package:migla_flutter/src/models/api/link/link_model.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class NotificationDetailModel extends NotificationModel {
-  final String body;
   final List<LinkModel> links;
   final List<MediaModel> attachments;
 
@@ -11,11 +11,13 @@ class NotificationDetailModel extends NotificationModel {
     required super.id,
     required super.type,
     required super.title,
-    required this.body,
+    required super.body,
     required super.createdAt,
     required this.attachments,
     required super.isRead,
     required super.hasAttachments,
+    required super.collection,
+    required super.collectionRecordId,
     this.links = const [],
   });
 
@@ -26,14 +28,12 @@ class NotificationDetailModel extends NotificationModel {
       }
       return NotificationDetailModel.fromJson(json);
     } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(error.toString());
       return null;
     }
   }
 
   factory NotificationDetailModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     try {
       return NotificationDetailModel(
         id: json['id'],
@@ -42,6 +42,8 @@ class NotificationDetailModel extends NotificationModel {
         body: json['body'],
         createdAt: json['createdAt'],
         isRead: json['isRead'] ?? false,
+        collection: json['data']['collection'],
+        collectionRecordId: json['data']['id'],
         links: json['links'] is List && json['links'].isNotEmpty
             ? json['links']
                 .map<LinkModel>(
@@ -57,8 +59,7 @@ class NotificationDetailModel extends NotificationModel {
             : [],
       );
     } catch (error, stackTrace) {
-      print(error.toString());
-      print(stackTrace.toString());
+      Logger.error(error.toString());
       rethrow;
     }
   }

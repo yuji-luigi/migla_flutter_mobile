@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/firebase_options.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/providers/feature_providers.dart';
 import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
@@ -19,11 +20,12 @@ Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 
   // You can access message.data, message.notification, etc.
-  print('🔔 [background] Handling a background message: ${message.messageId}');
-  print('Data payload: ${message.data}');
+  Logger.info(
+      '🔔 [background] Handling a background message: ${message.messageId}');
+  Logger.info('Data payload: ${message.data}');
   if (message.notification != null) {
-    print('Notification title: ${message.notification!.title}');
-    print('Notification body: ${message.notification!.body}');
+    Logger.info('Notification title: ${message.notification!.title}');
+    Logger.info('Notification body: ${message.notification!.body}');
   }
 
   // TODO: If you want to show a local notification, call your notification
@@ -56,9 +58,9 @@ void main() async {
     badge: true,
     sound: true,
   );
-  print('host: $host');
-  print('apiUrl: $apiUrl');
-  print('apiGraphqlUrl: $apiGraphqlUrl');
+  Logger.info('host: $host');
+  Logger.info('apiUrl: $apiUrl');
+  Logger.info('apiGraphqlUrl: $apiGraphqlUrl');
   // We're using HiveStore for persistence,
   // so we need to initialize Hive.
   await initHiveForFlutter();

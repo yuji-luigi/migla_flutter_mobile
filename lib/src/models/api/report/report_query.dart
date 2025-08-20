@@ -13,13 +13,17 @@ query reportByStudentIdQuery($studentId: JSON!, $locale: LocaleInputType!){
     docs {
       id
       title
-      subtitle
       body
       createdAt
       updatedAt
       teacher{
         id
         name
+      }
+      readRecords{
+        docs{
+          id
+        }
       }
       attachments {
         id
@@ -41,7 +45,6 @@ query ReportById($id: Int!, $locale: LocaleInputType!){
    Report(id:$id locale: $locale){
       id
       title
-      subtitle
       body
       createdAt
       updatedAt
@@ -59,7 +62,6 @@ query ReportById($id: Int!, $locale: LocaleInputType!){
         id
         url
       }
-    
   }
 }
 """;

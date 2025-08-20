@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/models/api/student/student_model.dart';
-import 'package:migla_flutter/src/widgets/dialog/students_select_dialog.dart';
+import 'package:migla_flutter/src/widgets/dialog/students_select_dialog/students_select_dialog.dart';
 
 class StudentsAvatarStackContainer extends StatelessWidget {
   final List<StudentModel> students;
@@ -13,7 +13,7 @@ class StudentsAvatarStackContainer extends StatelessWidget {
       onTap: () {
         showDialog(
           context: context,
-          builder: (context) => StudentsSelectDialog(students: students),
+          builder: (context) => StudentsSelectDialog(),
         );
       },
       child: Container(

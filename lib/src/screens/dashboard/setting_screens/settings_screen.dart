@@ -3,6 +3,7 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/language_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/logout_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/notification_switch_tile.dart';
@@ -14,7 +15,9 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return RegularLayoutScaffold(
       title: context.t.settings,
+      showStudentName: false,
       bodyColor: colorTertiary,
+      appBarActions: [const NotificationAppbarActionButton()],
       body: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: paddingYDashboardMd,

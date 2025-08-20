@@ -79,7 +79,6 @@ class _TappableImageState extends State<TappableImage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.imagePath);
     void showFullScreenImage(BuildContext context, int initialIndex) {
       showDialog(
         context: context,

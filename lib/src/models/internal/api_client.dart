@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:migla_flutter/env_vars.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 
 class ApiClient {
@@ -42,7 +43,7 @@ class ApiClient {
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
-    print('POST: uri: $uri');
+    Logger.info('POST: uri: $uri');
     http.Response response =
         await http.post(uri, body: jsonEncode(body), headers: headers);
 

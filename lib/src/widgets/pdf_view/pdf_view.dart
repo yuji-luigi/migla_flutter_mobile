@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
@@ -73,7 +74,7 @@ class _PdfViewState extends State<PdfView> {
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
     } catch (e) {
-      print("Download error: $e"); // 👈 Add this to see the real issue
+      Logger.error("Download error: $e"); // 👈 Add this to see the real issue
 
       throw Exception('Error parsing asset file!');
     }

@@ -1,20 +1,20 @@
+import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/teacher/teacher_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 
-class ReportModel {
+class ReportDetailModel extends ApiModel {
   final int id;
   final String title;
   final TeacherModel teacher;
-  final String subtitle;
   final String body;
   final MediaModel? coverImage;
   final List<MediaModel> attachments;
-  final String createdAt;
+  final DateTime createdAt;
 
-  ReportModel({
+  ReportDetailModel({
     required this.id,
     required this.title,
-    required this.subtitle,
     required this.body,
     required this.createdAt,
     required this.teacher,
@@ -22,23 +22,22 @@ class ReportModel {
     required this.attachments,
   });
 
-  static ReportModel? tryFromJson(Map<String, dynamic>? json) {
+  static ReportDetailModel? tryFromJson(Map<String, dynamic>? json) {
     try {
       if (json == null) {
         return null;
       }
-      return ReportModel.fromJson(json);
+      return ReportDetailModel.fromJson(json);
     } catch (error) {
       return null;
     }
   }
 
-  factory ReportModel.fromJson(Map<String, dynamic> json) {
+  factory ReportDetailModel.fromJson(Map<String, dynamic> json) {
     try {
-      return ReportModel(
+      return ReportDetailModel(
         id: json['id'],
         title: json['title'] ?? '',
-        subtitle: json['subtitle'] ?? '',
         body: json['body'] ?? '',
         teacher: TeacherModel.fromJson(json['teacher']),
         coverImage: json['coverImage'] != null
@@ -48,12 +47,17 @@ class ReportModel {
             ? List<MediaModel>.from(
                 json['attachments'].map((x) => MediaModel.fromJson(x)))
             : [],
-        createdAt: json['createdAt'],
+        createdAt: DateTime.parse(json['createdAt']),
       );
-    } catch (error, stackTrace) {
-      print(error);
-      print(stackTrace);
+    } catch (error) {
+      Logger.error(error.toString());
       rethrow;
     }
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
   }
 }

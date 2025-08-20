@@ -1,12 +1,14 @@
-import 'package:intl/intl.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
+import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 
-List<Object> buildDisplayList(List<NotificationModel> notifications) {
+List<Object> buildDisplayList(List<NotificationModel> notifications,
+    {String localeCode = 'ja'}) {
   // a) group by year-month
   final map = <String, List<NotificationModel>>{};
   for (var n in notifications) {
     final dt = DateTime.parse(n.createdAt);
-    final key = DateFormat.yMMMM().format(dt); // e.g. "June 2025"
+    // final key = DateFormat.yMMMM().format(dt); // e.g. "June 2025"
+    final key = formatDateTime(dt, localeCode: localeCode, yearMonth: true);
     map.putIfAbsent(key, () => []).add(n);
   }
   // b) sort the keys however you like (newest month first?)

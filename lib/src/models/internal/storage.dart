@@ -78,6 +78,7 @@ class Storage {
     String? email = await _read(key: _email);
     String? password = await _read(key: _password);
     await storage.deleteAll();
+    setSeenOnboarding(true);
     if (email != null && password != null) {
       await saveCredentials(email, password);
     }

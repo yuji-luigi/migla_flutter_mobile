@@ -12,10 +12,15 @@ const String svgLogout = "assets/images/icons/logout.svg";
 const String svgArrowDown = "assets/images/icons/arrow_down.svg";
 const String svgChangeBoy = "assets/images/icons/change_boy.svg";
 const String svgChangeBoyGirl = "assets/images/icons/change_boy_girl.svg";
+const String svgPaymentHand = "assets/images/icons/payment_hand.svg";
+const String svgPaymentCard = "assets/images/icons/payment_card.svg";
 
 Map<String, String> svgIconMap = {
   "event": svgCalendar,
+  "payment_schedule": svgPaymentCard,
+  "payment_record": svgPaymentCard,
   "payment": svgPayment,
   "notification": svgNotification,
   "general_notification": svgNotification,
+  "teacher_report": svgBlog,
 };

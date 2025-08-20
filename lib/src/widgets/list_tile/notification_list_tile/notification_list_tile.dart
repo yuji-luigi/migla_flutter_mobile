@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
-import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_detail_screen.dart';
+import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
+import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile/notification_list_tile_on_tap_controller.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class NotificationListTile extends StatelessWidget {
@@ -13,6 +16,14 @@ class NotificationListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MeViewModel meVM = $meViewModel(context, listen: false);
+    if (meVM.me == null) {
+      // send to login screen
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        LoginScreen().launch(context, isNewTask: true);
+      });
+      return const SizedBox.shrink();
+    }
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -46,6 +57,8 @@ class NotificationListTile extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   svgIconMap[notification.type] ?? '',
+                  height: 32,
+                  width: 32,
                 ),
               ],
             ),
@@ -54,14 +67,35 @@ class NotificationListTile extends StatelessWidget {
               style: textStyleBodyLarge.copyWith(
                 fontWeight: FontWeight.bold,
               )),
-          subtitle: Text(
-            formatDateTime(DateTime.parse(notification.createdAt)),
-            style: textStyleCaptionMd.copyWith(
-              color: colorTextDisabled,
-            ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(notification.body,
+                  style: textStyleBodyMedium.copyWith(
+                    fontWeight: FontWeight.bold,
+                  )),
+              Row(
+                children: [
+                  Spacer(),
+                  Text(
+                    formatDateTime(DateTime.parse(notification.createdAt),
+                        localeCode: $settingsController(context, listen: false)
+                            .locale
+                            .languageCode),
+                    style: textStyleCaptionMd.copyWith(
+                      color: colorTextDisabled,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
           onTap: () {
-            NotificationDetailScreen(id: notification.id).launch(context);
+            final controller = NotificationListTileOnTapController(
+                notification: notification,
+                context: context,
+                userId: meVM.me?.id ?? 0);
+            controller.handleOnTap();
           },
           // trailing: Text(mockNotificationList[index]['trailing']),
         ),

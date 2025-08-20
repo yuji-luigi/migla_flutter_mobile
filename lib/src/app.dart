@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:migla_flutter/firebase_options.dart';
+import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
+import 'package:migla_flutter/src/screens/splash_screen.dart';
 
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -18,11 +21,23 @@ class MyApp extends StatelessWidget {
 
   final SettingsController settingsController;
 
+  // Create a RouteObserver for RouteAware widgets
+  static final RouteObserver<ModalRoute<void>> routeObserver =
+      RouteObserver<ModalRoute<void>>();
+
   Future<void> initializeDefault() async {
     FirebaseApp app = await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    print('Initialized default app $app');
+    Logger.info('Initialized default app $app');
+  }
+
+  static bool _didPrecache = false;
+
+  void _precacheOnce(BuildContext context) {
+    if (_didPrecache) return;
+    _didPrecache = true;
+    precacheImage(const AssetImage(placeholderRainbow), context);
   }
 
   @override
@@ -34,6 +49,7 @@ class MyApp extends StatelessWidget {
     return ListenableBuilder(
       listenable: settingsController,
       builder: (BuildContext context, Widget? child) {
+        _precacheOnce(context);
         return MaterialApp(
           locale: settingsController.locale,
           // Providing a restorationScopeId allows the Navigator built by the
@@ -41,6 +57,9 @@ class MyApp extends StatelessWidget {
           // returns to the app after it has been killed while running in the
           // background.
           restorationScopeId: 'app',
+
+          // Add RouteObserver for RouteAware widgets
+          navigatorObservers: [routeObserver],
 
           // Provide the generated AppLocalizations to the MaterialApp. This
           // allows descendant Widgets to display the correct translations
@@ -73,45 +92,17 @@ class MyApp extends StatelessWidget {
           // darkTheme: ThemeData.dark(),
           themeMode: settingsController.themeMode,
           debugShowCheckedModeBanner: false,
-          // Define a function to handle named routes in order to support
-          /// you can wrap all the routes in the auth gate
-          // builder: (context, child) {
-          // child here is whatever onGenerateRoute / home / initial route produced
-          //   return AuthGate(child: child!);
-          // },
+
           onGenerateRoute: (RouteSettings settings) {
-            switch (settings.name) {
-              case SettingsView.routeName:
-                return MaterialPageRoute(
-                  builder: (_) => SettingsView(controller: settingsController),
-                  settings: settings,
-                );
-
-              default:
-                return MaterialPageRoute(
-                  builder: (_) {
-                    // return _buildAppRoute(settings);
-                    return AuthGate();
-                  },
-                  settings: settings,
-                );
-            }
+            return MaterialPageRoute(
+              builder: (_) {
+                return SplashScreen();
+                // return _buildAppRoute(settings);
+                return AuthGate(child: GetStartedScreen());
+              },
+              settings: settings,
+            );
           },
-          // Flutter web url navigation and deep linking.
-          // onGenerateRoute: (RouteSettings routeSettings) {
-          //   return MaterialPageRoute<void>(
-          //     settings: routeSettings,
-          //     builder: (BuildContext context) {
-          //       switch (routeSettings.name) {
-          //         case SettingsView.routeName:
-          //           return SettingsView(controller: settingsController);
-
-          //         default:
-          //           return const GetStartedScreen();
-          //       }
-          //     },
-          //   );
-          // },
         );
       },
     );

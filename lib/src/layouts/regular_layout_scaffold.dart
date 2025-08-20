@@ -3,6 +3,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/students_view_model.dart';
+import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
 
 class RegularLayoutScaffold extends StatelessWidget {
   final Widget body;
@@ -15,6 +17,8 @@ class RegularLayoutScaffold extends StatelessWidget {
   final Gradient? bodyGradient;
   final Color? bgCircleTopLeftColor;
   final Color? bgCircleBottomRightColor;
+  final bool showStudentName;
+  final bool centerTitle;
   const RegularLayoutScaffold({
     super.key,
     required this.body,
@@ -27,19 +31,33 @@ class RegularLayoutScaffold extends StatelessWidget {
     this.bodyGradient,
     this.bgCircleTopLeftColor,
     this.bgCircleBottomRightColor,
+    this.showStudentName = true,
+    this.centerTitle = true,
   });
 
   @override
   Widget build(BuildContext context) {
+    final StudentsViewModel studentsViewModel = $studentsViewModel(context);
     AppBar appBar = AppBar(
       backgroundColor:
           appBarBackgroundColor ?? bgColorSecondary.withOpacity(0.5),
+      centerTitle: centerTitle,
       title: title != null
-          ? Text(
-              title!,
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title!,
+                ),
+                if (showStudentName)
+                  Text(
+                    studentsViewModel.selectedStudent?.fullname ?? '',
+                    style: textStyleBodyMedium,
+                  ),
+              ],
             )
           : null,
-      actions: appBarActions,
+      actions: appBarActions ?? [const NotificationAppbarActionButton()],
     );
     double appBarHeight = appBar.preferredSize.height;
     return Scaffold(

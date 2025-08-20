@@ -13,6 +13,7 @@ import 'package:migla_flutter/src/widgets/list/gallery_grid/tappable_image.dart'
 import 'package:migla_flutter/src/widgets/media_preview/media_preview.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview_fullscreen.dart';
 import 'package:migla_flutter/src/widgets/row_avatar_with_title.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 List<Map<String, dynamic>> teacherReportList = [
@@ -188,11 +189,17 @@ List<Map<String, dynamic>> teacherReportList = [
 
 class TeacherReportDetailScreen extends StatelessWidget {
   final int id;
-  const TeacherReportDetailScreen({super.key, required this.id});
+  const TeacherReportDetailScreen({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
     final locale = $settingsController(context).locale;
+    final meViewModel = $meViewModel(context, listen: false);
+    final userId = meViewModel.me?.id;
+
     return Query(
       options: QueryOptions(
         document: gql(reportById),
@@ -204,7 +211,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
       builder: (result, {fetchMore, refetch}) {
         final rawReport = result.data?['Report'];
 
-        final report = ReportModel.tryFromJson(rawReport);
+        final report = ReportDetailModel.tryFromJson(rawReport);
 
         return RegularLayoutScaffold(
           bgCircleBottomRightColor: colorTertiary.withAlpha(50),
@@ -217,7 +224,7 @@ class TeacherReportDetailScreen extends StatelessWidget {
           //   end: Alignment.bottomCenter,
           // ),
           title: report != null
-              ? formatDateTime(DateTime.parse(report.createdAt))
+              ? formatDateTime(report.createdAt)
               : 'Report not found',
           padding: EdgeInsets.symmetric(horizontal: 24),
           body: SizedBox(
@@ -248,11 +255,21 @@ class TeacherReportDetailScreen extends StatelessWidget {
                                     height: 200,
                                   ),
                                 Text(report.title, style: textStyleTitleLg),
-                                Text(report.subtitle,
-                                    style: textStyleHeadingMedium),
                               ],
                             ),
                             Text(report.body, style: textStyleBodyMedium),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  formatDateTime(report.createdAt,
+                                      localeCode: $settingsController(context)
+                                          .locale
+                                          .languageCode),
+                                  style: textStyleHeadingMedium,
+                                ),
+                              ],
+                            ),
                             if (report.attachments.isNotEmpty) ...[
                               Divider(
                                 color: colorTertiary,

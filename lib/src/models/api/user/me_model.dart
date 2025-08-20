@@ -1,4 +1,5 @@
 import 'package:migla_flutter/src/models/api/role/role_model.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 
 class MeModel extends UserModel {
@@ -22,9 +23,8 @@ class MeModel extends UserModel {
         fullname: json['fullname'],
         currentRole: RoleModel.fromJson(json['currentRole']),
       );
-    } catch (e, stackTrace) {
-      print('Error parsing MeModel: $e');
-      print('Stack trace: $stackTrace');
+    } catch (e) {
+      Logger.error('Error parsing MeModel: $e');
       rethrow;
     }
   }

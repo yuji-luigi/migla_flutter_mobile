@@ -22,7 +22,6 @@ class PhotoVideosGallery extends StatefulWidget {
 class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
   String currentCategory = _category;
   void setCurrentCategory(String category) {
-    print('setCurrentCategory: $category');
     setState(() {
       currentCategory = category;
     });
