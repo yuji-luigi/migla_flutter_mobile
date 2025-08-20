@@ -2,8 +2,8 @@ import 'package:migla_flutter/env_switch.dart';
 
 /// NOTE: prodHost always points to this url
 // const String prodHost = 'http://10.73.28.222';
-// const String prodHost = 'https://migla.yuji-luigi.com';
-const String prodHost = 'http://localhost.com:3566';
+const String prodHost = 'https://migla.yuji-luigi.com';
+// const String prodHost = 'http://localhost.com:3566';
 
 // const String devHost = 'http://localhost.com:3566';
 
@@ -14,7 +14,7 @@ const String prodApiUrl = "$prodHost/api";
 const String devApiUrl = '$devHost/api';
 
 /// returns true on build (not debug-apk) also TestFlight returns true
-const bool isProduction = true;
+const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
 /// use this bool to switch the api url so you can forget about the isProduction bool
 
