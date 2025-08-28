@@ -78,7 +78,6 @@
 	"notCompleted": "Not completed",
 	"paymentDueDate": "Payment due date",
 	"dueDate": "Due date",
-	"paymentDetails": "Payment Details",
 	"noPaymentRecordFound": "No payment record found",
 	"paymentCompleted": "Payment Completed",
 	"paymentPending": "Payment Pending",
@@ -95,5 +94,11 @@
 	"materialFeeDescription": "Material Fee Description",
 	"purchases": "Purchases",
 	"quantity": "Quantity",
-	"noDataFound": "No data found"
+	"noDataFound": "No data found",
+	"forgotPasswordScreenHeader": "Forgot password?",
+	"forgotPasswordEmailInputLabel": "Please enter your email address to reset your password",
+	"back": "Back",
+	"labelEmailRequired": "Please enter your email address",
+	"labelPasswordRequired": "Please enter your password",
+	"invalidEmail": "Please enter a valid email address"
 }

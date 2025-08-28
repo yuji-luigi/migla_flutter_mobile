@@ -6,6 +6,7 @@ import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   LoginScreen({super.key});
 
   @override
@@ -20,6 +21,7 @@ class LoginScreen extends StatelessWidget {
                 ChangeNotifierProvider(
                     create: (context) => FormViewModel(
                           // onError: onError,
+                          formKey: _formKey,
                           initialValues: {},
                         ),
                     child: LoginForm())
@@ -32,10 +34,9 @@ class LoginScreen extends StatelessWidget {
               'rememberMe': credential != null,
             };
 
-            return ChangeNotifierProvider(
-              create: (context) => FormViewModel(
-                initialValues: initialValues,
-              ),
+            return FormProvider(
+              formKey: _formKey,
+              initialValues: initialValues,
               child: LoginForm(),
             );
           }),

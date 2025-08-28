@@ -94,5 +94,11 @@
 	"materialFeeDescription": "教材費説明",
 	"purchases": "購入品",
 	"quantity": "数量",
-	"noDataFound": "データが見つかりません"
+	"noDataFound": "データが見つかりません",
+	"forgotPasswordScreenHeader": "パスワードを忘れた方は、こちらから",
+	"forgotPasswordEmailInputLabel": "パスワードをリセットするために、メールアドレスを入力してください",
+	"back": "戻る",
+	"labelEmailRequired": "メールアドレスを入力してください",
+	"labelPasswordRequired": "パスワードを入力してください",
+	"invalidEmail": "メールアドレスが無効です"
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
+import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
@@ -62,6 +63,9 @@ class LoginForm extends StatelessWidget {
 
     Future<void> onSubmit(Map<String, dynamic> formData) async {
       try {
+        if (formViewModel.formKey.currentState?.validate() == false) {
+          return;
+        }
         formViewModel.setIsSubmitting(true);
         Response res = await _apiClient.post('/users/login?role-name=parent',
             body: formData);
@@ -76,6 +80,7 @@ class LoginForm extends StatelessWidget {
         DashboardHomeScreen().launch(context);
       } catch (error) {
         await onError(error);
+      } finally {
         formViewModel.setIsSubmitting(false);
       }
     }
@@ -99,12 +104,24 @@ class LoginForm extends StatelessWidget {
                 keyboardType: TextInputType.emailAddress,
                 hintText: context.t.labelEmail,
                 autofillHints: const [AutofillHints.username], // or .email
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return context.t.labelEmailRequired;
+                //   }
+                //   return null;
+                // },
               ),
               PasswordInputControlled(
                 name: 'password',
                 keyboardType: TextInputType.visiblePassword,
                 hintText: context.t.labelPassword,
                 autofillHints: const [AutofillHints.password],
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return context.t.labelPasswordRequired;
+                  }
+                  return null;
+                },
               ),
             ],
           ),
@@ -141,19 +158,6 @@ class LoginForm extends StatelessWidget {
           ],
         ),
         Spacer(),
-        // 16.height,
-        // Row(
-        //   spacing: 4,
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        //   children: [
-        //     Text(context.t.noAccount),
-        //     LinkText(
-        //       context.t.register,
-        //       newScreen: RegisterScreen(),
-        //       isNewTask: true,
-        //     ),
-        //   ],
-        // )
       ],
     );
   }

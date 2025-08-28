@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   Map<String, dynamic> _formData = {};
+  late GlobalKey<FormState> _formKey;
 
   List<ValidationError> _formErrors = [];
 
@@ -15,10 +16,12 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
 
   FormViewModel({
     Map<String, dynamic>? initialValues,
+    required GlobalKey<FormState> formKey,
 
     /// must return the validation errors to set the formErrors in the catch block of submit callback.
     Future<List<ValidationError>> Function(Object)? onError,
   }) {
+    _formKey = formKey;
     if (initialValues != null) {
       // json encode decode cloning can throw errors for DateTime kind of values. so create temp Map
       Map<String, dynamic> tempData = {};
@@ -29,6 +32,7 @@ class FormViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   bool get isSubmitting => _isSubmitting;
+  GlobalKey<FormState> get formKey => _formKey;
   Map<String, dynamic> get formData => _formData;
   List<ValidationError> get formErrors => _formErrors;
 
@@ -77,3 +81,28 @@ FormViewModel $formViewModel(BuildContext context, {bool listen = true}) =>
 
 FormViewModel getFormViewModel(BuildContext context, {bool listen = false}) =>
     Provider.of<FormViewModel>(context, listen: false);
+
+class FormProvider extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
+  final Map<String, dynamic> initialValues;
+  final Widget child;
+  const FormProvider(
+      {super.key,
+      required this.formKey,
+      required this.initialValues,
+      required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => FormViewModel(
+        formKey: formKey,
+        initialValues: initialValues,
+      ),
+      child: Form(
+        key: formKey,
+        child: child,
+      ),
+    );
+  }
+}

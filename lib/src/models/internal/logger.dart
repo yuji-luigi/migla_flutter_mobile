@@ -7,6 +7,8 @@ class Logger {
     if (true) {
       // Use print instead of debugPrint for ANSI colors to work
       log('\x1B[31m$str\x1B[0m'); // Red color
+      // get the #0 line of the stack trace
+      log('\x1B[31m${StackTrace.current.toString()}\x1B[0m');
       if (stackTrace != null) {
         log('\x1B[31m$stackTrace\x1B[0m'); // Red color for stack trace too
       }

@@ -11,7 +11,7 @@ class PaymentRecordModel {
   final double materialFee;
   final double tuitionFee;
   final String materialFeeTotalAndSingle;
-  final String materialFeeDescription;
+  final String? materialFeeDescription;
   final bool paid;
   final List<PurchaseModel> purchases;
 
@@ -25,7 +25,7 @@ class PaymentRecordModel {
     required this.materialFee,
     required this.tuitionFee,
     required this.materialFeeTotalAndSingle,
-    required this.materialFeeDescription,
+    this.materialFeeDescription,
     required this.paid,
     required this.purchases,
   });
@@ -62,7 +62,6 @@ class PaymentRecordModel {
             .toList(),
       );
     } catch (error) {
-      Logger.error(json.toString());
       Logger.error(error.toString());
       rethrow;
     }

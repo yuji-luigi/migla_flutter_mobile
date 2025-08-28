@@ -10,6 +10,7 @@ class PasswordInputControlled extends StatefulWidget {
   final String name;
   final TextInputType? keyboardType;
   final List<String>? autofillHints;
+  final String? Function(String?)? validator;
   const PasswordInputControlled({
     super.key,
     required this.hintText,
@@ -19,6 +20,7 @@ class PasswordInputControlled extends StatefulWidget {
     this.suffixIcon,
     this.keyboardType,
     this.autofillHints,
+    this.validator,
   });
   @override
   State<PasswordInputControlled> createState() =>
@@ -49,6 +51,7 @@ class _PasswordInputControlledState extends State<PasswordInputControlled> {
               color: Colors.black,
             ),
           ),
+      validator: widget.validator,
     );
   }
 }

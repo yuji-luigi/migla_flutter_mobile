@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/enums/input/input_types.dart';
+import 'package:migla_flutter/src/models/enums/regex_list.dart';
 
 class InputRoundedWhite extends StatelessWidget {
   final String? hintText;
@@ -9,6 +11,7 @@ class InputRoundedWhite extends StatelessWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
   final List<String>? autofillHints;
+  final String? Function(String?)? validator;
   const InputRoundedWhite({
     super.key,
     required this.hintText,
@@ -16,17 +19,27 @@ class InputRoundedWhite extends StatelessWidget {
     this.inputType = InputType.text,
     this.suffixIcon,
     this.obscureText = false,
+    this.validator,
     this.keyboardType,
     this.autofillHints,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
       autofillHints: autofillHints,
+      validator: (value) {
+        if (keyboardType == TextInputType.emailAddress) {
+          // check if valid email accept also alias like text+alias@gmail.com
+          if (!emailRegex.hasMatch(value!)) {
+            return context.t.invalidEmail;
+          }
+        }
+        return validator?.call(value);
+      },
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(90)),
