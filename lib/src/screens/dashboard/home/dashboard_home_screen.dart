@@ -72,6 +72,15 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       return;
     }
     // (Re-)request permissions in case user denied earlier
+    // sound on if the app is open
+    if (Platform.isAndroid) {
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+    }
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
       badge: true,

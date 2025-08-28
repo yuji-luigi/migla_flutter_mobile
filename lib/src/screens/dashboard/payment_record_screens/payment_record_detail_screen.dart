@@ -259,17 +259,19 @@ class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
             name: context.t.materialFee,
             description: paymentRecord.materialFeeDescription),
         const SizedBox(height: 12),
-        Text(
-          context.t.purchases,
-          style: textStyleHeadingSmall,
-        ),
-        const SizedBox(height: 12),
-        ...paymentRecord.purchases.map((purchase) => _buildPriceRow(
-              context: context,
-              price: purchase.productAndQuantity.product.price,
-              name: purchase.productAndQuantity.product.name,
-              quantity: purchase.productAndQuantity.quantity,
-            )),
+        if (paymentRecord.purchases.isNotEmpty) ...[
+          Text(
+            context.t.purchases,
+            style: textStyleHeadingSmall,
+          ),
+          const SizedBox(height: 12),
+          ...paymentRecord.purchases.map((purchase) => _buildPriceRow(
+                context: context,
+                price: purchase.productAndQuantity.product.price,
+                name: purchase.productAndQuantity.product.name,
+                quantity: purchase.productAndQuantity.quantity,
+              )),
+        ],
         Divider(),
         Row(
           children: [
