@@ -56,7 +56,7 @@ class NotificationListTile extends StatelessWidget {
                   ),
                 ),
                 SvgPicture.asset(
-                  svgIconMap[notification.type] ?? '',
+                  svgIconMap[notification.type] ?? svgNotification,
                   height: 32,
                   width: 32,
                 ),

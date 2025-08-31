@@ -17,7 +17,7 @@ const String svgPaymentCard = "assets/images/icons/payment_card.svg";
 
 Map<String, String> svgIconMap = {
   "event": svgCalendar,
-  "payment_record": svgPaymentCard,
+  "payment_schedule": svgPaymentCard,
   "payment": svgPaymentCard,
   "notification": svgNotification,
   "general_notification": svgNotification,

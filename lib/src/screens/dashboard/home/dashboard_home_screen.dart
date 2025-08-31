@@ -64,13 +64,19 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
   }
 
   Future<void> _initMessagingForUser() async {
-    final savedFcmToken = await Storage.getFcmToken();
-
     final meViewModel = $meViewModel(context, listen: false);
     if (meViewModel.me == null) {
       Logger.error('MeViewModel is null');
       return;
     }
+    final fcmTokenByUserIdResult = await _gqlClient.query(QueryOptions(
+      document: gql(fcmTokenQueryByUserId),
+      variables: {
+        'userId': meViewModel.me?.id,
+      },
+    ));
+    String? fcmTokenInDB =
+        fcmTokenByUserIdResult.data?['FcmTokens']['docs'][0]['token'];
     // (Re-)request permissions in case user denied earlier
     // sound on if the app is open
     if (Platform.isAndroid) {
@@ -87,30 +93,24 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       sound: true,
     );
 
-    final String? token =
+// current fcmToken from Device(APP)
+    final String? fcmTokenInDevice =
         await FirebaseMessaging.instance.getToken().catchError((e) {
-      Logger.error('❌ Error getting FCM token: $e');
+      Logger.info(
+          '❌ Error getting FCM token. \nif this is not from a simulator, this is an error');
       return null;
     });
 
-    if (token == null || token.isEmpty) return;
-    if (savedFcmToken == token) {
-      final result = await _gqlClient.query(QueryOptions(
-        document: gql(fcmTokenQuery),
-        variables: {
-          'token': token,
-          'userId': meViewModel.me?.id,
-        },
-      ));
-      if (result.hasException) {
-        Logger.error('❌ GraphQL Error: ${result.exception}');
-      }
-      if (result.data!['FcmTokens']['totalDocs'] > 0) {
-        Logger.info('✅ FCM Token already saved: $token');
-        return;
-      }
+    if (fcmTokenInDevice == null || fcmTokenInDevice.isEmpty) return;
+    if (fcmTokenInDB == fcmTokenInDevice) {
+      Logger.info('✅ FCM Token already saved: $fcmTokenInDevice');
+      return;
     }
-    await Storage.saveFcmToken(token);
+    if (fcmTokenInDB != null) {
+      Logger.warn(
+          'FCM token is updated in device. need to delete old token from db.');
+    }
+
     // Send this token to your server, tied to the logged-in user
     // get user agent and device info
     final osName = Platform.operatingSystem; // "android" or "ios"
@@ -121,7 +121,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       document: gql(createFcmTokenMutation),
       variables: {
         'userId': meViewModel.me?.id,
-        'token': token,
+        'token': fcmTokenInDevice,
         'osName': osName,
         'osVersion': osVersion,
       },

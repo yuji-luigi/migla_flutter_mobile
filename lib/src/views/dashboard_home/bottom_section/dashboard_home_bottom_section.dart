@@ -16,52 +16,48 @@ class DashboardHomeBottomSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StudentsViewModel studentsVm = $studentsViewModel(context);
+    bool hasSelectedStudent = studentsVm.selectedStudent != null;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: AnimatedOpacity(
-        opacity: studentsVm.selectedStudent != null ? 1 : 0.5,
-        duration: const Duration(milliseconds: 300),
-        child: AbsorbPointer(
-          absorbing: studentsVm.selectedStudent == null,
-          child: Column(
-            spacing: 16,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TileLikeButtonHome(
-                text: context.t.photoAndVideoTextButton,
-                endIconColor: colorSecondaryDark,
-                icon: SvgPicture.asset(
-                  svgSmile,
-                ),
-                onTap: () {
-                  PhotoVideosTopScreen().launch(context);
-                },
-              ),
-              TileLikeButtonHome(
-                text: context.t.teacherReport,
-                backgroundColor: colorPrimary,
-                endIconColor: colorPrimaryDark,
-                icon: SvgPicture.asset(
-                  svgBlog,
-                ),
-                onTap: () {
-                  TeacherReportListScreen().launch(context);
-                },
-              ),
-              TileLikeButtonHome(
-                backgroundColor: colorTertiary,
-                endIconColor: colorTertiaryDark,
-                text: context.t.notificationTextButton,
-                icon: SvgPicture.asset(
-                  svgMail,
-                ),
-                onTap: () {
-                  NotificationListScreen().launch(context);
-                },
-              ),
-            ],
+      child: Column(
+        spacing: 16,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TileLikeButtonHome(
+            disabled: !hasSelectedStudent,
+            text: context.t.photoAndVideoTextButton,
+            endIconColor: colorSecondaryDark,
+            icon: SvgPicture.asset(
+              svgSmile,
+            ),
+            onTap: () {
+              PhotoVideosTopScreen().launch(context);
+            },
           ),
-        ),
+          TileLikeButtonHome(
+            disabled: !hasSelectedStudent,
+            text: context.t.teacherReport,
+            backgroundColor: colorPrimary,
+            endIconColor: colorPrimaryDark,
+            icon: SvgPicture.asset(
+              svgBlog,
+            ),
+            onTap: () {
+              TeacherReportListScreen().launch(context);
+            },
+          ),
+          TileLikeButtonHome(
+            backgroundColor: colorTertiary,
+            endIconColor: colorTertiaryDark,
+            text: context.t.notificationTextButton,
+            icon: SvgPicture.asset(
+              svgMail,
+            ),
+            onTap: () {
+              NotificationListScreen().launch(context);
+            },
+          ),
+        ],
       ),
     );
   }

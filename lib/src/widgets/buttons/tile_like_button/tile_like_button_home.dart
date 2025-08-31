@@ -6,6 +6,7 @@ import 'package:migla_flutter/src/widgets/buttons/tile_like_button/tile_like_but
 
 class TileLikeButtonHome extends TileLikeButton {
   final Color? endIconColor;
+  final bool disabled;
   TileLikeButtonHome({
     super.key,
     required super.text,
@@ -14,6 +15,7 @@ class TileLikeButtonHome extends TileLikeButton {
     super.textColor = Colors.white,
     super.backgroundColor,
     super.withShadow = true,
+    this.disabled = false,
     this.endIconColor,
     Widget? endIcon, // 👈 Allow null initially
   }) : super(

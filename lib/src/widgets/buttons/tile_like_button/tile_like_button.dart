@@ -11,6 +11,7 @@ class TileLikeButton extends StatelessWidget {
   final Widget? endIcon;
   final bool withShadow;
   final Function()? onTap;
+  final bool disabled;
   const TileLikeButton({
     super.key,
     required this.text,
@@ -19,28 +20,33 @@ class TileLikeButton extends StatelessWidget {
     this.textColor = Colors.white,
     this.backgroundColor,
     this.endIcon,
+    this.disabled = false,
     this.withShadow = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? colorSecondary,
-          borderRadius: BorderRadius.circular(radiusMedium),
-          boxShadow: withShadow ? [buttonShadowDefault] : null,
-        ),
-        child: Row(
-          spacing: 11,
-          children: [
-            if (icon != null) icon!,
-            Text(text, style: textStyleHeadingSmall),
-            if (endIcon != null) Spacer(),
-            if (endIcon != null) endIcon!,
-          ],
+    return AnimatedOpacity(
+      opacity: disabled ? 0.5 : 1,
+      duration: Duration(milliseconds: 200),
+      child: InkWell(
+        onTap: disabled ? null : onTap,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? colorSecondary,
+            borderRadius: BorderRadius.circular(radiusMedium),
+            boxShadow: withShadow ? [buttonShadowDefault] : null,
+          ),
+          child: Row(
+            spacing: 11,
+            children: [
+              if (icon != null) icon!,
+              Text(text, style: textStyleHeadingSmall),
+              if (endIcon != null) Spacer(),
+              if (endIcon != null) endIcon!,
+            ],
+          ),
         ),
       ),
     );

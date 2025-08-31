@@ -37,6 +37,7 @@ class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
       padding: EdgeInsets.zero,
       bodyColor: colorTertiary,
       title: context.t.paymentDetails,
+      showStudentName: false,
       body: Query(
         options: QueryOptions(
           document: gql(getPaymentRecordByScheduleIdAndPayerIdQuery),
