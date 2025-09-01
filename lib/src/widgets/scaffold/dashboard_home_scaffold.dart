@@ -67,7 +67,7 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
                 ),
               );
             }),
-            actions: [const NotificationAppbarActionButton()],
+            actions: [],
             backgroundColor: Colors.transparent,
             expandedHeight: _topSectionHeight + 30, // Adjust height as needed
             floating: false,
