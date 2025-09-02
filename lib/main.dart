@@ -8,6 +8,7 @@ import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/providers/feature_providers.dart';
 import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
+import 'package:migla_flutter/src/services/native_notifier.dart';
 import 'package:provider/provider.dart';
 
 import 'src/app.dart';
@@ -46,9 +47,12 @@ void main() async {
   // This prevents a sudden theme change when the app is first displayed.
   WidgetsFlutterBinding.ensureInitialized();
   await settingsController.loadSettings();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Android 13+: ask runtime permission
+  await NativeNotifier.requestAndroidPermission();
   // 1️⃣ Background handler:
   FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
 
@@ -58,12 +62,30 @@ void main() async {
     badge: true,
     sound: true,
   );
+
   Logger.info('host: $host');
   Logger.info('apiUrl: $apiUrl');
   Logger.info('apiGraphqlUrl: $apiGraphqlUrl');
   // We're using HiveStore for persistence,
   // so we need to initialize Hive.
   await initHiveForFlutter();
+  // iOS/macOS: allow banner/sound while app is foreground
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  // Foreground → show a local (native) notification
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification != null) {
+      print('Message also contained a notification: ${message.notification}');
+    }
+    await NativeNotifier.showFrom(message);
+  });
 
   runApp(MultiProvider(
     providers: [
