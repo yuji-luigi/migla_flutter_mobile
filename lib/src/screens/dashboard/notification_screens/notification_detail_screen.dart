@@ -9,6 +9,7 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:url_launcher/link.dart' as url_launcher;
 
+// NOTE: this is not used anymore. but can be used => show the collection detail screen as child with some flags (no notification button...etc)
 class NotificationDetailScreen extends StatelessWidget {
   final int id;
   const NotificationDetailScreen({super.key, required this.id});
@@ -33,6 +34,7 @@ class NotificationDetailScreen extends StatelessWidget {
         final NotificationDetailModel? notification =
             NotificationDetailModel.tryFromJson(result.data?['Notification']);
         return RegularLayoutScaffold(
+          appBarActions: [],
           title: notification?.title ?? '',
           // bodyColor: colorTertiary,
           // bodyColor: colorWhite,
