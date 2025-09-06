@@ -1,10 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
+import 'package:migla_flutter/src/services/native_notifier.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,6 +17,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   late Future<void> _bootstrap;
+  bool _asked = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Make all “first-run” UI changes AFTER the first frame
+  }
 
   @override
   void didChangeDependencies() {
@@ -24,6 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _init() async {
+    await _initFirebase();
     // 1) Make sure the splash image is decoded & ready
     await precacheImage(const AssetImage(placeholderRainbow), context);
 
@@ -60,5 +71,29 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
     );
+  }
+
+  _initFirebase() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (!mounted || _asked) return;
+      _asked = true;
+
+      await FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+
+      // Foreground → show a local (native) notification
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+        await NativeNotifier.showFrom(message);
+      });
+    });
   }
 }

@@ -80,10 +80,11 @@ class MainActivity : FlutterActivity() {
             .setContentTitle(title)
             .setContentText(body)
             .setStyle(NotificationCompat.BigTextStyle().bigText(body))
-            .setSmallIcon(
-                resources.getIdentifier("ic_notification", "drawable", packageName)
-                    .takeIf { it != 0 } ?: resources.getIdentifier("ic_launcher", "mipmap", packageName)
-            )
+            .setSmallIcon(R.drawable.ic_stat_notify)
+            // .setSmallIcon(
+            //     resources.getIdentifier("ic_notification", "drawable", packageName)
+            //         .takeIf { it != 0 } ?: resources.getIdentifier("ic_launcher", "mipmap", packageName)
+            // )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()

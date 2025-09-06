@@ -75,8 +75,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
         'userId': meViewModel.me?.id,
       },
     ));
-    String? fcmTokenInDB =
-        fcmTokenByUserIdResult.data?['FcmTokens']['docs'][0]['token'];
+
     // (Re-)request permissions in case user denied earlier
     // sound on if the app is open
     if (Platform.isAndroid) {
@@ -101,15 +100,19 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       return null;
     });
 
-    if (fcmTokenInDevice == null || fcmTokenInDevice.isEmpty) return;
-    if (fcmTokenInDB == fcmTokenInDevice) {
-      Logger.info('✅ FCM Token already saved: $fcmTokenInDevice');
-      return;
-    }
-    if (fcmTokenInDB != null) {
-      Logger.warn(
-          'FCM token is updated in device. need to delete old token from db.');
-    }
+    // if (fcmTokenInDevice == null || fcmTokenInDevice.isEmpty) return;
+    // String? fcmTokenInDB =
+    //     (fcmTokenByUserIdResult.data?['FcmTokens']['docs'].length > 0)[0]
+    //         ['token'];
+
+    // if (fcmTokenInDB == fcmTokenInDevice) {
+    //   Logger.info('✅ FCM Token already saved: $fcmTokenInDevice');
+    //   return;
+    // }
+    // if (fcmTokenInDB != null) {
+    //   Logger.warn(
+    //       'FCM token is updated in device. need to delete old token from db.');
+    // }
 
     // Send this token to your server, tied to the logged-in user
     // get user agent and device info

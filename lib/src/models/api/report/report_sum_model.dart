@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/teacher/teacher_model.dart';
@@ -37,13 +39,18 @@ class ReportSumModel extends ApiModel {
 
   factory ReportSumModel.fromJson(Map<String, dynamic> json) {
     try {
+      inspect(json);
       bool isRead = json['readRecords']['docs'].length > 0;
       return ReportSumModel(
         id: json['id'],
         title: json['title'] ?? '',
         isRead: isRead,
         // body: json['body'] ?? '',
-        teacher: TeacherModel.fromJson(json['teacher']),
+        teacher: TeacherModel.fromJson(json['teacher'] ??
+            {
+              'id': 0,
+              'name': 'もういない先生',
+            }),
         coverImage: json['coverImage'] != null
             ? MediaModel.fromJson(json['coverImage'])
             : null,

@@ -39,13 +39,16 @@ Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  // Set up the SettingsController, which will glue user settings to multiple
-  // Flutter Widgets.
-  final settingsController = SettingsController(SettingsService());
-
   // Load the user's preferred theme while the splash screen is displayed.
   // This prevents a sudden theme change when the app is first displayed.
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Set up the SettingsController, which will glue user settings to multiple
+  // Flutter Widgets.
+  final settingsController = SettingsController(SettingsService());
+  Logger.info('host: $host');
+  Logger.info('apiUrl: $apiUrl');
+  Logger.info('apiGraphqlUrl: $apiGraphqlUrl');
   await settingsController.loadSettings();
 
   await Firebase.initializeApp(
@@ -53,39 +56,9 @@ void main() async {
   );
   // Android 13+: ask runtime permission
   await NativeNotifier.requestAndroidPermission();
-  // 1️⃣ Background handler:
+  // 1️⃣ Background handler must be set early
   FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
-
-  // 2️⃣ (Optional) Request permissions on iOS:
-  await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  Logger.info('host: $host');
-  Logger.info('apiUrl: $apiUrl');
-  Logger.info('apiGraphqlUrl: $apiGraphqlUrl');
-  // We're using HiveStore for persistence,
-  // so we need to initialize Hive.
   await initHiveForFlutter();
-  // iOS/macOS: allow banner/sound while app is foreground
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
-
-  // Foreground → show a local (native) notification
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-    await NativeNotifier.showFrom(message);
-  });
 
   runApp(MultiProvider(
     providers: [
