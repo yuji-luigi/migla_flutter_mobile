@@ -14,16 +14,16 @@ docs {
 
 }
 """;
-const String fcmTokenQueryByUserId = r"""
-query GetFcmTokenQuery($userId: JSON!) {
+
+const String fcmTokenQueryByUserIdAndToken = r"""
+query GetFcmTokenQuery($userId: JSON!, $token: String!) {
   FcmTokens(where:{
     user: {equals: $userId}
+    token: {equals: $token}
   })
 {
 
-docs {
-  token
-}
+
  totalDocs
 }
 

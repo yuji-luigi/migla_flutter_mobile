@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -69,12 +70,6 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       Logger.error('MeViewModel is null');
       return;
     }
-    final fcmTokenByUserIdResult = await _gqlClient.query(QueryOptions(
-      document: gql(fcmTokenQueryByUserId),
-      variables: {
-        'userId': meViewModel.me?.id,
-      },
-    ));
 
     // (Re-)request permissions in case user denied earlier
     // sound on if the app is open
@@ -99,7 +94,19 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
           '❌ Error getting FCM token. \nif this is not from a simulator, this is an error');
       return null;
     });
-
+    final fcmTokenByUserIdResult = await _gqlClient.query(QueryOptions(
+      document: gql(fcmTokenQueryByUserIdAndToken),
+      variables: {
+        'userId': meViewModel.me?.id,
+        'token': fcmTokenInDevice,
+      },
+    ));
+    inspect(fcmTokenByUserIdResult);
+    if (fcmTokenByUserIdResult.data?['FcmTokens']['totalDocs'] > 0) {
+      Logger.info(
+          '✅ same FCM Token already saved for the user. new token not needed');
+      return;
+    }
     // if (fcmTokenInDevice == null || fcmTokenInDevice.isEmpty) return;
     // String? fcmTokenInDB =
     //     (fcmTokenByUserIdResult.data?['FcmTokens']['docs'].length > 0)[0]
