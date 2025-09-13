@@ -18,10 +18,11 @@ class NotificationAppbarActionButton extends StatelessWidget {
         },
       ),
       builder: (result, {fetchMore, refetch}) {
-        bool hasUnread =
-            (result.data?['Notifications']['docs'] as List).any((notification) {
-          return (notification['readRecords']['docs'] as List).isEmpty;
-        });
+        bool hasUnread = (result.data?['Notifications']['docs'] as List?)
+                ?.any((notification) {
+              return (notification['readRecords']['docs'] as List).isEmpty;
+            }) ??
+            false;
         return IconButton(
           onPressed: () {
             Navigator.push(
