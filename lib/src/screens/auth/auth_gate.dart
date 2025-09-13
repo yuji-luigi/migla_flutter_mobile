@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
-import 'package:migla_flutter/src/screens/splash_screen.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:provider/provider.dart';

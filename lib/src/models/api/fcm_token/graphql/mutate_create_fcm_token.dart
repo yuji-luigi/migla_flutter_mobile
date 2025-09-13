@@ -13,6 +13,7 @@ mutation CreateFcmToken(
       osVersion: $osVersion
     }
   ) {
+    token
     id
   }
 }

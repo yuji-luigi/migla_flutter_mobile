@@ -18,8 +18,8 @@ class AuthTokenProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 
   Future<void> setToken(String token) async {
-    await Storage.saveToken(token);
     this.token = token;
+    await Storage.saveToken(token);
     notifyListeners();
   }
 

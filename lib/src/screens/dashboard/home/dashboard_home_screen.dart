@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/models/api/fcm_token/graphql/mutate_create_fcm_token.dart';
 import 'package:migla_flutter/src/models/api/fcm_token/graphql/query_fcm_token.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
@@ -66,10 +67,23 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
 
   Future<void> _initMessagingForUser() async {
     final meViewModel = $meViewModel(context, listen: false);
+    // final resultTest = await _gqlClient.mutate(MutationOptions(
+    //   document: gql(createFcmTokenMutation),
+    //   variables: {
+    //     'userId': meViewModel.me?.id,
+    //     'token': 'fcmTokenInDevice',
+    //     'osName': 'osName',
+    //     'osVersion': 'osVersion',
+    //   },
+    // ));
+    // inspect(resultTest);
+    // return;
     if (meViewModel.me == null) {
+      context.showErrorSnackbar('meViewModel is null');
       Logger.error('MeViewModel is null');
       return;
     }
+    context.showSnackbar('initializing messaging for user...');
 
     // (Re-)request permissions in case user denied earlier
     // sound on if the app is open
@@ -94,6 +108,8 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
           '❌ Error getting FCM token. \nif this is not from a simulator, this is an error');
       return null;
     });
+    // context.showSnackbar(
+    //     'got fcm token of the device: ${fcmTokenInDevice?.substring(0, 10)}');
     final fcmTokenByUserIdResult = await _gqlClient.query(QueryOptions(
       document: gql(fcmTokenQueryByUserIdAndToken),
       variables: {
@@ -101,28 +117,13 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
         'token': fcmTokenInDevice,
       },
     ));
-    inspect(fcmTokenByUserIdResult);
     if (fcmTokenByUserIdResult.data?['FcmTokens']['totalDocs'] > 0) {
+      // context.showErrorSnackbar('fcm token already saved for the user');
       Logger.info(
           '✅ same FCM Token already saved for the user. new token not needed');
       return;
     }
-    // if (fcmTokenInDevice == null || fcmTokenInDevice.isEmpty) return;
-    // String? fcmTokenInDB =
-    //     (fcmTokenByUserIdResult.data?['FcmTokens']['docs'].length > 0)[0]
-    //         ['token'];
 
-    // if (fcmTokenInDB == fcmTokenInDevice) {
-    //   Logger.info('✅ FCM Token already saved: $fcmTokenInDevice');
-    //   return;
-    // }
-    // if (fcmTokenInDB != null) {
-    //   Logger.warn(
-    //       'FCM token is updated in device. need to delete old token from db.');
-    // }
-
-    // Send this token to your server, tied to the logged-in user
-    // get user agent and device info
     final osName = Platform.operatingSystem; // "android" or "ios"
     final osVersion = Platform
         .operatingSystemVersion; // e.g. "Android 14 (API 34)" or "Version 17.5 (Build 21F79)"
@@ -137,11 +138,14 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       },
     ));
     if (result.hasException) {
-      // handle errors
+      // context.showErrorSnackbar('GraphQL Error: ${result.exception}');
       Logger.error('❌ GraphQL Error: ${result.exception}');
     } else {
+      // context.showSnackbar(
+      // 'FCM updated on server. \n token:${result.data!['createFcmToken']['token']} \n id:${result.data!['createFcmToken']['id']}');
+
       Logger.info('✅ FCM updated on server: '
-          '${result.data!['createdFcmToken']}');
+          '${result.data!['createFcmToken']['token']}');
     }
   }
 }
