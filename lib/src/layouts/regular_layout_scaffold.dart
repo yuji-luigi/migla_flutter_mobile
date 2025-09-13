@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
+import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -19,6 +20,7 @@ class RegularLayoutScaffold extends StatelessWidget {
   final Color? bgCircleBottomRightColor;
   final bool showStudentName;
   final bool centerTitle;
+  final bool isUnderDevelopment;
   const RegularLayoutScaffold({
     super.key,
     required this.body,
@@ -33,6 +35,7 @@ class RegularLayoutScaffold extends StatelessWidget {
     this.bgCircleBottomRightColor,
     this.showStudentName = true,
     this.centerTitle = true,
+    this.isUnderDevelopment = false,
   });
 
   @override
@@ -112,7 +115,31 @@ class RegularLayoutScaffold extends StatelessWidget {
                     color: bodyColor ?? bgPrimaryColor,
                     gradient: bodyGradient,
                   ),
-                  child: body,
+                  child: isUnderDevelopment
+                      ? Stack(
+                          children: [
+                            AbsorbPointer(
+                              absorbing: true,
+                              child: Opacity(
+                                opacity: 0.5,
+                                child: body,
+                              ),
+                            ),
+                            Center(
+                              child: Container(
+                                  padding: EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: colorPrimary,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Text(
+                                    context.t.pageIsUnderDevelopment,
+                                    style: textStyleHeadingSmall,
+                                  )),
+                            ),
+                          ],
+                        )
+                      : body,
                 ),
               ),
             ],

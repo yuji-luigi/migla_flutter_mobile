@@ -30,6 +30,7 @@ class _PhotoVideosTopScreenState extends State<PhotoVideosTopScreen> {
   @override
   Widget build(BuildContext context) {
     return RegularLayoutScaffold(
+      isUnderDevelopment: true,
       title: 'Photo & Videos',
       backgroundColor: bgPrimaryColor,
       bodyColor: Colors.transparent,

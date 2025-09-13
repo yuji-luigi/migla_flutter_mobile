@@ -100,5 +100,6 @@
 	"back": "戻る",
 	"labelEmailRequired": "メールアドレスを入力してください",
 	"labelPasswordRequired": "パスワードを入力してください",
-	"invalidEmail": "メールアドレスが無効です"
+	"invalidEmail": "メールアドレスが無効です",
+	"pageIsUnderDevelopment": "このページは開発中です。開発が完了するまでしばらくお待ちください。"
 }

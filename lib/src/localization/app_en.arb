@@ -100,5 +100,6 @@
 	"back": "Back",
 	"labelEmailRequired": "Please enter your email address",
 	"labelPasswordRequired": "Please enter your password",
-	"invalidEmail": "Please enter a valid email address"
+	"invalidEmail": "Please enter a valid email address",
+	"pageIsUnderDevelopment": "This page is under development. Please wait until it is completed."
 }

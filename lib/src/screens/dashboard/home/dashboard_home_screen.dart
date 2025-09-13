@@ -83,7 +83,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
       Logger.error('MeViewModel is null');
       return;
     }
-    context.showSnackbar('initializing messaging for user...');
+    // context.showSnackbar('initializing messaging for user...');
 
     // (Re-)request permissions in case user denied earlier
     // sound on if the app is open

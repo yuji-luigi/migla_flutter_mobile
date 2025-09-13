@@ -100,5 +100,6 @@
 		"back": "Indietro",
 		"labelEmailRequired": "Inserisci il tuo indirizzo email",
 		"labelPasswordRequired": "Inserisci la tua password",
-		"invalidEmail": "Inserisci un indirizzo email valido"
+		"invalidEmail": "Inserisci un indirizzo email valido",
+		"pageIsUnderDevelopment": "Questa pagina è in fase di sviluppo. Attendi fino a quando non sarà completata."
 	}
