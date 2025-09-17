@@ -84,6 +84,11 @@ class Storage {
     }
   }
 
+  static Future<void> forceRemoveAll() async {
+    await storage.deleteAll();
+    print('storage deleted');
+  }
+
   static Future<void> setLocale(String locale) async {
     await storage.write(key: _locale, value: locale);
   }
