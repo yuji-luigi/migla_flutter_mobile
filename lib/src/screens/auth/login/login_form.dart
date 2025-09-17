@@ -157,6 +157,12 @@ class LoginForm extends StatelessWidget {
             ),
           ],
         ),
+        GestureDetector(
+          onTap: () {
+            Storage.forceRemoveAll();
+          },
+          child: Text('dev reset storage(not context)'),
+        ),
         Spacer(),
       ],
     );
