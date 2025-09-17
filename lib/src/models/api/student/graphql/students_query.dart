@@ -11,6 +11,7 @@ query StudentsByParentId($userId: JSON!, $locale: LocaleInputType!){
       id
       name
       surname
+      fullname
       classroom{
         id
         name
@@ -32,6 +33,7 @@ query GetStudentByIdQuery($studentId: Int!, $locale: LocaleInputType!){
     id
     name
     surname
+    fullname
     classroom{
     id
       name
