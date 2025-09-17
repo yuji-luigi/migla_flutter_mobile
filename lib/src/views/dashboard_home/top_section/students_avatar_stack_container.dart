@@ -32,7 +32,7 @@ class StudentsAvatarStackContainer extends StatelessWidget {
                       left: 30,
                       top: 0,
                       bottom: 0,
-                      right: 30 * (entry.key).toDouble(),
+                      right: 30,
                       child: CircleAvatar(
                         radius: 50,
                         backgroundColor: Colors.transparent,
