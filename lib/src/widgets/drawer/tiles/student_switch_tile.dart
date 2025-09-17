@@ -41,7 +41,7 @@ class StudentSwitchTile extends StatelessWidget {
                   List<StudentModel> students = result.data?['Students']['docs']
                       .map<StudentModel>((e) => StudentModel.fromJson(e))
                       .toList();
-                  if (students.length > 1) {
+                  if (students.isNotEmpty) {
                     GraphQLClient gqlClient = GraphQLProvider.of(context).value;
                     StudentsViewModel studentsViewModel =
                         $studentsViewModel(context, listen: false);
