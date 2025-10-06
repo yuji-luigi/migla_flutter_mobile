@@ -5,16 +5,28 @@ import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 
-class ApiClient {
+abstract class ApiClient {
+  Future<http.Response> get(String path,
+      {String? otherUrl, Map<String, dynamic>? query});
+  Future<http.Response> post(String path,
+      {String? otherUrl, Map<String, dynamic>? body});
+  Future<http.Response> put(String path, {String? otherUrl});
+  Future<http.Response> delete(String path, {String? otherUrl});
+  Future<http.Response> patch(String path, {String? otherUrl});
+}
+
+class ApiClientImpl implements ApiClient {
   final String baseUrl;
   // final String apiKey;
 
-  ApiClient({
+  ApiClientImpl({
     this.baseUrl = apiUrl,
     // this.apiKey,
   });
 
-  Future<http.Response> get(String path, {String? otherUrl}) async {
+  @override
+  Future<http.Response> get(String path,
+      {String? otherUrl, Map<String, dynamic>? query}) async {
     String? token = await Storage.getToken();
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
     Map<String, String> headers = {
@@ -23,6 +35,14 @@ class ApiClient {
     if (token != null) {
       headers['Authorization'] = 'Bearer $token';
     }
+    if (query != null) {
+      // Convert Map<String, dynamic> to Map<String, String>
+      Map<String, String> queryParams = query.map(
+        (key, value) => MapEntry(key, value.toString()),
+      );
+      uri = uri.replace(queryParameters: queryParams);
+    }
+    Logger.info('GET: uri: $uri');
     http.Response response = await http.get(uri, headers: headers);
 
     if (response.statusCode == 200) {

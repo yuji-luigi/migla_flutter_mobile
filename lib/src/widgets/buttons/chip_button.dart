@@ -29,7 +29,6 @@ class ChipButton extends StatelessWidget {
           alignment: Alignment.center,
           height: 54,
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-          constraints: BoxConstraints(minWidth: 100),
           decoration: BoxDecoration(
             color: backgroundColor ?? colorTertiary,
             borderRadius: BorderRadius.circular(20),

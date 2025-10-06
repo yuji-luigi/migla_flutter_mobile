@@ -97,8 +97,6 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (_) {
                 return SplashScreen();
-                // return _buildAppRoute(settings);
-                return AuthGate(child: GetStartedScreen());
               },
               settings: settings,
             );

@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
-import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/fcm_token_client.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
+import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
@@ -24,11 +25,27 @@ import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:migla_flutter/src/widgets/switch/switch_base.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-class LoginForm extends StatelessWidget {
-  final ApiClient _apiClient = ApiClient();
+class LoginForm extends StatefulWidget {
   LoginForm({
     super.key,
   });
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final FcmTokenClientImpl _fcmTokenClient =
+      FcmTokenClientImpl(apiClient: ApiClientImpl());
+  final ApiClientImpl _apiClient = ApiClientImpl();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Storage.removeUserId();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +92,11 @@ class LoginForm extends StatelessWidget {
               formData['email'], formData['password']);
         }
         await authTokenProvider.setToken(body['token']);
-        await meViewModel.getMe();
+        UserModel? user = await meViewModel.getMe();
+        if (user == null) {
+          throw Exception(context.t.get_me_failed_after_login);
+        }
+        _fcmTokenClient.create(user.id);
         formViewModel.setIsSubmitting(false);
         DashboardHomeScreen().launch(context);
       } catch (error) {

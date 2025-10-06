@@ -101,5 +101,8 @@
 	"labelEmailRequired": "メールアドレスを入力してください",
 	"labelPasswordRequired": "パスワードを入力してください",
 	"invalidEmail": "メールアドレスが無効です",
-	"pageIsUnderDevelopment": "このページは開発中です。開発が完了するまでしばらくお待ちください。"
+	"pageIsUnderDevelopment": "このページは開発中です。開発が完了するまでしばらくお待ちください。",
+	"get_me_failed_after_login": "ログインは成功しましたが、ユーザー情報を取得できませんでした。管理者にお問い合わせください。",
+	"loading": "読み込み中...",
+	"not_found": "見つかりません"
 }

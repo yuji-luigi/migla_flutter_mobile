@@ -101,5 +101,8 @@
 	"labelEmailRequired": "Please enter your email address",
 	"labelPasswordRequired": "Please enter your password",
 	"invalidEmail": "Please enter a valid email address",
-	"pageIsUnderDevelopment": "This page is under development. Please wait until it is completed."
+	"pageIsUnderDevelopment": "This page is under development. Please wait until it is completed.",
+	"get_me_failed_after_login": "Login is succeeded but could not get user. please contact administrator",
+	"loading": "Loading...",
+	"not_found": "Not found"
 }

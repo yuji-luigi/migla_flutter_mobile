@@ -10,6 +10,7 @@ class Storage {
   static const String _seenOnboarding = 'seenOnboarding';
   static const String _locale = 'locale';
   static const String _fcmToken = 'fcmToken';
+  static const String _userId = 'userId';
 
   static Future<String?> _read({required String key}) async {
     try {
@@ -95,5 +96,18 @@ class Storage {
 
   static Future<String> getLocale() async {
     return await _read(key: _locale) ?? 'ja';
+  }
+
+  static Future<void> setUserId(int userId) async {
+    await storage.write(key: _userId, value: userId.toString());
+  }
+
+  static Future<int?> getUserId() async {
+    String? userId = await _read(key: _userId);
+    return userId != null ? int.parse(userId) : null;
+  }
+
+  static Future<void> removeUserId() async {
+    await storage.delete(key: _userId);
   }
 }
