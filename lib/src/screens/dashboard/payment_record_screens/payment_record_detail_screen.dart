@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/models/api/payment_record/graphql/payment_record_detail_query.dart';
 import 'package:migla_flutter/src/models/api/payment_record/payment_record_model.dart';
+import 'package:migla_flutter/src/models/api/notification/notification_query.dart';
+import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
+import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
@@ -26,6 +30,40 @@ class PaymentRecordDetailScreen extends StatefulWidget {
 
 class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
     with RouteAwareRefetchMixin {
+  final ApiClient _apiClient = ApiClientImpl();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _markViewedAndRefreshNotifications();
+  }
+
+  Future<void> _markViewedAndRefreshNotifications() async {
+    try {
+      await _apiClient.post(apiUrlNotificationByCollectionAndRecordId, body: {
+        'collection': 'payment-schedules',
+        'recordId': widget.scheduleId,
+      });
+    } catch (e) {
+      Logger.error(e.toString());
+    }
+    if (!mounted) return;
+    final GraphQLClient gqlClient = getGqlClient(context);
+    final String localeCode =
+        $settingsController(context, listen: false).locale.languageCode;
+    try {
+      await gqlClient.query(
+        QueryOptions(
+          document: gql(notificationListQuery),
+          variables: {'locale': localeCode},
+          fetchPolicy: FetchPolicy.networkOnly,
+        ),
+      );
+    } catch (e) {
+      Logger.error(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final MeViewModel meVM = $meViewModel(context, listen: false);
