@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/extensions/route_aware_refetch_mixin.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_model.dart';
 import 'package:migla_flutter/src/models/api/notification/notification_query.dart';
 import 'package:migla_flutter/src/models/api/notification/util/build_list_by_month.dart';
-import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/utils/gql_result_has_403.dart';
-import 'package:migla_flutter/src/widgets/list/info_empty_list.dart';
 import 'package:migla_flutter/src/widgets/list_tile/notification_list_tile/notification_list_tile.dart';
 import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_list_view_general.dart';
 import 'package:nb_utils/nb_utils.dart';
