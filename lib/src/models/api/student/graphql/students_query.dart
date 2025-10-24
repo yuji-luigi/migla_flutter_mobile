@@ -16,8 +16,10 @@ query StudentsByParentId($userId: JSON!, $locale: LocaleInputType!){
         id
         name
         teachers{
+        docs{  
           id
           name
+          }
         }
       }
       slug
@@ -38,8 +40,10 @@ query GetStudentByIdQuery($studentId: Int!, $locale: LocaleInputType!){
     id
       name
       teachers{
+       docs {
         id
         name
+        }
       }
     }
   }

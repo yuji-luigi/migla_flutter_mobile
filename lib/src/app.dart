@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/localization/app_localizations.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';

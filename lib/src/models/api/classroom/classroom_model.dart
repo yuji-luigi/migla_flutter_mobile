@@ -12,11 +12,12 @@ class ClassroomModel {
   });
 
   factory ClassroomModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return ClassroomModel(
       id: json['id'],
       name: json['name'],
-      teachers: json['teachers'] != null
-          ? (json['teachers'] as List)
+      teachers: json['teachers']['docs'] != null
+          ? (json['teachers']['docs'] as List)
               .map((e) => TeacherModel.fromJson(e))
               .toList()
           : null,
