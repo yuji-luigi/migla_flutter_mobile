@@ -5,4 +5,5 @@
 // const String devHost = 'http://10.0.2.2:3566';
 // const String devHost = 'http://10.202.223.222:3566';
 const String devHost = 'http://localhost:3566';
+// const String devHost = 'https://migla.yuji-luigi.com';
 const bool useProdUrl = false;

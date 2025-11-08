@@ -21,6 +21,7 @@ class _MyGraphqlProviderState extends State<MyGraphqlProvider> {
   @override
   void initState() {
     super.initState();
+    _hiveStore.reset();
     final httpLink = HttpLink(
       apiGraphqlUrl,
     );
@@ -39,6 +40,7 @@ class _MyGraphqlProviderState extends State<MyGraphqlProvider> {
 
     _client = ValueNotifier(
       GraphQLClient(
+        // cache: GraphQLCache(store: InMemoryStore()), // <-- bypass Hive
         link: link,
         cache: GraphQLCache(store: _hiveStore),
       ),

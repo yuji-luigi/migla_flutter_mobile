@@ -15,7 +15,6 @@ class StudentModel {
     required this.classroom,
   });
   factory StudentModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return StudentModel(
       id: json['id'],
       name: json['name'],

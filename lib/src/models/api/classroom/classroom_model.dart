@@ -12,7 +12,6 @@ class ClassroomModel {
   });
 
   factory ClassroomModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return ClassroomModel(
       id: json['id'],
       name: json['name'],
@@ -29,7 +28,7 @@ class ClassroomModel {
     Map<String, dynamic> json = {
       'id': 0,
       'name': 'Classroom is not set',
-      'teachers': [],
+      'teachers': {"docs": []},
     };
     json.addAll(overrides);
     return ClassroomModel.fromJson(json);

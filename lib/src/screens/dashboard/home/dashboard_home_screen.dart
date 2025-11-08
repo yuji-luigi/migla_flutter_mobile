@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/views/dashboard_home/bottom_section/dashboard_home_bottom_section.dart';
 import 'package:migla_flutter/src/views/dashboard_home/top_section/dashboard_home_top_section.dart';
@@ -45,10 +46,11 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
 
   _handleInitializeStudentsAndMessaging() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      MeViewModel meVm = $meViewModel(context);
       _gqlClient = GraphQLProvider.of(context).value;
       StudentsViewModel studentsViewModel =
           $studentsViewModel(context, listen: false);
-      studentsViewModel.getStudents(context);
+      studentsViewModel.getStudents(meVm);
       // int? userId = await Storage.getUserId();
       // if (userId == null) {
       //   //send back to login
