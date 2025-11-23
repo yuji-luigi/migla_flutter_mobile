@@ -2,7 +2,7 @@ name: migla_flutter
 description: "A new Flutter project."
 
 # Prevent accidental publishing to pub.dev.
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -22,7 +22,6 @@ dependencies:
   graphql_flutter: ^5.2.0
   http: ^1.4.0
   intl: ^0.20.2
-  intl_utils: ^2.8.9
   nb_utils: ^7.0.10
   path_provider: ^2.1.5
   provider: ^6.1.5
