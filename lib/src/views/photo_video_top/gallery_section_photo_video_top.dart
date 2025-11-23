@@ -11,39 +11,28 @@ class GallerySectionPhotoVideoTop extends StatelessWidget {
     List<Map<String, dynamic>> galleryList = [
       {
         "image": "assets/images/mock_images/kyubi.jpeg",
-        "title": "Picnic aprile 2025",
+        "title": "お祭り体験 2025",
         "date": "2025-04-01",
         "category": "week",
       },
       {
         "image": "assets/images/mock_images/salone.jpeg",
-        "title": "Salone 2025",
+        "title": "茶道体験 2025",
         "date": "2025-04-18",
         "category": "category",
       },
-      {
-        "image": "assets/images/mock_images/me_sunglasses.jpeg",
-        "title": "Sunglasses aprile 2025",
-        "date": "2025-04-01",
-        "category": "other",
-      },
-      {
-        "image": "assets/images/mock_images/kyubi.jpeg",
-        "title": "Picnic aprile 2025",
-        "date": "2025-04-21",
-        "category": "week",
-      },
+      // {
+      //   "image": "assets/images/mock_images/me_sunglasses.jpeg",
+      //   "title": "Sunglasses aprile 2025",
+      //   "date": "2025-04-01",
+      //   "category": "other",
+      // },
+
       {
         "image": "assets/images/mock_images/salone.jpeg",
-        "title": "Salone 2025",
+        "title": "世界の音楽を楽しもう！ 2025",
         "date": "2025-04-28",
         "category": "category",
-      },
-      {
-        "image": "assets/images/mock_images/me_sunglasses.jpeg",
-        "title": "Sunglasses aprile 2025",
-        "date": "2025-04-28",
-        "category": "other",
       },
     ];
 

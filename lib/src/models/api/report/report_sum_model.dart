@@ -39,7 +39,6 @@ class ReportSumModel extends ApiModel {
 
   factory ReportSumModel.fromJson(Map<String, dynamic> json) {
     try {
-      inspect(json);
       bool isRead = json['readRecords']['docs'].length > 0;
       return ReportSumModel(
         id: json['id'],

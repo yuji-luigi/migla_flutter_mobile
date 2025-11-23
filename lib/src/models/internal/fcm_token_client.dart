@@ -28,27 +28,15 @@ class FcmTokenClientImpl implements FcmTokenClient {
   @override
   Future<void> create(int userId) async {
     final String fcmToken = await getFcmTokenOfDevice();
-    final osName = Platform.operatingSystem; // "android" or "ios"
-    final osVersion = Platform.operatingSystemVersion;
-    // http.Response resExistingFcmToken = await _apiClient.get(apiRoute, query: {
-    //   'user': userId,
-    //   'token': 'fcmToken',
-    //   'osName': osName,
-    //   'osVersion': osVersion,
-    // });
-    // Map<String, dynamic> body = jsonDecode(resExistingFcmToken.body);
-    // inspect(body);
-    // if (res.statusCode == 200) {
-    //   // return res.body;
-    // } else {
-    //   throw Exception(res.body);
-    http.Response resNewFcmToken = await _apiClient.post(apiRoute, body: {
+    String osName = Platform.operatingSystem; // "android" or "ios"
+    String osVersion = Platform.operatingSystemVersion;
+
+    _apiClient.post(apiRoute, body: {
       'user': userId,
       'token': fcmToken,
       'osName': osName,
       'osVersion': osVersion,
     });
-    inspect(resNewFcmToken);
   }
 
   @override
@@ -72,48 +60,10 @@ class FcmTokenClientImpl implements FcmTokenClient {
         await FirebaseMessaging.instance.getToken().catchError((e) {
               Logger.info(
                   '❌ Error getting FCM token. \nif this is not from a simulator, this is an error');
+              Logger.error(e.toString());
               return null;
             }) ??
             'error_getting_fcm_token';
     return fcmTokenInDevice;
-    // context.showSnackbar(
-    //     'got fcm token of the device: ${fcmTokenInDevice?.substring(0, 10)}');
-    // final fcmTokenByUserIdResult = await gqlClient.query(QueryOptions(
-    //   document: gql(fcmTokenQueryByUserIdAndToken),
-    //   variables: {
-    //     'userId': userId,
-    //     'token': fcmTokenInDevice,
-    //   },
-    // ));
-    // if (fcmTokenByUserIdResult.data?['FcmTokens']['totalDocs'] > 0) {
-    //   // context.showErrorSnackbar('fcm token already saved for the user');
-    //   Logger.info(
-    //       '✅ same FCM Token already saved for the user. new token not needed');
-    //   return;
-    // }
-
-    // final osName = Platform.operatingSystem; // "android" or "ios"
-    // final osVersion = Platform
-    //     .operatingSystemVersion; // e.g. "Android 14 (API 34)" or "Version 17.5 (Build 21F79)"
-
-    // final result = await gqlClient.mutate(MutationOptions(
-    //   document: gql(createFcmTokenMutation),
-    //   variables: {
-    //     'userId': userId,
-    //     'token': fcmTokenInDevice,
-    //     'osName': osName,
-    //     'osVersion': osVersion,
-    //   },
-    // ));
-    // if (result.hasException) {
-    //   // context.showErrorSnackbar('GraphQL Error: ${result.exception}');
-    //   Logger.error('❌ GraphQL Error: ${result.exception}');
-    // } else {
-    //   // context.showSnackbar(
-    //   // 'FCM updated on server. \n token:${result.data!['createFcmToken']['token']} \n id:${result.data!['createFcmToken']['id']}');
-
-    //   Logger.info('✅ FCM updated on server: '
-    //       '${result.data!['createFcmToken']['token']}');
-    // }
   }
 }

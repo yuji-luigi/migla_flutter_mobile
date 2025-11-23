@@ -40,7 +40,6 @@ class _LoginFormState extends State<LoginForm> {
   final ApiClientImpl _apiClient = ApiClientImpl();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Storage.removeUserId();

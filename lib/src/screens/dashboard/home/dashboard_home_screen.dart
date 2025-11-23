@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -16,8 +15,6 @@ class DashboardHomeScreen extends StatefulWidget {
 
 class _DashboardHomeScreenState extends State<DashboardHomeScreen>
     with RouteAware {
-  late GraphQLClient _gqlClient;
-
   @override
   void initState() {
     super.initState();
@@ -46,16 +43,10 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
 
   _handleInitializeStudentsAndMessaging() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      MeViewModel meVm = $meViewModel(context);
-      _gqlClient = GraphQLProvider.of(context).value;
+      MeViewModel meVm = $meViewModel(context, listen: false);
       StudentsViewModel studentsViewModel =
           $studentsViewModel(context, listen: false);
       studentsViewModel.getStudents(meVm);
-      // int? userId = await Storage.getUserId();
-      // if (userId == null) {
-      //   //send back to login
-      // }
-      // initMessagingForUser(userId: userId!, gqlClient: _gqlClient);
     });
   }
 }
