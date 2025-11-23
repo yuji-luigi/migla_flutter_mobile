@@ -1,28 +1,26 @@
 const String notificationListQuery = r"""
 query NotificationListQuery($locale: LocaleInputType!) {
   Notifications(
-  locale: $locale
-  where:{
-    
-  }){
-     docs{
+    locale: $locale
+    where: {}
+  ) {
+    docs {
       id
       title
       body
-      data{
+      data {
         type
         collection
         collectionRecordId
       }
-      readRecords{
-        docs{
+      readRecords {
+        docs {
           id
         }
       }
-        hasAttachments
+      hasAttachments
       createdAt
     }
-    
   }
 }
 """;

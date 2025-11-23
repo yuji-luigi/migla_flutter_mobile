@@ -40,8 +40,10 @@ query GetStudentByIdQuery($studentId: Int!, $locale: LocaleInputType!){
     id
       name
       teachers{
+       docs {
         id
         name
+        }
       }
     }
   }

@@ -31,27 +31,15 @@ class StudentSwitchTile extends StatelessWidget {
               widget: SizedBox.shrink(),
               onTap: () async {
                 if (meVm.hasMe) {
-                  final result = await gqlClient.query(QueryOptions(
-                    document: gql(getStudentsByParentId),
-                    variables: {
-                      'userId': meVm.me!.id,
-                      'locale': locale.languageCode,
-                    },
-                  ));
-                  List<StudentModel> students = result.data?['Students']['docs']
-                      .map<StudentModel>((e) => StudentModel.fromJson(e))
-                      .toList();
-                  if (students.isNotEmpty) {
-                    GraphQLClient gqlClient = GraphQLProvider.of(context).value;
-                    StudentsViewModel studentsViewModel =
-                        $studentsViewModel(context, listen: false);
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            ChangeNotifierProvider<StudentsViewModel>.value(
-                                value: studentsViewModel,
-                                child: StudentsSelectDialog()));
-                  }
+                  StudentsViewModel studentsViewModel =
+                      $studentsViewModel(context, listen: false);
+                  studentsViewModel.getStudents(meVm);
+                  showDialog(
+                      context: context,
+                      builder: (context) =>
+                          ChangeNotifierProvider<StudentsViewModel>.value(
+                              value: studentsViewModel,
+                              child: StudentsSelectDialog()));
                 }
               })),
     );

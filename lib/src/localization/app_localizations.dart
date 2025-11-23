@@ -591,6 +591,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This page is under development. Please wait until it is completed.'**
   String get pageIsUnderDevelopment;
+
+  /// No description provided for @get_me_failed_after_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login is succeeded but could not get user. please contact administrator'**
+  String get get_me_failed_after_login;
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// No description provided for @not_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get not_found;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @has_been_sent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get has_been_sent;
 }
 
 class _AppLocalizationsDelegate

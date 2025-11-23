@@ -45,7 +45,6 @@ class _GraphqlListViewState<T extends ApiModel>
             options: widget.options,
             builder: (result, {fetchMore, refetch}) {
               setRefetchFunction(refetch);
-
               final List<T> items = widget.items ??
                   result.data?[widget.dataKey]['docs']
                       .map<T>((e) => widget.fromJson(e))

@@ -17,22 +17,30 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   bool get hasMe => _me != null;
-  ApiClient _apiClient = ApiClient();
+  ApiClientImpl _apiClient = ApiClientImpl();
 
-  Future<void> getMe() async {
+  Future<UserModel?> getMe() async {
     try {
       _isLoading = true;
       final res = await _apiClient.get(apiUrlMe);
       final data = jsonDecode(res.body);
-      if (data['user'] != null) {
-        _me = UserModel.fromJson(data['user']);
-      }
+      // if (data['user'] == null) {
+      //   throw Exception('User not found');
+      // }
+
+      // if (data['user'] != null) {
+      //   _me = UserModel.fromJson(data['user']);
+      // }
+      _me = UserModel.fromJson(data['user']);
+      // await Storage.setUserId(_me!.id);
       _isLoading = false;
       notifyListeners();
+      return _me;
     } catch (error) {
       Logger.error('Error getting me: $error');
       _isLoading = false;
       notifyListeners();
+      return null;
     }
   }
 

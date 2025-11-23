@@ -118,41 +118,6 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
           ),
         ],
       ),
-      // body: Column(
-      //   mainAxisSize: MainAxisSize.max,
-      //   children: [
-      //     Stack(
-      //       // fit: StackFit.loose,
-      //       children: [
-      //         Positioned(
-      //           top: 0,
-      //           left: 0,
-      //           child: Image.asset(bgCircleTopLeft),
-      //         ),
-      //         Column(
-      //           children: [
-      //             SizedBox(height: appBarHeight),
-      //             topSection,
-      //           ],
-      //         ),
-      //       ],
-      //     ),
-      //     Expanded(
-      //         child: Container(
-      //       color: bgPrimaryColor,
-      //       child: Stack(
-      //         children: [
-      //           SingleChildScrollView(child: bottomSection),
-      //           Positioned(
-      //             bottom: 0,
-      //             right: 0,
-      //             child: Image.asset(bgCircleBottomRight),
-      //           ),
-      //         ],
-      //       ),
-      //     ))
-      //   ],
-      // ),
     );
   }
 }

@@ -265,4 +265,20 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get pageIsUnderDevelopment => 'このページは開発中です。開発が完了するまでしばらくお待ちください。';
+
+  @override
+  String get get_me_failed_after_login =>
+      'ログインは成功しましたが、ユーザー情報を取得できませんでした。管理者にお問い合わせください。';
+
+  @override
+  String get loading => '読み込み中...';
+
+  @override
+  String get not_found => '見つかりません';
+
+  @override
+  String get submit => '送信';
+
+  @override
+  String get has_been_sent => '送信されました。';
 }

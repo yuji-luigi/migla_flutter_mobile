@@ -270,4 +270,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pageIsUnderDevelopment =>
       'This page is under development. Please wait until it is completed.';
+
+  @override
+  String get get_me_failed_after_login =>
+      'Login is succeeded but could not get user. please contact administrator';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get not_found => 'Not found';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get has_been_sent => 'Sent';
 }

@@ -21,7 +21,7 @@ class PaymentListScreen extends StatefulWidget {
 
 class _PaymentListScreenState extends State<PaymentListScreen>
     with RouteAwareRefetchMixin {
-  List<PaymentRecordSummaryModel> _filteredItems = [];
+  List<PaymentRecordSummaryModel> _paymentRecords = [];
   @override
   Widget build(BuildContext context) {
     final meViewModel = $meViewModel(context);
@@ -42,23 +42,6 @@ class _PaymentListScreenState extends State<PaymentListScreen>
         title: context.t.navPayment,
         showStudentName: false,
         body: GraphqlListViewGeneral<PaymentRecordSummaryModel>(
-          fromJson: PaymentRecordSummaryModel.fromJson,
-          dataKey: 'PaymentRecords',
-          items: _filteredItems,
-          itemCount: _filteredItems.length,
-          itemBuilder: (context, index, items) {
-            return Container(
-              padding: EdgeInsets.only(
-                top: index == 0 ? 16 : 0,
-                left: paddingXDashboardMd,
-                right: paddingXDashboardMd,
-              ),
-              child: PaymentRecordListCard(
-                title: items[index].paymentSchedule.notificationTitle,
-                paymentRecord: items[index],
-              ),
-            );
-          },
           options: QueryOptions(
             document: gql(getPaymentRecordsByPayerQuery),
             fetchPolicy: FetchPolicy.cacheAndNetwork,
@@ -73,20 +56,27 @@ class _PaymentListScreenState extends State<PaymentListScreen>
                           .toList() ??
                       [];
               setState(() {
-                if (paymentRecords.isNotEmpty) {
-                  setState(() {
-                    _filteredItems = paymentRecords
-                        .where((paymentRecord) =>
-                            now.isAfter(paymentRecord
-                                .paymentSchedule.notificationScheduledAt) ||
-                            paymentRecord.paymentSchedule
-                                .notificationScheduledAt.isToday)
-                        .toList();
-                  });
-                }
+                _paymentRecords = paymentRecords;
               });
             },
           ),
+          fromJson: PaymentRecordSummaryModel.fromJson,
+          dataKey: 'PaymentRecords',
+          items: _paymentRecords,
+          itemCount: _paymentRecords.length,
+          itemBuilder: (context, index, items) {
+            return Container(
+              padding: EdgeInsets.only(
+                top: index == 0 ? 16 : 0,
+                left: paddingXDashboardMd,
+                right: paddingXDashboardMd,
+              ),
+              child: PaymentRecordListCard(
+                title: items[index].paymentSchedule.notificationTitle,
+                paymentRecord: items[index],
+              ),
+            );
+          },
         ));
   }
 }

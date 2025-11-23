@@ -18,7 +18,7 @@ class Button extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.symmetric(
             vertical: 12,

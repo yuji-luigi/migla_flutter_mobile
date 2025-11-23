@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/localization/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
+import 'package:migla_flutter/src/localization/app_localizations.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/screens/auth/auth_gate.dart';
 import 'package:migla_flutter/src/screens/auth/getstarted_screen.dart';
@@ -97,8 +98,6 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (_) {
                 return SplashScreen();
-                // return _buildAppRoute(settings);
-                return AuthGate(child: GetStartedScreen());
               },
               settings: settings,
             );

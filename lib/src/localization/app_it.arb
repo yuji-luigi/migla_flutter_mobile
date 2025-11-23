@@ -101,5 +101,10 @@
 		"labelEmailRequired": "Inserisci il tuo indirizzo email",
 		"labelPasswordRequired": "Inserisci la tua password",
 		"invalidEmail": "Inserisci un indirizzo email valido",
-		"pageIsUnderDevelopment": "Questa pagina è in fase di sviluppo. Attendi fino a quando non sarà completata."
+		"pageIsUnderDevelopment": "Questa pagina è in fase di sviluppo. Attendi fino a quando non sarà completata.",
+		"get_me_failed_after_login": "Login è riuscito ma non è stato possibile ottenere l'utente. contattare l'amministratore",
+		"loading": "Caricando...",
+		"not_found": "Non trovato",
+		"submit": "Invia",
+		"has_been_sent": "Inviato"
 	}
