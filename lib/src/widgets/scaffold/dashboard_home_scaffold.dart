@@ -49,9 +49,7 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const DashboardLeftDrawer(),
-
       backgroundColor: bgColorSecondary,
-      // body: body
       body: CustomScrollView(
         slivers: [
           // ✅ Parallax Effect (SliverAppBar acts like topSection)
@@ -67,7 +65,7 @@ class _DashboardScaffoldState extends State<DashboardHomeScaffold> {
                 ),
               );
             }),
-            actions: [],
+            actions: [NotificationAppbarActionButton()],
             backgroundColor: Colors.transparent,
             expandedHeight: _topSectionHeight + 30, // Adjust height as needed
             floating: false,

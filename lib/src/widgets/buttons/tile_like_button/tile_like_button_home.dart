@@ -17,6 +17,7 @@ class TileLikeButtonHome extends TileLikeButton {
     super.withShadow = true,
     this.disabled = false,
     this.endIconColor,
+    super.badgeText,
     Widget? endIcon, // 👈 Allow null initially
   }) : super(
           endIcon: endIcon ??

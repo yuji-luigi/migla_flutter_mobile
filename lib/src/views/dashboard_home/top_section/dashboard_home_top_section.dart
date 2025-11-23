@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -36,14 +35,6 @@ class _DashboardHomeTopSectionState extends State<DashboardHomeTopSection> {
       return const Center(child: CircularProgressIndicator());
     }
 
-    // if (gqlResultHas403(result)) {
-    //   WidgetsBinding.instance.addPostFrameCallback((_) {
-    //     // check still mounted before navigating:
-    //     if (context.mounted) {
-    //       LoginScreen().launch(context, isNewTask: true);
-    //     }
-    //   });
-    // }
     if (studentsVM.errorMessage != null) {
       return Column(children: [
         Text(context.t.error_somethingWentWrong, style: textStyleBodyLarge),
