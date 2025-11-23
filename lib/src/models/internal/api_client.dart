@@ -67,7 +67,7 @@ class ApiClientImpl implements ApiClient {
     http.Response response =
         await http.post(uri, body: jsonEncode(body), headers: headers);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode >= 200 && response.statusCode < 300) {
       return response;
     } else {
       throw Exception(response.body);

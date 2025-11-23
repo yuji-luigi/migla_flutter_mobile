@@ -30,6 +30,12 @@ class AuthTokenProvider with ChangeNotifier, DiagnosticableTreeMixin {
   }
 }
 
-AuthTokenProvider $authTokenProvider(BuildContext context) {
-  return Provider.of<AuthTokenProvider>(context, listen: true);
+AuthTokenProvider $authTokenProvider(
+  BuildContext context, {
+  bool listen = true,
+}) {
+  return Provider.of<AuthTokenProvider>(
+    context,
+    listen: listen,
+  );
 }

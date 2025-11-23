@@ -46,7 +46,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen>
 
   _handleInitializeStudentsAndMessaging() async {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      MeViewModel meVm = $meViewModel(context);
+      MeViewModel meVm = $meViewModel(context, listen: false);
       _gqlClient = GraphQLProvider.of(context).value;
       StudentsViewModel studentsViewModel =
           $studentsViewModel(context, listen: false);

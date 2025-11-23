@@ -48,7 +48,6 @@ class FcmTokenClientImpl implements FcmTokenClient {
       'osName': osName,
       'osVersion': osVersion,
     });
-    inspect(resNewFcmToken);
   }
 
   @override

@@ -78,34 +78,6 @@ class _LoginFormState extends State<LoginForm> {
       ];
     }
 
-    Future<void> onSubmit(Map<String, dynamic> formData) async {
-      try {
-        if (formViewModel.formKey.currentState?.validate() == false) {
-          return;
-        }
-        formViewModel.setIsSubmitting(true);
-        Response res = await _apiClient.post('/users/login?role-name=parent',
-            body: formData);
-        Map<String, dynamic> body = jsonDecode(res.body);
-        if (formData['rememberMe'] == true) {
-          await Storage.saveCredentials(
-              formData['email'], formData['password']);
-        }
-        await authTokenProvider.setToken(body['token']);
-        UserModel? user = await meViewModel.getMe();
-        if (user == null) {
-          throw Exception(context.t.get_me_failed_after_login);
-        }
-        _fcmTokenClient.create(user.id);
-        formViewModel.setIsSubmitting(false);
-        DashboardHomeScreen().launch(context);
-      } catch (error) {
-        await onError(error);
-      } finally {
-        formViewModel.setIsSubmitting(false);
-      }
-    }
-
     return AuthScaffoldColumn(
       children: [
         Spacer(),
@@ -153,7 +125,7 @@ class _LoginFormState extends State<LoginForm> {
             text: context.t.login,
             isLoading: formViewModel.isSubmitting,
             onPressed: () async {
-              onSubmit(formViewModel.formData);
+              _onSubmit(formViewModel.formData);
             }),
         Row(
           spacing: 8,
@@ -187,5 +159,38 @@ class _LoginFormState extends State<LoginForm> {
         Spacer(),
       ],
     );
+  }
+
+  Future<void> _onSubmit(Map<String, dynamic> formData) async {
+    FormViewModel formViewModel = $formViewModel(context, listen: false);
+    AuthTokenProvider authTokenProvider = $authTokenProvider(
+      context,
+      listen: false,
+    );
+    MeViewModel meViewModel = $meViewModel(context, listen: false);
+    try {
+      if (formViewModel.formKey.currentState?.validate() == false) {
+        return;
+      }
+      formViewModel.setIsSubmitting(true);
+      Response res = await _apiClient.post('/users/login?role-name=parent',
+          body: formData);
+      Map<String, dynamic> body = jsonDecode(res.body);
+      if (formData['rememberMe'] == true) {
+        await Storage.saveCredentials(formData['email'], formData['password']);
+      }
+      await authTokenProvider.setToken(body['token']);
+      UserModel? user = await meViewModel.getMe();
+      if (user == null) {
+        throw Exception(context.t.get_me_failed_after_login);
+      }
+      _fcmTokenClient.create(user.id);
+      formViewModel.setIsSubmitting(false);
+      DashboardHomeScreen().launch(context);
+    } catch (error) {
+      await onError(error);
+    } finally {
+      formViewModel.setIsSubmitting(false);
+    }
   }
 }
