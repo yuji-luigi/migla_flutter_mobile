@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
+import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/api/errors/validation_error.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/api_error.dart';
 import 'package:migla_flutter/src/models/internal/fcm_token_client.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
@@ -15,6 +17,7 @@ import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/utils/is_valid_json.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
@@ -51,31 +54,6 @@ class _LoginFormState extends State<LoginForm> {
     FormViewModel formViewModel = $formViewModel(context);
     AuthTokenProvider authTokenProvider = $authTokenProvider(context);
     MeViewModel meViewModel = $meViewModel(context);
-
-    Future<List<ValidationError>> onError(Object error) async {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login failed: ${error.toString()}'),
-          backgroundColor: Colors.red,
-        ),
-      );
-      if (error is Exception) {
-        Map<String, dynamic> errorRes = jsonDecode(error.getMessage);
-        Map<String, dynamic> targetError = errorRes['errors'][0];
-        if (targetError['name'] == 'ValidationError') {
-          if (targetError['data']['errors'] is List) {
-            List<ValidationError> errors = targetError['data']['errors']
-                .map((error) => ValidationError.fromJson(error))
-                .whereType<ValidationError>()
-                .toList();
-            return errors;
-          }
-        }
-      }
-      return [
-        ValidationError(path: 'email', message: 'Invalid email'),
-      ];
-    }
 
     return AuthScaffoldColumn(
       children: [
@@ -160,6 +138,30 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
+  Future<void> _onError(Object error) async {
+    if (error is Exception) {
+      if (isValidJson(error.getMessage)) {
+        Map<String, dynamic> errorRes = jsonDecode(error.getMessage);
+        final errors = errorRes['errors'];
+        if (errors != null && errors is List && errors.isNotEmpty) {
+          List<ApiError> apiErrors = errors
+              .map<ApiError>((error) => ApiError.fromJson(error))
+              .toList();
+          context.showErrorSnackbar(
+              apiErrors.map((error) => error.message).join('\n'));
+          return;
+        }
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login failed: ${error.toString()}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   Future<void> _onSubmit(Map<String, dynamic> formData) async {
     FormViewModel formViewModel = $formViewModel(context, listen: false);
     AuthTokenProvider authTokenProvider = $authTokenProvider(
@@ -187,7 +189,7 @@ class _LoginFormState extends State<LoginForm> {
       formViewModel.setIsSubmitting(false);
       DashboardHomeScreen().launch(context);
     } catch (error) {
-      await onError(error);
+      await _onError(error);
     } finally {
       formViewModel.setIsSubmitting(false);
     }
