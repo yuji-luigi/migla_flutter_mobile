@@ -36,7 +36,7 @@ class PaymentRecordModel {
         return null;
       }
       return PaymentRecordModel.fromJson(json);
-    } catch (error, stackTrace) {
+    } catch (error) {
       Logger.error(error.toString());
       return null;
     }

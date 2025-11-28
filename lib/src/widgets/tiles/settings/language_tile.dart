@@ -13,7 +13,7 @@ class LanguageTile extends StatefulWidget {
 }
 
 class _LanguageTileState extends State<LanguageTile> {
-  String _selectedLanguage = 'en';
+  final String _selectedLanguage = 'en';
   @override
   Widget build(BuildContext context) {
     final SettingsController settingsController = $settingsController(context);

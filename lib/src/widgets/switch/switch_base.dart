@@ -21,7 +21,7 @@ class SwitchBase extends StatelessWidget {
   Widget build(BuildContext context) {
     return Switch(
       value: value,
-      activeColor: activeColor ?? colorSecondary,
+      activeThumbColor: activeColor ?? colorSecondary,
       trackColor: WidgetStateProperty.fromMap({
         WidgetState.selected: activeColor ?? colorSecondary,
         WidgetState.any: colorTextDisabled,

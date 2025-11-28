@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/models/api/student/student_model.dart';
-import 'package:migla_flutter/src/models/api/student/graphql/students_query.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';

@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/images/swipable_image_fullscreen.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class TappableImage extends StatefulWidget {
   final String imagePath;

@@ -10,7 +10,6 @@ import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/payment_record_list/payment_record_list_card.dart';
 import 'package:migla_flutter/src/widgets/list_view_widgets/graphql/graphql_list_view_general.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 class PaymentListScreen extends StatefulWidget {
   const PaymentListScreen({super.key});

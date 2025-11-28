@@ -52,6 +52,7 @@ class ApiClientImpl implements ApiClient {
     }
   }
 
+  @override
   Future<http.Response> post(String path,
       {String? otherUrl, Map<String, dynamic>? body}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
@@ -74,6 +75,7 @@ class ApiClientImpl implements ApiClient {
     }
   }
 
+  @override
   Future<http.Response> put(String path, {String? otherUrl}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
     http.Response response = await http.put(uri);
@@ -85,6 +87,7 @@ class ApiClientImpl implements ApiClient {
     }
   }
 
+  @override
   Future<http.Response> delete(String path, {String? otherUrl}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
     http.Response response = await http.delete(uri);
@@ -96,6 +99,7 @@ class ApiClientImpl implements ApiClient {
     }
   }
 
+  @override
   Future<http.Response> patch(String path, {String? otherUrl}) async {
     Uri uri = Uri.parse(otherUrl ?? '$baseUrl$path');
     http.Response response = await http.patch(uri);

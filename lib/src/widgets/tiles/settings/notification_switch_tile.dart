@@ -22,7 +22,7 @@ class _NotificationSwitchTileState extends State<NotificationSwitchTile> {
           )),
       trailing: Switch(
         value: _isNotificationEnabled,
-        activeColor: colorSecondary,
+        activeThumbColor: colorSecondary,
         trackColor: WidgetStateProperty.fromMap({
           WidgetState.selected: colorSecondary,
           WidgetState.any: colorTextDisabled,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
-import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_list_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_list_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';

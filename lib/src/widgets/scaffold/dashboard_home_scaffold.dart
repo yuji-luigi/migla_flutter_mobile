@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
-import 'package:migla_flutter/src/screens/dashboard/notification_screens/notification_list_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
-import 'package:migla_flutter/src/widgets/buttons/student_switch_appbar_action_button.dart';
 import 'package:migla_flutter/src/widgets/drawer/dashboard_left_drawer.dart';
 
 class DashboardHomeScaffold extends StatefulWidget {

@@ -13,10 +13,10 @@ import 'package:provider/provider.dart';
 
 class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   StudentModel? _selectedStudent;
-  GraphQLClient _client;
+  final GraphQLClient _client;
   bool _isLoading = false;
   List<StudentModel> _students = [];
-  String? _errorMessage = null;
+  String? _errorMessage;
 
   StudentsViewModel(this._client);
 

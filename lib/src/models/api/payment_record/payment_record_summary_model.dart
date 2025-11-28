@@ -31,7 +31,7 @@ class PaymentRecordSummaryModel extends ApiModel {
         paymentSchedule: PaymentScheduleModel.fromJson(json['paymentSchedule']),
         paid: json['paid'] ?? false,
       );
-    } catch (error, stackTrace) {
+    } catch (error) {
       Logger.error(json.toString());
       Logger.error(error.toString());
       rethrow;

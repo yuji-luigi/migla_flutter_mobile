@@ -1,7 +1,5 @@
 import 'dart:developer';
 
-import 'package:flutter/foundation.dart';
-
 class Logger {
   static error(String str, {StackTrace? stackTrace}) {
     if (true) {

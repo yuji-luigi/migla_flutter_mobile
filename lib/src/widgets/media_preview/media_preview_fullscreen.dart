@@ -38,7 +38,7 @@ class MediaPreviewFullscreen extends StatelessWidget {
 
       try {
         // 1) Download the file bytes
-        final Uri uri = Uri.parse(media.url!);
+        final Uri uri = Uri.parse(media.url);
         final request = await HttpClient().getUrl(uri);
         final response = await request.close();
         if (response.statusCode != 200) {

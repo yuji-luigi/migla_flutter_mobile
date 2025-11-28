@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
 import 'package:migla_flutter/src/models/api/media/media_model.dart';
 import 'package:migla_flutter/src/models/api/teacher/teacher_model.dart';

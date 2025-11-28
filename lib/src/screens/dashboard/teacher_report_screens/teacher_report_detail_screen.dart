@@ -7,7 +7,6 @@ import 'package:migla_flutter/src/models/api/report/report_query.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/list/gallery_grid/tappable_image.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview.dart';
 import 'package:migla_flutter/src/widgets/media_preview/media_preview_fullscreen.dart';

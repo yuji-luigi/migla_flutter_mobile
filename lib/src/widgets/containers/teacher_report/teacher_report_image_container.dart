@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/theme/radius_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';

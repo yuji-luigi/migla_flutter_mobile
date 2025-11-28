@@ -1,9 +1,6 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
 import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';

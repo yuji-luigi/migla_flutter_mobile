@@ -27,7 +27,7 @@ class NotificationDetailModel extends NotificationModel {
         return null;
       }
       return NotificationDetailModel.fromJson(json);
-    } catch (error, stackTrace) {
+    } catch (error) {
       Logger.error(error.toString());
       return null;
     }
@@ -58,7 +58,7 @@ class NotificationDetailModel extends NotificationModel {
                 .toList()
             : [],
       );
-    } catch (error, stackTrace) {
+    } catch (error) {
       Logger.error(error.toString());
       rethrow;
     }

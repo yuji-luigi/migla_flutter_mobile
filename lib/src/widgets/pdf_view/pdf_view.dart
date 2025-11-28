@@ -104,9 +104,9 @@ class _PdfViewState extends State<PdfView> {
                 false, // if set to true the link is handled in flutter
             // backgroundColor: widget.backgroundColor,
             backgroundColor: widget.backgroundColor,
-            onRender: (_pages) {
+            onRender: (pages) {
               setState(() {
-                pages = _pages;
+                pages = pages;
                 isReady = true;
               });
             },

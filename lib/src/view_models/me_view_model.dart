@@ -17,7 +17,7 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
   bool get hasMe => _me != null;
-  ApiClientImpl _apiClient = ApiClientImpl();
+  final ApiClientImpl _apiClient = ApiClientImpl();
 
   Future<UserModel?> getMe() async {
     try {

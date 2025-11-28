@@ -13,12 +13,12 @@ class SwipableImageFullscreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageController _pageController = PageController(initialPage: initialIndex);
+    PageController pageController = PageController(initialPage: initialIndex);
     return Stack(
       children: [
         Positioned.fill(
           child: PageView.builder(
-            controller: _pageController, // ✅ Enable swiping
+            controller: pageController, // ✅ Enable swiping
             itemCount: images.length,
             itemBuilder: (context, index) {
               return InteractiveViewer(

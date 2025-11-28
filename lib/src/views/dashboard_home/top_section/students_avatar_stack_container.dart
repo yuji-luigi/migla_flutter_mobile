@@ -30,24 +30,20 @@ class StudentsAvatarStackContainer extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            ...vm.students
-                .asMap()
-                .entries
-                .map((entry) => Positioned(
-                      left: 30,
-                      top: 0,
-                      bottom: 0,
-                      right: 30 * (entry.key).toDouble(),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.transparent,
-                        child: Image.asset(
-                          avatarPlaceholder,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ))
-                .toList()
+            ...vm.students.asMap().entries.map((entry) => Positioned(
+                  left: 30,
+                  top: 0,
+                  bottom: 0,
+                  right: 30 * (entry.key).toDouble(),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.transparent,
+                    child: Image.asset(
+                      avatarPlaceholder,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),

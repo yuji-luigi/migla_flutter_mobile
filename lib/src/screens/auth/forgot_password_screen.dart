@@ -6,7 +6,6 @@ import 'package:migla_flutter/src/models/internal/api_client.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
-import 'package:migla_flutter/src/widgets/inputs/controled_inputs/input_rounded_white_controlled.dart';
 import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
 import 'package:migla_flutter/src/widgets/link_text.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';

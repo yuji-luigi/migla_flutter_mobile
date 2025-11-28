@@ -36,7 +36,7 @@ class NotificationModel extends ApiModel {
         return null;
       }
       return NotificationModel.fromJson(json);
-    } catch (error, stackTrace) {
+    } catch (error) {
       Logger.error(error.toString());
       return null;
     }

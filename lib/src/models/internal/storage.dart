@@ -15,7 +15,7 @@ class Storage {
   static Future<String?> _read({required String key}) async {
     try {
       return await storage.read(key: key);
-    } on PlatformException catch (e) {
+    } on PlatformException {
       // failed to decrypt (or any other storage error) → clear it and use defaults
       await storage.delete(key: key);
       return null;

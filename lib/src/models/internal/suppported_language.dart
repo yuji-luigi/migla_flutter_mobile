@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 class SupportedLanguage {
   final String code;
   final String name;

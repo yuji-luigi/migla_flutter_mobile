@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
-import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
-import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:nb_utils/nb_utils.dart';

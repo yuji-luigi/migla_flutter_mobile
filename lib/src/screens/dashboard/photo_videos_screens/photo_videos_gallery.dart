@@ -27,7 +27,7 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> _images = List.generate(
+    List<String> images = List.generate(
         50,
         (index) =>
             placeholderImages[Random().nextInt(placeholderImages.length)]);
@@ -55,7 +55,7 @@ class _PhotoVideosGalleryState extends State<PhotoVideosGallery> {
       title: 'Photo & Videos',
       bodyColor: bgPrimaryColor,
       body: SingleChildScrollView(
-        child: GalleryGrid(images: _images),
+        child: GalleryGrid(images: images),
       ),
     );
   }
