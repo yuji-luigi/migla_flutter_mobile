@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/bg_image_constants.dart';
-import 'package:migla_flutter/src/models/api/student/student_model.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:migla_flutter/src/widgets/dialog/students_select_dialog/students_select_dialog.dart';
