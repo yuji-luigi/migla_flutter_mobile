@@ -60,7 +60,7 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
       if (result.hasException && result.data == null) {
         throw result.exception!;
       }
-      _selectedStudent = result.data != null
+      _selectedStudent = result.data?['Student'] != null
           ? StudentModel.fromJson(result.data!['Student'])
           : null;
       notifyListeners();
