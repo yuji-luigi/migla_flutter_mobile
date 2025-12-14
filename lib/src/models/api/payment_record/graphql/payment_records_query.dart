@@ -9,7 +9,6 @@ query PaymentRecordsByPayer($payerId: JSON) {
         id
         notificationTitle
         paymentDue
-        notificationScheduledAt
         createdAt
       }
       paid

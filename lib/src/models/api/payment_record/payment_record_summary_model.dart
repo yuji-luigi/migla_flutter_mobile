@@ -43,23 +43,24 @@ class PaymentScheduleModel {
   final int id;
   final String notificationTitle;
   final DateTime paymentDue;
-  final DateTime notificationScheduledAt;
+  // final DateTime notificationScheduledAt;
   final String createdAt;
 
   PaymentScheduleModel({
     required this.id,
     required this.notificationTitle,
     required this.paymentDue,
-    required this.notificationScheduledAt,
+    // required this.notificationScheduledAt,
     required this.createdAt,
   });
 
   factory PaymentScheduleModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return PaymentScheduleModel(
       id: json['id'],
       notificationTitle: json['notificationTitle'] ?? '',
       paymentDue: DateTime.parse(json['paymentDue']),
-      notificationScheduledAt: DateTime.parse(json['notificationScheduledAt']),
+      // notificationScheduledAt: DateTime.parse(json['notificationScheduledAt']),
       createdAt: json['createdAt'] ?? '',
     );
   }

@@ -25,17 +25,6 @@ class DashboardHomeBottomSection extends StatelessWidget {
         children: [
           TileLikeButtonHome(
             disabled: !hasSelectedStudent,
-            text: context.t.photoAndVideoTextButton,
-            endIconColor: colorSecondaryDark,
-            icon: SvgPicture.asset(
-              svgSmile,
-            ),
-            onTap: () {
-              PhotoVideosTopScreen().launch(context);
-            },
-          ),
-          TileLikeButtonHome(
-            disabled: !hasSelectedStudent,
             text: context.t.teacherReport,
             backgroundColor: colorPrimary,
             endIconColor: colorPrimaryDark,
@@ -55,6 +44,17 @@ class DashboardHomeBottomSection extends StatelessWidget {
             ),
             onTap: () {
               NotificationListScreen().launch(context);
+            },
+          ),
+          TileLikeButtonHome(
+            disabled: true,
+            text: context.t.photoAndVideoTextButton,
+            endIconColor: colorSecondaryDark,
+            icon: SvgPicture.asset(
+              svgSmile,
+            ),
+            onTap: () {
+              PhotoVideosTopScreen().launch(context);
             },
           ),
         ],
