@@ -6,4 +6,4 @@
 // const String devHost = 'http://10.202.223.222:3566';
 const String devHost = 'http://localhost:3566';
 // const String devHost = 'https://migla.school';
-const bool useProdUrl = true;
+const bool useProdUrl = false;

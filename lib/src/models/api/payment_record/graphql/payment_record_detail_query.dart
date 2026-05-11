@@ -49,6 +49,7 @@ query GetMyPaymentRecord($scheduleId: JSON!, $payerId: JSON!) {
     tuitionFee
     tuitionFeeDescription
     tuitionFeeTotalAndSingle
+    bodyPerPayer
     totalString
     studentCount
     materialFee

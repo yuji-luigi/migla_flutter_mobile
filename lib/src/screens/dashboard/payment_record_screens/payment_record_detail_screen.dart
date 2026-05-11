@@ -222,7 +222,7 @@ class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: paymentRecord.paymentSchedule.notificationBody,
+                      text: paymentRecord.bodyPerPayer,
                       style: textStyleBodyMedium,
                     ),
                     const TextSpan(text: '\n\n'),

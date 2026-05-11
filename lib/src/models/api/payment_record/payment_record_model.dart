@@ -8,6 +8,7 @@ class PaymentRecordModel {
   final String tuitionFeeTotalAndSingle;
   final String totalString;
   final int studentCount;
+  final String bodyPerPayer;
   final double materialFee;
   final double tuitionFee;
   final String materialFeeTotalAndSingle;
@@ -22,6 +23,7 @@ class PaymentRecordModel {
     required this.tuitionFeeTotalAndSingle,
     required this.totalString,
     required this.studentCount,
+    required this.bodyPerPayer,
     required this.materialFee,
     required this.tuitionFee,
     required this.materialFeeTotalAndSingle,
@@ -46,6 +48,7 @@ class PaymentRecordModel {
     try {
       return PaymentRecordModel(
         id: json['id'],
+        bodyPerPayer: json['bodyPerPayer'] ?? '',
         paymentSchedule:
             PaymentScheduleDetailModel.fromJson(json['paymentSchedule']),
         tuitionFeeDescription: json['tuitionFeeDescription'],
