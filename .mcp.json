@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--cdp-endpoint",
+        "http://localhost:9222",
+        "--output-dir",
+        "/Users/yujisato/Development/personal/MIGLA/ai-config-migla/docs/snapshots"
+      ],
+      "env": {}
+    }
+  }
+}

@@ -621,6 +621,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sent'**
   String get has_been_sent;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @publicNoContent.
+  ///
+  /// In en, this message translates to:
+  /// **'No content available yet.'**
+  String get publicNoContent;
+
+  /// No description provided for @publicContentUpdateAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'New contents are available, please wait while we update.'**
+  String get publicContentUpdateAvailable;
+
+  /// No description provided for @publicOpenFormOnWebsite.
+  ///
+  /// In en, this message translates to:
+  /// **'Open this form on our website'**
+  String get publicOpenFormOnWebsite;
 }
 
 class _AppLocalizationsDelegate

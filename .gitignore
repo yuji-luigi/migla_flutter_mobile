@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Playwright MCP output (should go to ai-config-migla/docs/snapshots instead)
+.playwright-mcp/

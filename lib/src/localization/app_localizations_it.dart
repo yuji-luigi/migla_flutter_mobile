@@ -286,4 +286,18 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get has_been_sent => 'Inviato';
+
+  @override
+  String get retry => 'Riprova';
+
+  @override
+  String get publicNoContent => 'Nessun contenuto disponibile al momento.';
+
+  @override
+  String get publicContentUpdateAvailable =>
+      'Sono disponibili nuovi contenuti, attendi mentre aggiorniamo.';
+
+  @override
+  String get publicOpenFormOnWebsite =>
+      'Apri questo modulo sul nostro sito web';
 }

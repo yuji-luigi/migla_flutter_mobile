@@ -286,4 +286,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get has_been_sent => 'Sent';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get publicNoContent => 'No content available yet.';
+
+  @override
+  String get publicContentUpdateAvailable =>
+      'New contents are available, please wait while we update.';
+
+  @override
+  String get publicOpenFormOnWebsite => 'Open this form on our website';
 }

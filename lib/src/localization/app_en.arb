@@ -106,5 +106,9 @@
 	"loading": "Loading...",
 	"not_found": "Not found",
 	"submit": "Submit",
-	"has_been_sent": "Sent"
+	"has_been_sent": "Sent",
+	"retry": "Retry",
+	"publicNoContent": "No content available yet.",
+	"publicContentUpdateAvailable": "New contents are available, please wait while we update.",
+	"publicOpenFormOnWebsite": "Open this form on our website"
 }

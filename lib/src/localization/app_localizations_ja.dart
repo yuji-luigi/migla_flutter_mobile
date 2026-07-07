@@ -281,4 +281,16 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get has_been_sent => '送信されました。';
+
+  @override
+  String get retry => '再試行';
+
+  @override
+  String get publicNoContent => '表示できるコンテンツがまだありません。';
+
+  @override
+  String get publicContentUpdateAvailable => '新しいコンテンツがあります。更新しますので少々お待ちください。';
+
+  @override
+  String get publicOpenFormOnWebsite => 'ウェブサイトでこのフォームを開く';
 }

@@ -106,5 +106,9 @@
 		"loading": "Caricando...",
 		"not_found": "Non trovato",
 		"submit": "Invia",
-		"has_been_sent": "Inviato"
+		"has_been_sent": "Inviato",
+		"retry": "Riprova",
+		"publicNoContent": "Nessun contenuto disponibile al momento.",
+		"publicContentUpdateAvailable": "Sono disponibili nuovi contenuti, attendi mentre aggiorniamo.",
+		"publicOpenFormOnWebsite": "Apri questo modulo sul nostro sito web"
 	}

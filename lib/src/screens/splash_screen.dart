@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
-import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
+import 'package:migla_flutter/src/screens/public/public_home_screen.dart';
 import 'package:migla_flutter/src/services/native_notifier.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // 3) Navigate
     if (!mounted) return;
-    LoginScreen().launch(context, isNewTask: true);
+    PublicHomeScreen().launch(context, isNewTask: true);
   }
 
   @override
