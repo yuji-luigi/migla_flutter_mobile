@@ -23,13 +23,30 @@ class PublicHomeScreen extends StatefulWidget {
   State<PublicHomeScreen> createState() => _PublicHomeScreenState();
 }
 
-class _PublicHomeScreenState extends State<PublicHomeScreen> {
+class _PublicHomeScreenState extends State<PublicHomeScreen>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       $publicContentViewModel(context, listen: false).init();
     });
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // The version check otherwise runs only at launch; users keep the app
+    // in memory for days, so re-check whenever it returns to foreground.
+    if (state == AppLifecycleState.resumed) {
+      $publicContentViewModel(context, listen: false).refresh();
+    }
   }
 
   @override

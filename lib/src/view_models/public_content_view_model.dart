@@ -43,12 +43,15 @@ class PublicContentViewModel with ChangeNotifier, DiagnosticableTreeMixin {
   List<PublicLinkModel> get headerNav => _headerNav;
   List<PublicLinkModel> get footerNav => _footerNav;
 
+  /// The page rendered as the app's landing content.
+  /// Prefers an app-specific 'mobile-home' page, then the website's 'home'.
   PublicPageModel? get homePage {
     if (_pages.isEmpty) return null;
-    return _pages.firstWhere(
-      (p) => p.slug == 'home',
-      orElse: () => _pages.first,
-    );
+    for (final slug in const ['mobile-home', 'home']) {
+      final page = pageBySlug(slug);
+      if (page != null) return page;
+    }
+    return _pages.first;
   }
 
   PublicPageModel? pageBySlug(String? slug) {
@@ -101,6 +104,7 @@ class PublicContentViewModel with ChangeNotifier, DiagnosticableTreeMixin {
         document: gql(publicContentVersionQuery),
         fetchPolicy: FetchPolicy.networkOnly,
         errorPolicy: ErrorPolicy.all,
+        variables: {'locale': _locale},
       ));
       if (result.hasException && result.data == null) {
         throw result.exception!;

@@ -63,9 +63,13 @@ class PublicContentCache {
     }
   }
 
-  /// Deterministic version string from ids + updatedAt timestamps.
-  /// Works for both the full query and the lightweight version query,
-  /// since both include Pages.docs(id, updatedAt) and the globals' updatedAt.
+  /// Deterministic version string: page ids + updatedAt, plus a content
+  /// hash of the Header/Footer globals.
+  ///
+  /// Globals are hashed (not compared by updatedAt) because Payload does
+  /// not bump a global's updatedAt on update. Requires the version query
+  /// and the full query to select Header/Footer identically — see the note
+  /// on publicContentVersionQuery.
   static String computeVersion(Map<String, dynamic> data) {
     final docs = (data['Pages']?['docs'] as List? ?? []);
     final entries = docs
@@ -73,8 +77,18 @@ class PublicContentCache {
         .map((d) => '${d['id']}@${d['updatedAt']}')
         .toList()
       ..sort();
-    final header = data['Header']?['updatedAt'];
-    final footer = data['Footer']?['updatedAt'];
-    return [...entries, 'header@$header', 'footer@$footer'].join('|');
+    final headerHash = _fnv1a(jsonEncode(data['Header'] ?? {}));
+    final footerHash = _fnv1a(jsonEncode(data['Footer'] ?? {}));
+    return [...entries, 'header#$headerHash', 'footer#$footerHash'].join('|');
+  }
+
+  /// FNV-1a 64-bit — stable across app launches (String.hashCode is not).
+  static String _fnv1a(String input) {
+    var hash = 0xcbf29ce484222325;
+    for (final codeUnit in input.codeUnits) {
+      hash ^= codeUnit;
+      hash = (hash * 0x100000001b3) & 0xFFFFFFFFFFFFFFFF;
+    }
+    return hash.toRadixString(16);
   }
 }

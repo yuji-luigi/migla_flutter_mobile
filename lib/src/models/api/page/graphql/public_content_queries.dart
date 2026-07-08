@@ -134,6 +134,7 @@ query PublicContent($locale: LocaleInputType!) {
   Header(locale: $locale) {
     updatedAt
     navItems {
+      showInMobileApp
       link {
         type
         newTab
@@ -158,6 +159,7 @@ query PublicContent($locale: LocaleInputType!) {
   Footer(locale: $locale) {
     updatedAt
     navItems {
+      showInMobileApp
       link {
         type
         newTab
@@ -182,11 +184,17 @@ query PublicContent($locale: LocaleInputType!) {
 }
 ''';
 
-/// Lightweight version probe: only ids + updatedAt timestamps.
-/// The app compares the computed version string against the cached one
-/// to decide whether a full refetch is needed.
+/// Lightweight version probe: page ids + updatedAt, plus the FULL
+/// Header/Footer navItems.
+///
+/// Payload does NOT bump a global's `updatedAt` on update, so the version
+/// is computed from the navItems content itself (hashed in
+/// PublicContentCache.computeVersion). The Header/Footer selections here
+/// MUST stay byte-identical to the ones in [publicContentQuery] — the hash
+/// compares the JSON of both responses, so a differing selection would
+/// make every probe look like new content.
 const String publicContentVersionQuery = r'''
-query PublicContentVersion {
+query PublicContentVersion($locale: LocaleInputType!) {
   Pages(
     limit: 100
     where: {
@@ -201,11 +209,55 @@ query PublicContentVersion {
       updatedAt
     }
   }
-  Header {
+  Header(locale: $locale) {
     updatedAt
+    navItems {
+      showInMobileApp
+      link {
+        type
+        newTab
+        url
+        label
+        reference {
+          relationTo
+          value {
+            ... on Page {
+              slug
+              title
+            }
+            ... on Post {
+              slug
+              title
+            }
+          }
+        }
+      }
+    }
   }
-  Footer {
+  Footer(locale: $locale) {
     updatedAt
+    navItems {
+      showInMobileApp
+      link {
+        type
+        newTab
+        url
+        label
+        reference {
+          relationTo
+          value {
+            ... on Page {
+              slug
+              title
+            }
+            ... on Post {
+              slug
+              title
+            }
+          }
+        }
+      }
+    }
   }
 }
 ''';

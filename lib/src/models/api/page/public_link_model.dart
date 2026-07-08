@@ -74,10 +74,17 @@ class PublicLinkModel {
 
   /// Parses a Payload `links` array (`[{ link: {...} }]`) or a `navItems`
   /// array of the same shape.
+  ///
+  /// Rows carrying a `showInMobileApp: false` flag (Header/Footer navItems)
+  /// are dropped; missing/null counts as visible (pre-flag rows).
   static List<PublicLinkModel> listFromLinksJson(dynamic links) {
     if (links is! List) return [];
     return links
-        .map((e) => e is Map<String, dynamic> ? tryFromJson(e['link']) : null)
+        .map((e) {
+          if (e is! Map<String, dynamic>) return null;
+          if (e['showInMobileApp'] == false) return null;
+          return tryFromJson(e['link']);
+        })
         .whereType<PublicLinkModel>()
         .toList();
   }

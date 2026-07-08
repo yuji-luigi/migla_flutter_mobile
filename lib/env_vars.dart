@@ -16,8 +16,17 @@ const String devApiUrl = '$devHost/api';
 /// returns true on build (not debug-apk) also TestFlight returns true
 const bool isProduction = bool.fromEnvironment('dart.vm.product');
 
+/// Optional build-time override injected by the Makefile / build script, e.g.
+///   flutter build ... --dart-define=API_HOST=https://migla.school
+/// When empty (normal `flutter run` / debug), it falls back to the
+/// isProduction/useProdUrl logic below, whose production value is [prodHost].
+const String apiHostOverride = String.fromEnvironment('API_HOST');
+const bool hasApiHostOverride = apiHostOverride != '';
+
 /// use this bool to switch the api url so you can forget about the isProduction bool
 
-const String host = isProduction || useProdUrl ? prodHost : devHost;
-const String apiUrl = isProduction || useProdUrl ? prodApiUrl : devApiUrl;
+const String host = hasApiHostOverride
+    ? apiHostOverride
+    : (isProduction || useProdUrl ? prodHost : devHost);
+const String apiUrl = '$host/api';
 const String apiGraphqlUrl = '$apiUrl/graphql';
