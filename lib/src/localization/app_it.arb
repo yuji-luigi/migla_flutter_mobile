@@ -35,6 +35,7 @@
 		"labelConfirmPassword": "Conferma Password",
 		"register": "Registrati",
 		"login": "Accedi",
+		"goToHome": "Torna alla home",
 		"alreadyHaveAccount": "Hai già un account?",
 		"noAccount": "Non hai un account?",
 		"forgotPassword": "Hai dimenticato la password?",

@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:migla_flutter/src/widgets/public_pages/public_link_opener.dart';
 
 /// Renders Payload CMS Lexical rich-text JSON as Flutter widgets.
 ///
@@ -241,10 +241,10 @@ class _LexicalRichTextState extends State<LexicalRichText> {
   TapGestureRecognizer _recognizerFor(String url) {
     final recognizer = TapGestureRecognizer()
       ..onTap = () {
-        final uri = Uri.tryParse(url);
-        if (uri != null) {
-          launchUrl(uri, mode: LaunchMode.externalApplication);
-        }
+        if (!mounted) return;
+        // Same resolution as the nav bar: internal targets open natively,
+        // external ones open in the browser.
+        openPublicUrl(context, url);
       };
     _recognizers.add(recognizer);
     return recognizer;

@@ -35,6 +35,7 @@
 	"labelConfirmPassword": "パスワードの確認",
 	"register": "登録する",
 	"login": "ログイン",
+	"goToHome": "ホームに戻る",
 	"alreadyHaveAccount": "アカウントをお持ちですか？",
 	"noAccount": "アカウントをお持ちでない方は、こちらから",
 	"forgotPassword": "パスワードを忘れた方は、こちらから",

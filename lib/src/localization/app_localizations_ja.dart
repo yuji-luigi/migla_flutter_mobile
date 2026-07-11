@@ -65,6 +65,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get login => 'ログイン';
 
   @override
+  String get goToHome => 'ホームに戻る';
+
+  @override
   String get alreadyHaveAccount => 'アカウントをお持ちですか？';
 
   @override

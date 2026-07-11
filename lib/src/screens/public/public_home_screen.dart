@@ -158,7 +158,7 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
               (link) => ListTile(
                 title: Text(link.label, style: textStyleBodyLarge),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  // Navigator.of(context).pop();
                   openPublicLink(context, link);
                 },
               ),
@@ -188,8 +188,7 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
         if (code == currentCode) return;
         await settingsController.updateLocale(code);
         if (!context.mounted) return;
-        await $publicContentViewModel(context, listen: false)
-            .onLocaleChanged();
+        await $publicContentViewModel(context, listen: false).onLocaleChanged();
       },
       itemBuilder: (context) => supportedLanguages
           .map(

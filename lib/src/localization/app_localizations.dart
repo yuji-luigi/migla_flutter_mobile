@@ -190,6 +190,12 @@ abstract class AppLocalizations {
   /// **'Login'**
   String get login;
 
+  /// No description provided for @goToHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to home'**
+  String get goToHome;
+
   /// No description provided for @alreadyHaveAccount.
   ///
   /// In en, this message translates to:

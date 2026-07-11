@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart';
+import 'package:migla_flutter/env_vars.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
 import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/exception_extension.dart';
@@ -16,6 +17,7 @@ import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
+import 'package:migla_flutter/src/screens/splash_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/is_valid_json.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
@@ -127,11 +129,22 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ],
         ),
+        if (!isProduction)
+          GestureDetector(
+            onTap: () {
+              Storage.forceRemoveAll();
+            },
+            child: Text('dev reset storage(not context)'),
+          ),
         GestureDetector(
           onTap: () {
-            Storage.forceRemoveAll();
+            SplashScreen().launch(context);
           },
-          child: Text('dev reset storage(not context)'),
+          child: Text(
+            context.t.goToHome,
+            style: textStyleCaptionMd.copyWith(
+                color: textSecondaryColor, fontSize: 16),
+          ),
         ),
         Spacer(),
       ],
