@@ -14,6 +14,9 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get dashboard => 'Dashboard';
+
+  @override
   String nWombats(num count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
@@ -303,4 +306,7 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get publicOpenFormOnWebsite =>
       'Apri questo modulo sul nostro sito web';
+
+  @override
+  String get schoolInfo => 'Informazioni scuola';
 }

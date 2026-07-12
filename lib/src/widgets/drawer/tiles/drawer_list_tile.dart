@@ -21,15 +21,17 @@ class DrawerListTile extends StatelessWidget {
         ),
         onTap: () =>
             item.onTap != null ? item.onTap!() : item.widget.launch(context),
-        leading: SvgPicture.asset(
-          item.icon,
-          width: 42,
-          height: 42,
-          colorFilter: ColorFilter.mode(
-            colorBlack,
-            BlendMode.srcIn,
-          ),
-        ),
+        leading: item.materialIcon != null
+            ? Icon(item.materialIcon, size: 34, color: colorBlack)
+            : SvgPicture.asset(
+                item.icon!,
+                width: 42,
+                height: 42,
+                colorFilter: ColorFilter.mode(
+                  colorBlack,
+                  BlendMode.srcIn,
+                ),
+              ),
         title: Text(item.title,
             style: TextStyle(
                 color: colorBlack, fontSize: 18, fontWeight: FontWeight.w500)),

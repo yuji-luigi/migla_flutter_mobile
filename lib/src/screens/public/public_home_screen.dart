@@ -3,8 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/suppported_language.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/public_content_view_model.dart';
 import 'package:migla_flutter/src/widgets/public_pages/public_content_update_banner.dart';
 import 'package:migla_flutter/src/widgets/public_pages/public_footer.dart';
@@ -52,6 +54,7 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
   @override
   Widget build(BuildContext context) {
     final vm = $publicContentViewModel(context);
+    final meVm = $meViewModel(context);
     return Scaffold(
       backgroundColor: bgPrimaryColor,
       appBar: AppBar(
@@ -61,15 +64,17 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
           _languageMenu(context),
           Padding(
             padding: const EdgeInsets.only(right: 8),
-            child: TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: actionPrimaryColor,
-                foregroundColor: textColorWhite,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-              ),
-              onPressed: () => LoginScreen().launch(context),
-              child: Text(context.t.login),
-            ),
+            child: meVm.me == null
+                ? TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: actionPrimaryColor,
+                      foregroundColor: textColorWhite,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                    onPressed: () => LoginScreen().launch(context),
+                    child: Text(context.t.login),
+                  )
+                : null,
           ),
         ],
       ),
@@ -164,14 +169,25 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
               ),
             ),
             const Divider(),
-            ListTile(
-              leading: Icon(Icons.login, color: colorPrimaryDark),
-              title: Text(context.t.login, style: textStyleBodyLarge),
-              onTap: () {
-                Navigator.of(context).pop();
-                LoginScreen().launch(context);
-              },
-            ),
+            if ($meViewModel(context).me == null)
+              ListTile(
+                leading: Icon(Icons.login, color: colorPrimaryDark),
+                title: Text(context.t.login, style: textStyleBodyLarge),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  LoginScreen().launch(context);
+                },
+              )
+            else
+              ListTile(
+                leading:
+                    Icon(Icons.dashboard_outlined, color: colorPrimaryDark),
+                title: Text(context.t.dashboard, style: textStyleBodyLarge),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  DashboardHomeScreen().launch(context);
+                },
+              ),
           ],
         ),
       ),

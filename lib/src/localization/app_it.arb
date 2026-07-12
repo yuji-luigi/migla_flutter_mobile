@@ -1,5 +1,6 @@
 	{
 		"helloExample": "Ciao, {name}!",
+		"dashboard": "Dashboard",
 		"@helloExample": {
 			"description": "A greeting message with a name",
 			"placeholders": {
@@ -111,5 +112,6 @@
 		"retry": "Riprova",
 		"publicNoContent": "Nessun contenuto disponibile al momento.",
 		"publicContentUpdateAvailable": "Sono disponibili nuovi contenuti, attendi mentre aggiorniamo.",
-		"publicOpenFormOnWebsite": "Apri questo modulo sul nostro sito web"
+		"publicOpenFormOnWebsite": "Apri questo modulo sul nostro sito web",
+		"schoolInfo": "Informazioni scuola"
 	}

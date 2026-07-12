@@ -4,6 +4,8 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_list_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
+import 'package:migla_flutter/src/screens/public/public_home_screen.dart';
+import 'package:migla_flutter/src/screens/splash_screen.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/drawer/tiles/drawer_list_tile.dart';
@@ -93,6 +95,12 @@ List<Widget> getDrawerTiles(BuildContext context) {
       icon: svgCog,
       title: context.t.navSettings,
       widget: SettingsScreen(),
+    )),
+    DrawerListTile(
+        item: NavItem(
+      materialIcon: Icons.school_outlined,
+      title: context.t.schoolInfo,
+      widget: const PublicHomeScreen(),
     )),
   ];
 }

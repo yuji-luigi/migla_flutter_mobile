@@ -76,12 +76,6 @@ class _LoginFormState extends State<LoginForm> {
                 keyboardType: TextInputType.emailAddress,
                 hintText: context.t.labelEmail,
                 autofillHints: const [AutofillHints.username], // or .email
-                // validator: (value) {
-                //   if (value == null || value.isEmpty) {
-                //     return context.t.labelEmailRequired;
-                //   }
-                //   return null;
-                // },
               ),
               PasswordInputControlled(
                 name: 'password',
@@ -129,13 +123,14 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ],
         ),
-        if (!isProduction)
-          GestureDetector(
-            onTap: () {
-              Storage.forceRemoveAll();
-            },
-            child: Text('dev reset storage(not context)'),
-          ),
+        // if (!isProduction)
+        //   GestureDetector(
+        //     onTap: () {
+        //       Storage.forceRemoveAll();
+        //     },
+        //     child: Text('dev reset storage(not context)'),
+        //   ),
+        6.height,
         GestureDetector(
           onTap: () {
             SplashScreen().launch(context);

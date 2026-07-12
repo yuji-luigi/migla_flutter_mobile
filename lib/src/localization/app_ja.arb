@@ -1,5 +1,6 @@
 {
 	"helloExample": "こんにちは、{name}!",
+	"dashboard": "ダッシュボード",
 	"@helloExample": {
 		"description": "A greeting message with a name",
 		"placeholders": {
@@ -111,5 +112,6 @@
 	"retry": "再試行",
 	"publicNoContent": "表示できるコンテンツがまだありません。",
 	"publicContentUpdateAvailable": "新しいコンテンツがあります。更新しますので少々お待ちください。",
-	"publicOpenFormOnWebsite": "ウェブサイトでこのフォームを開く"
+	"publicOpenFormOnWebsite": "ウェブサイトでこのフォームを開く",
+	"schoolInfo": "学校案内"
 }

@@ -17,7 +17,7 @@ class FeatureProviders extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => MeViewModel(),
+          create: (context) => MeViewModel()..getMe(),
           lazy: false,
         ),
         ChangeNotifierProvider(

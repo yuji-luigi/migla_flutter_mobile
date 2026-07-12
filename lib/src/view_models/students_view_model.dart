@@ -40,9 +40,11 @@ class StudentsViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     errorMessage = null;
     _isLoading = true;
     notifyListeners();
+    print('setSelectedStudentFromCache');
     // 1. get the saved student ID
     final int? studentId = await Storage.getSelectedStudentId();
-    if (studentId == null) return;
+    // if (studentId == null) return;
+    print('studentId: $studentId');
     String localeCode = await Storage.getLocale();
     // 2. run a GQL query
     final options = QueryOptions(

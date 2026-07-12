@@ -106,6 +106,12 @@ abstract class AppLocalizations {
   /// **'Hello, {name}!'**
   String helloExample(String name);
 
+  /// No description provided for @dashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Dashboard'**
+  String get dashboard;
+
   /// No description provided for @nWombats.
   ///
   /// In en, this message translates to:
@@ -651,6 +657,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open this form on our website'**
   String get publicOpenFormOnWebsite;
+
+  /// No description provided for @schoolInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'School Info'**
+  String get schoolInfo;
 }
 
 class _AppLocalizationsDelegate
