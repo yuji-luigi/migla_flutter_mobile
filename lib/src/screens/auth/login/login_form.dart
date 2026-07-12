@@ -16,6 +16,7 @@ import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
+import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/screens/splash_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
@@ -100,6 +101,7 @@ class _LoginFormState extends State<LoginForm> {
             onPressed: () async {
               _onSubmit(formViewModel.formData);
             }),
+
         Row(
           spacing: 8,
           mainAxisAlignment: MainAxisAlignment.end,
@@ -123,6 +125,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ],
         ),
+
         // if (!isProduction)
         //   GestureDetector(
         //     onTap: () {
@@ -130,6 +133,17 @@ class _LoginFormState extends State<LoginForm> {
         //     },
         //     child: Text('dev reset storage(not context)'),
         //   ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(context.t.noAccount),
+            LinkText(
+              context.t.register,
+              newScreen: RegisterScreen(),
+              isNewTask: true,
+            )
+          ],
+        ),
         6.height,
         GestureDetector(
           onTap: () {

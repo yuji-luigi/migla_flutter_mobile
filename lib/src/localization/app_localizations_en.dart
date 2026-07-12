@@ -47,10 +47,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registerDesc => 'Register to start';
 
   @override
-  String get labelName => 'Name';
+  String get labelName => 'Name (alphabet)';
 
   @override
-  String get labelSurname => 'Surname';
+  String get labelNameJapanese => 'Name (Japanese)';
+
+  @override
+  String get labelSurname => 'Surname (alphabet)';
+
+  @override
+  String get labelSurnameJapanese => 'Surname (Japanese)';
 
   @override
   String get labelEmail => 'Email';

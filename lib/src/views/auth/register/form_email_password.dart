@@ -12,6 +12,12 @@ class FormEmailPassword extends StatelessWidget {
       spacing: spacingAuthForm,
       children: [
         InputRoundedWhite(
+          hintText: context.t.labelNameJapanese,
+        ),
+        InputRoundedWhite(
+          hintText: context.t.labelSurnameJapanese,
+        ),
+        InputRoundedWhite(
           hintText: context.t.labelName,
         ),
         InputRoundedWhite(

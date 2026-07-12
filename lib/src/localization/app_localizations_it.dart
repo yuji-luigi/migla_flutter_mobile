@@ -47,10 +47,16 @@ class AppLocalizationsIt extends AppLocalizations {
   String get registerDesc => 'Stai al passo con i progressi di tuo figlio!';
 
   @override
-  String get labelName => 'Nome';
+  String get labelName => 'Nome (alfabeto)';
 
   @override
-  String get labelSurname => 'Cognome';
+  String get labelNameJapanese => 'Nome (giapponese)';
+
+  @override
+  String get labelSurname => 'Cognome (alfabeto)';
+
+  @override
+  String get labelSurnameJapanese => 'Cognome (giapponese)';
 
   @override
   String get labelEmail => 'Email';

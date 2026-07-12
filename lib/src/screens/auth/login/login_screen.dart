@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_form.dart';
+import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
+import 'package:migla_flutter/src/widgets/link_text.dart';
 import 'package:migla_flutter/src/widgets/scaffold/auth_scaffold.dart';
 import 'package:provider/provider.dart';
+
+import '../../../extensions/localization/localization_context_extension.dart';
 
 class LoginScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -12,6 +16,13 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthScaffold(
+      prefixActions: [
+        LinkText(
+          context.t.register,
+          newScreen: RegisterScreen(),
+          isNewTask: true,
+        ),
+      ],
       child: FutureBuilder<Map<String, String>?>(
           future: Storage.getLoginCredentials(),
           builder: (ctx, snap) {

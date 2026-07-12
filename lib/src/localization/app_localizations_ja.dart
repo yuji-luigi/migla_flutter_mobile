@@ -50,7 +50,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get labelName => '名前(アルファベット)';
 
   @override
+  String get labelNameJapanese => '名前(日本語)';
+
+  @override
   String get labelSurname => '苗字(アルファベット)';
+
+  @override
+  String get labelSurnameJapanese => '苗字(日本語)';
 
   @override
   String get labelEmail => 'メールアドレス';

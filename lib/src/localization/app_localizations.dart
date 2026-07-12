@@ -157,14 +157,26 @@ abstract class AppLocalizations {
   /// No description provided for @labelName.
   ///
   /// In en, this message translates to:
-  /// **'Name'**
+  /// **'Name (alphabet)'**
   String get labelName;
+
+  /// No description provided for @labelNameJapanese.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Japanese)'**
+  String get labelNameJapanese;
 
   /// No description provided for @labelSurname.
   ///
   /// In en, this message translates to:
-  /// **'Surname'**
+  /// **'Surname (alphabet)'**
   String get labelSurname;
+
+  /// No description provided for @labelSurnameJapanese.
+  ///
+  /// In en, this message translates to:
+  /// **'Surname (Japanese)'**
+  String get labelSurnameJapanese;
 
   /// No description provided for @labelEmail.
   ///

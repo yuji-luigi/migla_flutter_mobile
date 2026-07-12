@@ -7,7 +7,15 @@ import 'package:nb_utils/nb_utils.dart';
 class AuthScaffold extends StatelessWidget {
   final Widget child;
   final double spacing;
-  const AuthScaffold({super.key, required this.child, this.spacing = 0});
+  final List<Widget>? prefixActions;
+  final List<Widget>? suffixActions;
+  const AuthScaffold({
+    super.key,
+    required this.child,
+    this.spacing = 0,
+    this.prefixActions,
+    this.suffixActions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,15 @@ class AuthScaffold extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        actions: [SwitchLanguageFlagButton(), 24.width],
+        actions: [
+          ...prefixActions ?? [],
+          SwitchLanguageFlagButton(),
+          ...suffixActions ?? [],
+          16.width
+        ]
+            .map((e) =>
+                Padding(padding: EdgeInsets.symmetric(horizontal: 8), child: e))
+            .toList(),
       ),
       body: Stack(
         fit: StackFit.expand,

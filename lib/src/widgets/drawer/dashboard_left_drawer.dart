@@ -96,6 +96,7 @@ List<Widget> getDrawerTiles(BuildContext context) {
       title: context.t.navSettings,
       widget: SettingsScreen(),
     )),
+    const Divider(),
     DrawerListTile(
         item: NavItem(
       materialIcon: Icons.school_outlined,
