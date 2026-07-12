@@ -104,6 +104,8 @@
 	"back": "戻る",
 	"labelEmailRequired": "メールアドレスを入力してください",
 	"labelPasswordRequired": "パスワードを入力してください",
+	"fieldIsRequired": "このフィールドは必須です",
+	"japaneseOrAlphabetIsRequired": "日本語またはアルファベットのフィールドを入力してください",
 	"invalidEmail": "メールアドレスが無効です",
 	"pageIsUnderDevelopment": "このページは開発中です。開発が完了するまでしばらくお待ちください。",
 	"get_me_failed_after_login": "ログインは成功しましたが、ユーザー情報を取得できませんでした。管理者にお問い合わせください。",
@@ -115,5 +117,6 @@
 	"publicNoContent": "表示できるコンテンツがまだありません。",
 	"publicContentUpdateAvailable": "新しいコンテンツがあります。更新しますので少々お待ちください。",
 	"publicOpenFormOnWebsite": "ウェブサイトでこのフォームを開く",
-	"schoolInfo": "学校案内"
+	"schoolInfo": "学校案内",
+	"passwordsDoNotMatch": "パスワードが一致しません"
 }

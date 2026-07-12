@@ -104,6 +104,8 @@
 		"back": "Indietro",
 		"labelEmailRequired": "Inserisci il tuo indirizzo email",
 		"labelPasswordRequired": "Inserisci la tua password",
+		"fieldIsRequired": "Questo campo è obbligatorio",
+		"japaneseOrAlphabetIsRequired": "Inserisci caratteri giapponesi o alfabetici",
 		"invalidEmail": "Inserisci un indirizzo email valido",
 		"pageIsUnderDevelopment": "Questa pagina è in fase di sviluppo. Attendi fino a quando non sarà completata.",
 		"get_me_failed_after_login": "Login è riuscito ma non è stato possibile ottenere l'utente. contattare l'amministratore",
@@ -115,5 +117,6 @@
 		"publicNoContent": "Nessun contenuto disponibile al momento.",
 		"publicContentUpdateAvailable": "Sono disponibili nuovi contenuti, attendi mentre aggiorniamo.",
 		"publicOpenFormOnWebsite": "Apri questo modulo sul nostro sito web",
-		"schoolInfo": "Informazioni scuola"
+		"schoolInfo": "Informazioni scuola",
+		"passwordsDoNotMatch": "Le password non corrispondono"
 	}

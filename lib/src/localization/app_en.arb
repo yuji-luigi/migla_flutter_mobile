@@ -104,6 +104,8 @@
 	"back": "Back",
 	"labelEmailRequired": "Please enter your email address",
 	"labelPasswordRequired": "Please enter your password",
+	"fieldIsRequired": "This field is required",
+	"japaneseOrAlphabetIsRequired": "Please enter Japanese or alphabet characters",
 	"invalidEmail": "Please enter a valid email address",
 	"pageIsUnderDevelopment": "This page is under development. Please wait until it is completed.",
 	"get_me_failed_after_login": "Login is succeeded but could not get user. please contact administrator",
@@ -115,5 +117,6 @@
 	"publicNoContent": "No content available yet.",
 	"publicContentUpdateAvailable": "New contents are available, please wait while we update.",
 	"publicOpenFormOnWebsite": "Open this form on our website",
-	"schoolInfo": "School Info"
+	"schoolInfo": "School Info",
+	"passwordsDoNotMatch": "Passwords do not match"
 }

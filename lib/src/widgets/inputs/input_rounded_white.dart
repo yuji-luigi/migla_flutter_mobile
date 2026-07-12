@@ -48,6 +48,7 @@ class InputRoundedWhite extends StatelessWidget {
           fillColor: Colors.white,
           filled: true,
           hintText: hintText,
+          labelText: hintText,
           suffixIcon: suffixIcon),
     );
   }

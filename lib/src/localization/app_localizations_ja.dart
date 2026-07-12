@@ -273,6 +273,12 @@ class AppLocalizationsJa extends AppLocalizations {
   String get labelPasswordRequired => 'パスワードを入力してください';
 
   @override
+  String get fieldIsRequired => 'このフィールドは必須です';
+
+  @override
+  String get japaneseOrAlphabetIsRequired => '日本語またはアルファベットのフィールドを入力してください';
+
+  @override
   String get invalidEmail => 'メールアドレスが無効です';
 
   @override
@@ -308,4 +314,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get schoolInfo => '学校案内';
+
+  @override
+  String get passwordsDoNotMatch => 'パスワードが一致しません';
 }

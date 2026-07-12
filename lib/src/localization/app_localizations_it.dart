@@ -277,6 +277,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get labelPasswordRequired => 'Inserisci la tua password';
 
   @override
+  String get fieldIsRequired => 'Questo campo è obbligatorio';
+
+  @override
+  String get japaneseOrAlphabetIsRequired =>
+      'Inserisci caratteri giapponesi o alfabetici';
+
+  @override
   String get invalidEmail => 'Inserisci un indirizzo email valido';
 
   @override
@@ -315,4 +322,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get schoolInfo => 'Informazioni scuola';
+
+  @override
+  String get passwordsDoNotMatch => 'Le password non corrispondono';
 }

@@ -604,6 +604,18 @@ abstract class AppLocalizations {
   /// **'Please enter your password'**
   String get labelPasswordRequired;
 
+  /// No description provided for @fieldIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get fieldIsRequired;
+
+  /// No description provided for @japaneseOrAlphabetIsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Japanese or alphabet characters'**
+  String get japaneseOrAlphabetIsRequired;
+
   /// No description provided for @invalidEmail.
   ///
   /// In en, this message translates to:
@@ -675,6 +687,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'School Info'**
   String get schoolInfo;
+
+  /// No description provided for @passwordsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsDoNotMatch;
 }
 
 class _AppLocalizationsDelegate
