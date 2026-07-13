@@ -14,54 +14,66 @@ class RegisterForm extends StatelessWidget {
     return Column(
       spacing: spacingAuthForm,
       children: [
-        InputRoundedWhiteControlled(
-          name: 'name_ja',
-          hintText: context.t.labelNameJapanese,
-          validator: (value) {
-            if ((value == null || value.isEmpty) &&
-                (formViewModel.formData['name_it'] == null ||
-                    formViewModel.formData['name_it'] == '')) {
-              return context.t.japaneseOrAlphabetIsRequired;
-            }
-            return null;
-          },
-        ),
-        InputRoundedWhiteControlled(
-          name: 'surname_ja',
-          hintText: context.t.labelSurnameJapanese,
-          validator: (value) {
-            if ((value == null || value.isEmpty) &&
-                (formViewModel.formData['surname_it'] == null ||
-                    formViewModel.formData['surname_it'] == '')) {
-              return context.t.japaneseOrAlphabetIsRequired;
-            }
-            return null;
-          },
-        ),
-        InputRoundedWhiteControlled(
-          name: 'name_it',
-          hintText: context.t.labelName,
-          validator: (value) {
-            if ((value == null || value.isEmpty) &&
-                (formViewModel.formData['name_ja'] == null ||
-                    formViewModel.formData['name_ja'] == '')) {
-              return context.t.japaneseOrAlphabetIsRequired;
-            }
-            return null;
-          },
-        ),
-        InputRoundedWhiteControlled(
-          name: 'surname_it',
-          hintText: context.t.labelSurname,
-          validator: (value) {
-            if ((value == null || value.isEmpty) &&
-                (formViewModel.formData['surname_ja'] == null ||
-                    formViewModel.formData['surname_ja'] == '')) {
-              return context.t.japaneseOrAlphabetIsRequired;
-            }
-            return null;
-          },
-        ),
+        Row(children: [
+          Expanded(
+            child: InputRoundedWhiteControlled(
+              name: 'surname_ja',
+              hintText: context.t.labelSurnameJapanese,
+              validator: (value) {
+                if ((value == null || value.isEmpty) &&
+                    (formViewModel.formData['surname_it'] == null ||
+                        formViewModel.formData['surname_it'] == '')) {
+                  return context.t.japaneseOrAlphabetIsRequired;
+                }
+                return null;
+              },
+            ),
+          ),
+          Expanded(
+            child: InputRoundedWhiteControlled(
+              name: 'name_ja',
+              hintText: context.t.labelNameJapanese,
+              validator: (value) {
+                if ((value == null || value.isEmpty) &&
+                    (formViewModel.formData['name_it'] == null ||
+                        formViewModel.formData['name_it'] == '')) {
+                  return context.t.japaneseOrAlphabetIsRequired;
+                }
+                return null;
+              },
+            ),
+          ),
+        ]),
+        Row(children: [
+          Expanded(
+            child: InputRoundedWhiteControlled(
+              name: 'surname_it',
+              hintText: context.t.labelSurname,
+              validator: (value) {
+                if ((value == null || value.isEmpty) &&
+                    (formViewModel.formData['surname_ja'] == null ||
+                        formViewModel.formData['surname_ja'] == '')) {
+                  return context.t.japaneseOrAlphabetIsRequired;
+                }
+                return null;
+              },
+            ),
+          ),
+          Expanded(
+            child: InputRoundedWhiteControlled(
+              name: 'name_it',
+              hintText: context.t.labelName,
+              validator: (value) {
+                if ((value == null || value.isEmpty) &&
+                    (formViewModel.formData['name_ja'] == null ||
+                        formViewModel.formData['name_ja'] == '')) {
+                  return context.t.japaneseOrAlphabetIsRequired;
+                }
+                return null;
+              },
+            ),
+          ),
+        ]),
         InputRoundedWhiteControlled(
           name: 'email',
           validator: (value) {

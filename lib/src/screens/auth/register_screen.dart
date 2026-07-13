@@ -30,7 +30,7 @@ class RegisterScreen extends StatelessWidget {
           'surname_ja': '',
           'email': '',
           'password': '',
-          'confirmPassword': '',
+          'confirm_password': '',
         },
         child: Consumer<FormViewModel>(
           builder: (context, formViewModel, child) =>
