@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/spacings.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
+import 'package:migla_flutter/src/models/enums/input/input_types.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
 import 'package:migla_flutter/src/widgets/inputs/controled_inputs/input_rounded_white_controlled.dart';
+import 'package:migla_flutter/src/widgets/inputs/controled_inputs/password_input_controlled.dart';
 import 'package:migla_flutter/src/widgets/inputs/input_rounded_white.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -76,6 +78,12 @@ class RegisterForm extends StatelessWidget {
         ]),
         InputRoundedWhiteControlled(
           name: 'email',
+          keyboardType: TextInputType.emailAddress,
+          autofillHints: const [
+            AutofillHints.username,
+            AutofillHints.email
+          ], // or .email
+
           validator: (value) {
             if (value == null || value.isEmpty) {
               return context.t.labelEmailRequired;
@@ -84,8 +92,9 @@ class RegisterForm extends StatelessWidget {
           },
           hintText: context.t.labelEmail,
         ),
-        InputRoundedWhiteControlled(
+        PasswordInputControlled(
           name: 'password',
+          keyboardType: TextInputType.visiblePassword,
           hintText: context.t.labelPassword,
           validator: (value) {
             if (value == null || value.isEmpty) {
@@ -94,8 +103,9 @@ class RegisterForm extends StatelessWidget {
             return null;
           },
         ),
-        InputRoundedWhiteControlled(
+        PasswordInputControlled(
           name: 'confirm_password',
+          keyboardType: TextInputType.visiblePassword,
           hintText: context.t.labelConfirmPassword,
           validator: (value) {
             if (value == null || value.isEmpty) {
