@@ -5,4 +5,4 @@ const String apiUrlFcmToken = '/fcmTokens';
 const String apiUrlNotifications = '/notifications';
 const String apiUrlNotificationByCollectionAndRecordId =
     '/notifications/by-collection-and-record-id';
-const String apiUrlRegister = '/users/auth/mobile/register';
+const String apiUrlRegister = '/users/auth/mobile/register?role-name=parent';
