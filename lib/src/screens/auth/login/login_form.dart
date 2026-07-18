@@ -55,8 +55,8 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     FormViewModel formViewModel = $formViewModel(context);
-    AuthTokenProvider authTokenProvider = $authTokenProvider(context);
-    MeViewModel meViewModel = $meViewModel(context);
+    $authTokenProvider(context);
+    $meViewModel(context);
 
     return AuthScaffoldColumn(
       children: [

@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/api_endpoints.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
@@ -53,44 +56,31 @@ class RegisterScreen extends StatelessWidget {
                 if (formViewModel.formKey.currentState?.validate() == false) {
                   return;
                 }
+
                 Map<String, dynamic> body = {};
                 body.addAll(formViewModel.formData);
                 body['locale'] = $settingsController(context, listen: false)
                     .locale
                     .languageCode;
-                dynamic response = await ApiClientImpl()
+                Response response = await ApiClientImpl()
                     .post(apiUrlRegister, body: formViewModel.formData);
 
-                ///
-                ///the response looks like this:
-                ///{
-                // loginResponse: {
-                //   exp: 1784318499,
-                //   token: 'x',
-                //   user: {
-                //     id: 582,
-                //     name: 's',
-                //     surname: 's',
-                //     searchText: 's s s s ss ss',
-                //     currentRoleNew: null,
-                //     currentRole: [Object],
-                //     roles: [Array],
-                //     fcmToken: [Object],
-                //     lastLoginAt: null,
-                //     updatedAt: null,
-                //     createdAt: '2026-07-15T20:01:39.112Z',
-                //     deletedAt: null,
-                //     email: 'u.ji.jp777+test.no4@gmail.com',
-                //     sessions: [Array],
-                //     collection: 'users',
-                //     _strategy: 'local-jwt',
-                //     fullname: 's s',
-                //     displayName: 's s <u.ji.jp777+test.no4@gmail.com>'
-                //   }
-                // }
+                if (response.statusCode < 300 && response.statusCode >= 200) {
+                  final Map<String, dynamic> resData =
+                      jsonDecode(response.body);
+                  AuthTokenProvider authTokenProvider = $authTokenProvider(
+                    context,
+                    listen: false,
+                  );
+                  authTokenProvider.setToken(resData['data']['token']);
 
-                inspect(response);
-                // DashboardHomeScreen().launch(context, isNewTask: true);
+                  DashboardHomeScreen().launch(context, isNewTask: true);
+                } else {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                          title: Text('error'), content: Text(response.body)));
+                }
               },
             ),
             16.height,
