@@ -22,7 +22,6 @@ query StudentsByParentId($userId: JSON!, $locale: LocaleInputType!){
           }
         }
       }
-      slug
       createdAt
     }
   }
