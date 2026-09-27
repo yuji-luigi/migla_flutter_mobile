@@ -5,6 +5,7 @@ import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/screens/public/public_home_screen.dart';
 import 'package:migla_flutter/src/services/native_notifier.dart';
+import 'package:migla_flutter/src/services/push_navigation_service.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -35,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _init() async {
     await _initFirebase();
+    await PushNavigationService.init();
     // 1) Make sure the splash image is decoded & ready
     await precacheImage(const AssetImage(placeholderRainbow), context);
 
@@ -55,11 +57,14 @@ class _SplashScreenState extends State<SplashScreen> {
       if (!mounted) return;
       if (me != null) {
         DashboardHomeScreen().launch(context, isNewTask: true);
+        // A notification tap that cold-started the app (e.g. an inquiry reply).
+        PushNavigationService.flushPending();
         return;
       }
     }
 
     if (!mounted) return;
+    PushNavigationService.discardPending();
     PublicHomeScreen().launch(context, isNewTask: true);
   }
 

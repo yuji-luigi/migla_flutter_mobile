@@ -5,6 +5,8 @@ import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.d
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
+import 'package:migla_flutter/src/view_models/billing_profiles_view_model.dart';
+import 'package:migla_flutter/src/view_models/inquiries_view_model.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -18,6 +20,8 @@ class LogoutTile extends StatelessWidget {
 
     final gqlClient = GraphQLProvider.of(context).value;
     final StudentsViewModel studentsVm = $studentsViewModel(context);
+    final billingVm = $billingProfilesViewModel(context, listen: false);
+    final inquiriesVm = $inquiriesViewModel(context, listen: false);
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 0),
       title: Row(
@@ -27,6 +31,8 @@ class LogoutTile extends StatelessWidget {
               await meVm.logout();
               gqlClient.cache.store.reset();
               studentsVm.clear();
+              billingVm.clear();
+              inquiriesVm.clear();
               // rerun the app
               LoginScreen().launch(context, isNewTask: true);
             },

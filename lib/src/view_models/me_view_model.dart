@@ -55,6 +55,28 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
+  /// Requests deletion of the logged-in account (App Store 5.1.1(v)).
+  ///
+  /// Returns the backend status: `deleted` (account removed immediately, local
+  /// session cleared here) or `requested` (enrolled family: the request was
+  /// forwarded to the school office). Throws [ApiException] on failure.
+  Future<String> deleteAccount({String? reason, required String locale}) async {
+    final res = await _apiClient.post(apiUrlDeleteAccount, body: {
+      'confirm': true,
+      if (reason != null && reason.trim().isNotEmpty) 'reason': reason.trim(),
+      'locale': locale,
+    });
+    final data = jsonDecode(res.body);
+    final String status = data['status']?.toString() ?? 'requested';
+    if (status == 'deleted') {
+      final String? email = _me?.email;
+      _me = null;
+      await Storage.clearForDeletedAccount(email: email);
+      notifyListeners();
+    }
+    return status;
+  }
+
   /// Makes `UserProvider` readable inside the devtools by listing all of its properties
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {

@@ -22,4 +22,5 @@ Map<String, String> svgIconMap = {
   "notification": svgNotification,
   "general_notification": svgNotification,
   "teacher_report": svgBlog,
+  "inquiry": svgMail,
 };

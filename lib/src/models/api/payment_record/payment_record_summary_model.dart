@@ -1,15 +1,18 @@
 import 'package:migla_flutter/src/models/api/api_model_abstract.dart';
+import 'package:migla_flutter/src/models/api/payment_record/receipt_model.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 
 class PaymentRecordSummaryModel extends ApiModel {
   final int id;
   final PaymentScheduleModel paymentSchedule;
   final bool paid;
+  final ReceiptModel receipt;
 
   PaymentRecordSummaryModel({
     required this.id,
     required this.paymentSchedule,
     required this.paid,
+    this.receipt = ReceiptModel.empty,
   });
 
   static PaymentRecordSummaryModel? tryFromJson(Map<String, dynamic>? json) {
@@ -30,6 +33,8 @@ class PaymentRecordSummaryModel extends ApiModel {
         id: json['id'],
         paymentSchedule: PaymentScheduleModel.fromJson(json['paymentSchedule']),
         paid: json['paid'] ?? false,
+        receipt: ReceiptModel.fromJson(
+            json['receipt'] is Map<String, dynamic> ? json['receipt'] : null),
       );
     } catch (error) {
       Logger.error(json.toString());

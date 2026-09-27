@@ -14,6 +14,7 @@ import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/utils/date_time/format_date_time.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
+import 'package:migla_flutter/src/views/payment_record_detail/receipt_card.dart';
 
 class PaymentRecordDetailScreen extends StatefulWidget {
   final int scheduleId;
@@ -131,6 +132,11 @@ class _PaymentRecordDetailScreenState extends State<PaymentRecordDetailScreen>
                 children: [
                   // if (paymentRecord.paymentSchedule != null)
                   _buildScheduleCard(context, paymentRecord),
+                  ReceiptCard(
+                    key: ValueKey('receipt-${paymentRecord.id}'),
+                    paymentRecordId: paymentRecord.id,
+                    receipt: paymentRecord.receipt,
+                  ),
                   // Payment Status Card
                   // _buildStatusCard(context, paymentRecord),
 

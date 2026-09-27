@@ -56,6 +56,18 @@ query GetMyPaymentRecord($scheduleId: JSON!, $payerId: JSON!) {
     materialFeeTotalAndSingle
     materialFeeDescription
     paid
+    receipt {
+      requested
+      bolloVerified
+      confirmationCode
+      requestedAt
+      billingProfile {
+        id
+        label
+        holderName
+        bankAccountHolder
+      }
+    }
     purchases {
       productAndQuantity {
         quantity

@@ -100,6 +100,9 @@ class RegisterForm extends StatelessWidget {
             if (value == null || value.isEmpty) {
               return context.t.labelPasswordRequired;
             }
+            if (value.length < 8) {
+              return context.t.passwordMinLength;
+            }
             return null;
           },
         ),
@@ -116,6 +119,16 @@ class RegisterForm extends StatelessWidget {
             }
             return null;
           },
+        ),
+        CheckboxListTile(
+          contentPadding: EdgeInsets.zero,
+          dense: true,
+          controlAffinity: ListTileControlAffinity.leading,
+          value: formViewModel.formData['newsletter'] == true,
+          onChanged: (value) =>
+              formViewModel.setFormData('newsletter', value ?? false),
+          title: Text(context.t.registerNewsletterOptIn),
+          subtitle: Text(context.t.registerNewsletterOptInHint),
         ),
       ],
     );

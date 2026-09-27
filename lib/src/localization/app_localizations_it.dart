@@ -325,4 +325,321 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get passwordsDoNotMatch => 'Le password non corrispondono';
+
+  @override
+  String get commonOk => 'OK';
+
+  @override
+  String get commonSave => 'Salva';
+
+  @override
+  String get commonEdit => 'Modifica';
+
+  @override
+  String get commonDelete => 'Elimina';
+
+  @override
+  String get copy => 'Copia';
+
+  @override
+  String get copied => 'Copiato';
+
+  @override
+  String get optional => 'facoltativo';
+
+  @override
+  String get tooManyAttempts => 'Troppi tentativi. Riprova tra qualche minuto.';
+
+  @override
+  String get privacyPolicy => 'informativa sulla privacy';
+
+  @override
+  String get billingInfo => 'Dati per la ricevuta';
+
+  @override
+  String get billingInfoAdd => 'Aggiungi intestatario';
+
+  @override
+  String get billingInfoEdit => 'Modifica intestatario';
+
+  @override
+  String get billingInfoEmptyTitle => 'Nessun intestatario registrato';
+
+  @override
+  String get billingInfoEmptyDesc =>
+      'Questi dati vengono usati come intestatario della ricevuta e per abbinare i bonifici. Se paghi da un conto intestato a un altro familiare (ad es. il coniuge), indicarne l\'intestatario aiuta la scuola a riconoscere il pagamento. Puoi registrarne più di uno e sceglierlo al momento della richiesta.';
+
+  @override
+  String get billingDefault => 'Predefinito';
+
+  @override
+  String get billingSetAsDefault => 'Imposta come predefinito';
+
+  @override
+  String get billingDeleteConfirmTitle => 'Eliminare questo intestatario?';
+
+  @override
+  String billingDeleteConfirmBody(String label) {
+    return '“$label” verrà eliminato. L\'operazione non può essere annullata.';
+  }
+
+  @override
+  String get billingDeleted => 'Eliminato';
+
+  @override
+  String get billingSaved => 'Salvato';
+
+  @override
+  String get billingLabel => 'Etichetta';
+
+  @override
+  String get billingLabelHint => 'Es. papà, mamma';
+
+  @override
+  String get billingHolderName => 'Intestatario della ricevuta';
+
+  @override
+  String get billingBankAccountHolder => 'Intestatario del conto bancario';
+
+  @override
+  String get billingBankAccountHolderHelper =>
+      'Il titolare del conto da cui fai il bonifico. Serve ad abbinare il pagamento quando è diverso da chi è registrato nell\'app (es. conto del coniuge).';
+
+  @override
+  String get billingNotes => 'Note';
+
+  @override
+  String get billingNotesHint =>
+      'Eventuali indicazioni per la scuola per l\'emissione della ricevuta';
+
+  @override
+  String get billingIsDefault => 'Usa come intestatario predefinito';
+
+  @override
+  String get receiptTitle => 'Ricevuta';
+
+  @override
+  String get receiptBadge => 'ricevuta';
+
+  @override
+  String get receiptExplanation =>
+      'Se ti serve la ricevuta, richiedila qui. In tal caso aggiungi 2 € di marca da bollo all\'importo del bonifico. La scuola emetterà la ricevuta dopo aver verificato il pagamento.';
+
+  @override
+  String get receiptStatusNotRequested => 'Non richiesta';
+
+  @override
+  String get receiptStatusRequested => 'Richiesta';
+
+  @override
+  String get receiptStatusVerified => 'Bollo verificato';
+
+  @override
+  String get receiptRequestButton => 'Richiedi la ricevuta';
+
+  @override
+  String get receiptRequestDialogTitle => 'Richiesta ricevuta';
+
+  @override
+  String get receiptRequestDialogBody =>
+      'Aggiungi 2 € di marca da bollo all\'importo del bonifico.';
+
+  @override
+  String get receiptChooseBillingProfile => 'Scegli l\'intestatario';
+
+  @override
+  String get receiptNoBillingProfileHint =>
+      'Non hai ancora registrato un intestatario. Registrarlo permette di emettere la ricevuta con il nome corretto. Puoi comunque procedere con la richiesta.';
+
+  @override
+  String get receiptRequestWithoutProfile => 'Richiedi senza dati';
+
+  @override
+  String get receiptAddressee => 'Intestatario';
+
+  @override
+  String get receiptAddresseeRegistered => 'Intestatario registrato';
+
+  @override
+  String get receiptNoBillingProfile =>
+      'Non indicato (verranno usati i dati in possesso della scuola)';
+
+  @override
+  String get receiptRequestedAt => 'Richiesta il';
+
+  @override
+  String get receiptConfirmationCode => 'Codice di conferma';
+
+  @override
+  String get receiptConfirmationCodeHint =>
+      'Indica questo codice nella causale del bonifico.';
+
+  @override
+  String get receiptCancelRequest => 'Annulla la richiesta';
+
+  @override
+  String get receiptCancelConfirmTitle => 'Annullare la richiesta?';
+
+  @override
+  String get receiptCancelConfirmBody =>
+      'La richiesta di ricevuta verrà annullata e non sarà necessario aggiungere i 2 € di marca da bollo.';
+
+  @override
+  String get receiptRequestedSnackbar => 'Ricevuta richiesta';
+
+  @override
+  String get receiptCancelledSnackbar => 'Richiesta annullata';
+
+  @override
+  String get receiptCannotCancelVerified =>
+      'Non è possibile annullare: la scuola ha già verificato il pagamento della marca da bollo.';
+
+  @override
+  String get deleteAccount => 'Elimina account';
+
+  @override
+  String get deleteAccountConfirmTitle => 'Eliminare l\'account?';
+
+  @override
+  String get deleteAccountConfirmBody =>
+      'Gli account senza dati scolastici vengono eliminati subito.\n\nPer le famiglie iscritte (o iscritte in passato) i dati degli studenti e dei pagamenti devono essere conservati: la richiesta verrà inviata alla segreteria della scuola, che ti contatterà.';
+
+  @override
+  String get deleteAccountReason => 'Motivo (facoltativo)';
+
+  @override
+  String get deleteAccountUnderstand => 'Ho capito';
+
+  @override
+  String get deleteAccountConfirmButton => 'Elimina';
+
+  @override
+  String get deleteAccountDone =>
+      'Il tuo account è stato eliminato. Grazie per aver usato MIGLA.';
+
+  @override
+  String get deleteAccountRequestedTitle => 'Richiesta inviata';
+
+  @override
+  String get deleteAccountRequestedBody =>
+      'La richiesta di eliminazione è stata inviata alla segreteria della scuola. Poiché i dati degli studenti e dei pagamenti devono essere conservati, la segreteria la gestirà e ti contatterà.';
+
+  @override
+  String get newsletterReceive => 'Ricevi la newsletter';
+
+  @override
+  String get newsletterPending =>
+      'In attesa di conferma: clicca il link nell\'email per completare l\'iscrizione';
+
+  @override
+  String get newsletterSubscribed => 'Iscritto';
+
+  @override
+  String get newsletterConfirmSentTitle => 'Email di conferma inviata';
+
+  @override
+  String get newsletterConfirmSent =>
+      'Ti abbiamo inviato un\'email di conferma. Clicca il link contenuto per completare l\'iscrizione.';
+
+  @override
+  String get newsletterUnsubscribed => 'Iscrizione alla newsletter annullata';
+
+  @override
+  String get registerNewsletterOptIn => 'Ricevi la newsletter di MIGLA';
+
+  @override
+  String get registerNewsletterOptInHint => 'Riceverai un\'email di conferma';
+
+  @override
+  String get registerFailed => 'Registrazione non riuscita';
+
+  @override
+  String get passwordMinLength =>
+      'La password deve contenere almeno 8 caratteri';
+
+  @override
+  String get inquiries => 'Contatti';
+
+  @override
+  String get inquiryNew => 'Nuovo messaggio';
+
+  @override
+  String get inquiryEmptyTitle => 'Nessun messaggio';
+
+  @override
+  String get inquiryEmptyDesc =>
+      'Scrivi qui domande o richieste alla scuola. Le risposte arriveranno nell\'app e riceverai una notifica.';
+
+  @override
+  String get inquiryCategory => 'Categoria';
+
+  @override
+  String get inquiryCategoryGeneral => 'Generale';
+
+  @override
+  String get inquiryCategoryAdmission => 'Iscrizione e lezione di prova';
+
+  @override
+  String get inquiryCategoryPayment => 'Pagamenti';
+
+  @override
+  String get inquiryCategoryApp => 'App';
+
+  @override
+  String get inquiryCategoryOther => 'Altro';
+
+  @override
+  String get inquiryStatusNew => 'Nuova';
+
+  @override
+  String get inquiryStatusOpen => 'In corso';
+
+  @override
+  String get inquiryStatusAnswered => 'Risposta ricevuta';
+
+  @override
+  String get inquiryStatusClosed => 'Chiusa';
+
+  @override
+  String get inquirySubject => 'Oggetto';
+
+  @override
+  String get inquiryMessage => 'Messaggio';
+
+  @override
+  String get inquiryMessageHint => 'Scrivi un messaggio';
+
+  @override
+  String get inquiryName => 'Nome e cognome';
+
+  @override
+  String get inquirySenderSchool => 'Scuola';
+
+  @override
+  String get inquiryClosedNote =>
+      'Questa conversazione è chiusa. Per nuove domande invia un nuovo messaggio.';
+
+  @override
+  String get inquirySent => 'Messaggio inviato';
+
+  @override
+  String get inquirySentTitle => 'Messaggio inviato';
+
+  @override
+  String get inquirySentGuest =>
+      'Grazie per averci scritto. La scuola ti risponderà all\'indirizzo email indicato.';
+
+  @override
+  String get inquiryGuestHint =>
+      'Se accedi prima di scrivere, potrai leggere le risposte della scuola nell\'app. Senza accesso, la risposta arriverà via email.';
+
+  @override
+  String get inquiryPrivacyConsentPrefix => 'Ho letto e accetto l\'';
+
+  @override
+  String get inquiryPrivacyConsentSuffix => '';
+
+  @override
+  String get inquiryPrivacyConsentRequired =>
+      'È necessario accettare l\'informativa sulla privacy';
 }

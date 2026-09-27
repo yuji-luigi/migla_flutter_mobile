@@ -29,9 +29,20 @@ class PaymentRecordListCard extends StatelessWidget {
       child: Card(
         margin: const EdgeInsets.only(bottom: 8),
         child: ListTile(
-          title: Text(
-            title,
-            style: textStyleBodyMedium,
+          title: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: textStyleBodyMedium,
+                ),
+              ),
+              if (paymentRecord.receipt.requested) ...[
+                const SizedBox(width: 8),
+                _ReceiptBadge(verified: paymentRecord.receipt.bolloVerified),
+              ],
+            ],
           ),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,6 +68,34 @@ class PaymentRecordListCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ReceiptBadge extends StatelessWidget {
+  final bool verified;
+  const _ReceiptBadge({required this.verified});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = verified ? colorSuccess : colorSecondaryDark;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        border: Border.all(color: color),
+        borderRadius: BorderRadius.circular(900),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.receipt_long_outlined, size: 12, color: color),
+          const SizedBox(width: 2),
+          Text(
+            context.t.receiptBadge,
+            style: textStyleCaptionMd.copyWith(color: color, fontSize: 10),
+          ),
+        ],
       ),
     );
   }

@@ -85,6 +85,25 @@ class Storage {
     }
   }
 
+  /// Cleanup after the account was deleted on the backend: removes the
+  /// session and, when they belong to [email], the saved remember-me
+  /// credentials. Keeps device-level preferences (locale, onboarding).
+  static Future<void> clearForDeletedAccount({String? email}) async {
+    final String? savedEmail = await _read(key: _email);
+    final String? savedPassword = await _read(key: _password);
+    final String? locale = await _read(key: _locale);
+    await storage.deleteAll();
+    await setSeenOnboarding(true);
+    if (locale != null) await setLocale(locale);
+    final bool sameAccount = email != null &&
+        savedEmail != null &&
+        savedEmail.trim().toLowerCase() == email.trim().toLowerCase();
+    if (savedEmail != null && savedPassword != null && !sameAccount &&
+        email != null) {
+      await saveCredentials(savedEmail, savedPassword);
+    }
+  }
+
   static Future<void> forceRemoveAll() async {
     await storage.deleteAll();
     print('storage deleted');

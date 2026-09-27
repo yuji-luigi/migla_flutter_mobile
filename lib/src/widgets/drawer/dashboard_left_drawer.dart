@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:migla_flutter/src/constants/image_constants/svg_icon_constants.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/objects/nav_item.dart';
+import 'package:migla_flutter/src/screens/dashboard/billing_profile_screens/billing_profile_list_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/inquiry_screens/inquiry_list_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_list_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/setting_screens/settings_screen.dart';
 import 'package:migla_flutter/src/screens/public/public_home_screen.dart';
@@ -88,6 +90,18 @@ List<Widget> getDrawerTiles(BuildContext context) {
       icon: svgPaymentCard,
       title: context.t.navPayment,
       widget: PaymentListScreen(),
+    )),
+    DrawerListTile(
+        item: NavItem(
+      materialIcon: Icons.receipt_long_outlined,
+      title: context.t.billingInfo,
+      widget: const BillingProfileListScreen(),
+    )),
+    DrawerListTile(
+        item: NavItem(
+      materialIcon: Icons.forum_outlined,
+      title: context.t.inquiries,
+      widget: const InquiryListScreen(),
     )),
     StudentSwitchTile(),
     DrawerListTile(

@@ -6,6 +6,7 @@ import 'package:migla_flutter/firebase_options.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/screens/splash_screen.dart';
+import 'package:migla_flutter/src/services/push_navigation_service.dart';
 
 import 'settings/settings_controller.dart';
 
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         _precacheOnce(context);
         return MaterialApp(
+          navigatorKey: PushNavigationService.navigatorKey,
           locale: settingsController.locale,
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and

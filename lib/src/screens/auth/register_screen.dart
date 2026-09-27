@@ -1,17 +1,19 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:migla_flutter/src/constants/api_endpoints.dart';
+import 'package:migla_flutter/src/extensions/context_snackbar_extension.dart';
 import 'package:migla_flutter/src/extensions/localization/localization_context_extension.dart';
 import 'package:migla_flutter/src/models/internal/api_client.dart';
+import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/form_view_model.dart';
+import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/views/auth/register/register_form.dart';
 import 'package:migla_flutter/src/widgets/buttons/button.dart';
 import 'package:migla_flutter/src/widgets/link_text.dart';
@@ -23,6 +25,59 @@ class RegisterScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   RegisterScreen({super.key});
+
+  Future<void> _onSubmit(
+      BuildContext context, FormViewModel formViewModel) async {
+    if (formViewModel.formKey.currentState?.validate() == false) {
+      return;
+    }
+    final AuthTokenProvider authTokenProvider =
+        $authTokenProvider(context, listen: false);
+    final MeViewModel meViewModel = $meViewModel(context, listen: false);
+
+    final Map<String, dynamic> body = {};
+    body.addAll(formViewModel.formData);
+    body['newsletter'] = formViewModel.formData['newsletter'] == true;
+    body['locale'] =
+        $settingsController(context, listen: false).locale.languageCode;
+
+    formViewModel.setIsSubmitting(true);
+    try {
+      final Response response =
+          await ApiClientImpl().post(apiUrlRegister, body: body);
+      final Map<String, dynamic> resData = jsonDecode(response.body);
+      await authTokenProvider.setToken(resData['data']['token']);
+      await meViewModel.getMe();
+      if (!context.mounted) return;
+      if (body['newsletter'] == true) {
+        context.showSnackbar(context.t.newsletterConfirmSent);
+      }
+      DashboardHomeScreen().launch(context, isNewTask: true);
+    } catch (error) {
+      Logger.error('register error: $error');
+      if (!context.mounted) return;
+      String message = apiErrorMessage(error,
+          fallback: context.t.error_somethingWentWrong);
+      if (error is ApiException && error.statusCode == 429) {
+        message = context.t.tooManyAttempts;
+      }
+      showDialog(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(context.t.registerFailed),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(context.t.commonOk),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      formViewModel.setIsSubmitting(false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +92,7 @@ class RegisterScreen extends StatelessWidget {
           'email': '',
           'password': '',
           'confirm_password': '',
+          'newsletter': false,
         },
         child: Consumer<FormViewModel>(
           builder: (context, formViewModel, child) =>
@@ -51,37 +107,10 @@ class RegisterScreen extends StatelessWidget {
             RegisterForm(),
             Spacer(),
             Button(
+              key: ValueKey(formViewModel.isSubmitting),
               text: context.t.register,
-              onPressed: () async {
-                if (formViewModel.formKey.currentState?.validate() == false) {
-                  return;
-                }
-
-                Map<String, dynamic> body = {};
-                body.addAll(formViewModel.formData);
-                body['locale'] = $settingsController(context, listen: false)
-                    .locale
-                    .languageCode;
-                Response response = await ApiClientImpl()
-                    .post(apiUrlRegister, body: formViewModel.formData);
-
-                if (response.statusCode < 300 && response.statusCode >= 200) {
-                  final Map<String, dynamic> resData =
-                      jsonDecode(response.body);
-                  AuthTokenProvider authTokenProvider = $authTokenProvider(
-                    context,
-                    listen: false,
-                  );
-                  authTokenProvider.setToken(resData['data']['token']);
-
-                  DashboardHomeScreen().launch(context, isNewTask: true);
-                } else {
-                  showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                          title: Text('error'), content: Text(response.body)));
-                }
-              },
+              isLoading: formViewModel.isSubmitting,
+              onPressed: () => _onSubmit(context, formViewModel),
             ),
             16.height,
             Row(

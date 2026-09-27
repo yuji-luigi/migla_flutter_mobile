@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:migla_flutter/src/view_models/billing_profiles_view_model.dart';
+import 'package:migla_flutter/src/view_models/inquiries_view_model.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
 import 'package:migla_flutter/src/view_models/public_content_view_model.dart';
 import 'package:migla_flutter/src/view_models/students_view_model.dart';
@@ -27,6 +29,12 @@ class FeatureProviders extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => PublicContentViewModel(client),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => BillingProfilesViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => InquiriesViewModel(),
         ),
       ],
       child: child,

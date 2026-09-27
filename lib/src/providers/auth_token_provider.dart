@@ -23,6 +23,12 @@ class AuthTokenProvider with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
+  /// Forgets the in-memory token (storage is cleared by the caller).
+  void clearToken() {
+    token = null;
+    notifyListeners();
+  }
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);

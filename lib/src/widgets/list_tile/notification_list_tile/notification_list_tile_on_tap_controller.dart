@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/models/api/notification/notification_model.dar
 import 'package:migla_flutter/src/models/api/read_notification/create_read_notification_query.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 import 'package:migla_flutter/src/providers/my_graphql_provider.dart';
+import 'package:migla_flutter/src/screens/dashboard/inquiry_screens/inquiry_thread_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/payment_record_screens/payment_record_detail_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/teacher_report_screens/teacher_report_detail_screen.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -30,6 +31,15 @@ class NotificationListTileOnTapController {
         break;
       case 'reports':
         _navigateToReportDetail(context);
+        break;
+      case 'inquiries':
+        if (notification.collectionRecordId > 0) {
+          InquiryThreadScreen(
+            inquiryId: notification.collectionRecordId.toString(),
+          ).launch(context);
+        } else {
+          _showErrorDialog(context, 'Invalid inquiry ID');
+        }
         break;
       default:
         // For unknown collections, you might want to show a default screen

@@ -21,6 +21,7 @@ class RegularLayoutScaffold extends StatelessWidget {
   final bool showStudentName;
   final bool centerTitle;
   final bool isUnderDevelopment;
+  final Widget? floatingActionButton;
   const RegularLayoutScaffold({
     super.key,
     required this.body,
@@ -36,6 +37,7 @@ class RegularLayoutScaffold extends StatelessWidget {
     this.showStudentName = true,
     this.centerTitle = true,
     this.isUnderDevelopment = false,
+    this.floatingActionButton,
   });
 
   @override
@@ -68,6 +70,7 @@ class RegularLayoutScaffold extends StatelessWidget {
 
       extendBodyBehindAppBar: true,
       appBar: appBar,
+      floatingActionButton: floatingActionButton,
       // body: body,
       body: Stack(
         fit: StackFit.expand,

@@ -12,6 +12,18 @@ query PaymentRecordsByPayer($payerId: JSON) {
         createdAt
       }
       paid
+      receipt {
+        requested
+        bolloVerified
+        confirmationCode
+        requestedAt
+        billingProfile {
+          id
+          label
+          holderName
+          bankAccountHolder
+        }
+      }
     }
   }
 }

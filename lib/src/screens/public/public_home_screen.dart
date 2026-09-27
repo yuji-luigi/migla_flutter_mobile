@@ -4,6 +4,8 @@ import 'package:migla_flutter/src/extensions/localization/localization_context_e
 import 'package:migla_flutter/src/models/internal/suppported_language.dart';
 import 'package:migla_flutter/src/screens/auth/login/login_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/inquiry_screens/inquiry_form_screen.dart';
+import 'package:migla_flutter/src/screens/dashboard/inquiry_screens/inquiry_list_screen.dart';
 import 'package:migla_flutter/src/settings/settings_controller.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/view_models/me_view_model.dart';
@@ -169,6 +171,18 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
               ),
             ),
             const Divider(),
+            ListTile(
+              leading: Icon(Icons.forum_outlined, color: colorPrimaryDark),
+              title: Text(context.t.inquiries, style: textStyleBodyLarge),
+              onTap: () {
+                Navigator.of(context).pop();
+                if ($meViewModel(context, listen: false).me == null) {
+                  const InquiryFormScreen(guest: true).launch(context);
+                } else {
+                  const InquiryListScreen().launch(context);
+                }
+              },
+            ),
             if ($meViewModel(context).me == null)
               ListTile(
                 leading: Icon(Icons.login, color: colorPrimaryDark),

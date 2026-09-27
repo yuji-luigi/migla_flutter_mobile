@@ -1,3 +1,4 @@
+import 'package:migla_flutter/src/models/api/payment_record/receipt_model.dart';
 import 'package:migla_flutter/src/models/api/product_model.dart';
 import 'package:migla_flutter/src/models/internal/logger.dart';
 
@@ -15,6 +16,7 @@ class PaymentRecordModel {
   final String? materialFeeDescription;
   final bool paid;
   final List<PurchaseModel> purchases;
+  final ReceiptModel receipt;
 
   PaymentRecordModel({
     required this.id,
@@ -30,6 +32,7 @@ class PaymentRecordModel {
     this.materialFeeDescription,
     required this.paid,
     required this.purchases,
+    this.receipt = ReceiptModel.empty,
   });
 
   static PaymentRecordModel? tryFromJson(Map<String, dynamic>? json) {
@@ -63,6 +66,8 @@ class PaymentRecordModel {
         purchases: (json['purchases'] as List<dynamic>? ?? [])
             .map((purchase) => PurchaseModel.fromJson(purchase))
             .toList(),
+        receipt: ReceiptModel.fromJson(
+            json['receipt'] is Map<String, dynamic> ? json['receipt'] : null),
       );
     } catch (error) {
       Logger.error(error.toString());
