@@ -216,5 +216,19 @@
 	"inquiryGuestHint": "ログインしてお問い合わせいただくと、学校からの返信をアプリで確認できます。ログインせずに送信した場合、返信はメールでお届けします。",
 	"inquiryPrivacyConsentPrefix": "",
 	"inquiryPrivacyConsentSuffix": "に同意します",
-	"inquiryPrivacyConsentRequired": "プライバシーポリシーへの同意が必要です"
+	"inquiryPrivacyConsentRequired": "プライバシーポリシーへの同意が必要です",
+	"changePasswordTitle": "パスワード変更",
+	"changePasswordForcedMessage": "初回ログインです。続けるには、ご自身のパスワードを設定してください。",
+	"changePasswordCurrent": "現在のパスワード",
+	"changePasswordNew": "新しいパスワード(8文字以上)",
+	"changePasswordConfirm": "新しいパスワード(確認)",
+	"changePasswordSubmit": "パスワードを変更",
+	"changePasswordRequired": "入力してください",
+	"changePasswordTooShort": "8文字以上で入力してください",
+	"changePasswordMismatch": "新しいパスワードが一致しません",
+	"changePasswordSameAsCurrent": "現在のパスワードとは別のパスワードを設定してください",
+	"changePasswordWrongCurrent": "現在のパスワードが正しくありません",
+	"changePasswordDone": "パスワードを変更しました",
+	"forgotPasswordSent": "このメールアドレスが登録されている場合、パスワード再設定用のリンクを送信しました。メールをご確認ください。",
+	"forgotPasswordFailed": "メールを送信できませんでした。時間をおいて再度お試しください。"
 }

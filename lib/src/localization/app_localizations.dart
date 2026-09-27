@@ -1281,6 +1281,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You must accept the Privacy Policy'**
   String get inquiryPrivacyConsentRequired;
+
+  /// No description provided for @changePasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get changePasswordTitle;
+
+  /// No description provided for @changePasswordForcedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This is your first login. Please set your own password to continue.'**
+  String get changePasswordForcedMessage;
+
+  /// No description provided for @changePasswordCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get changePasswordCurrent;
+
+  /// No description provided for @changePasswordNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New password (8+ characters)'**
+  String get changePasswordNew;
+
+  /// No description provided for @changePasswordConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'New password (confirm)'**
+  String get changePasswordConfirm;
+
+  /// No description provided for @changePasswordSubmit.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get changePasswordSubmit;
+
+  /// No description provided for @changePasswordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in this field'**
+  String get changePasswordRequired;
+
+  /// No description provided for @changePasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Use at least 8 characters'**
+  String get changePasswordTooShort;
+
+  /// No description provided for @changePasswordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The new passwords do not match'**
+  String get changePasswordMismatch;
+
+  /// No description provided for @changePasswordSameAsCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a password different from the current one'**
+  String get changePasswordSameAsCurrent;
+
+  /// No description provided for @changePasswordWrongCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'The current password is incorrect'**
+  String get changePasswordWrongCurrent;
+
+  /// No description provided for @changePasswordDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password has been changed'**
+  String get changePasswordDone;
+
+  /// No description provided for @forgotPasswordSent.
+  ///
+  /// In en, this message translates to:
+  /// **'If this email is registered, we have sent a link to reset your password. Please check your inbox.'**
+  String get forgotPasswordSent;
+
+  /// No description provided for @forgotPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not send the email. Please try again later.'**
+  String get forgotPasswordFailed;
 }
 
 class _AppLocalizationsDelegate

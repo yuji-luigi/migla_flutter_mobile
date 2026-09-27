@@ -4,6 +4,7 @@ import 'package:migla_flutter/src/layouts/regular_layout_scaffold.dart';
 import 'package:migla_flutter/src/theme/spacing_constant.dart';
 import 'package:migla_flutter/src/theme/theme_constants.dart';
 import 'package:migla_flutter/src/widgets/buttons/notification_appbar_action_button.dart';
+import 'package:migla_flutter/src/widgets/tiles/settings/change_password_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/delete_account_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/language_tile.dart';
 import 'package:migla_flutter/src/widgets/tiles/settings/logout_tile.dart';
@@ -31,6 +32,7 @@ class SettingsScreen extends StatelessWidget {
             const LanguageTile(),
             const NotificationSwitchTile(),
             const NewsletterSwitchTile(),
+            const ChangePasswordTile(),
             const LogoutTile(),
             const Divider(height: 32),
             const DeleteAccountTile(),

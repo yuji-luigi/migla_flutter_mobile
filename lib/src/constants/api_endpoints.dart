@@ -1,5 +1,6 @@
 const String apiUrlForgotPassword = '/users/auth/forgot-password';
 const String apiUrlMe = '/users/me';
+const String apiUrlChangePassword = '/users/me/change-password';
 const String apiUrlLogout = '/users/logout';
 const String apiUrlFcmToken = '/fcmTokens';
 const String apiUrlNotifications = '/notifications';

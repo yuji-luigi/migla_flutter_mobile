@@ -643,4 +643,50 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get inquiryPrivacyConsentRequired =>
       'You must accept the Privacy Policy';
+
+  @override
+  String get changePasswordTitle => 'Change password';
+
+  @override
+  String get changePasswordForcedMessage =>
+      'This is your first login. Please set your own password to continue.';
+
+  @override
+  String get changePasswordCurrent => 'Current password';
+
+  @override
+  String get changePasswordNew => 'New password (8+ characters)';
+
+  @override
+  String get changePasswordConfirm => 'New password (confirm)';
+
+  @override
+  String get changePasswordSubmit => 'Change password';
+
+  @override
+  String get changePasswordRequired => 'Please fill in this field';
+
+  @override
+  String get changePasswordTooShort => 'Use at least 8 characters';
+
+  @override
+  String get changePasswordMismatch => 'The new passwords do not match';
+
+  @override
+  String get changePasswordSameAsCurrent =>
+      'Choose a password different from the current one';
+
+  @override
+  String get changePasswordWrongCurrent => 'The current password is incorrect';
+
+  @override
+  String get changePasswordDone => 'Your password has been changed';
+
+  @override
+  String get forgotPasswordSent =>
+      'If this email is registered, we have sent a link to reset your password. Please check your inbox.';
+
+  @override
+  String get forgotPasswordFailed =>
+      'Could not send the email. Please try again later.';
 }

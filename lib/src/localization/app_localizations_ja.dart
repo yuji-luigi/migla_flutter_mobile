@@ -624,4 +624,48 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get inquiryPrivacyConsentRequired => 'プライバシーポリシーへの同意が必要です';
+
+  @override
+  String get changePasswordTitle => 'パスワード変更';
+
+  @override
+  String get changePasswordForcedMessage =>
+      '初回ログインです。続けるには、ご自身のパスワードを設定してください。';
+
+  @override
+  String get changePasswordCurrent => '現在のパスワード';
+
+  @override
+  String get changePasswordNew => '新しいパスワード(8文字以上)';
+
+  @override
+  String get changePasswordConfirm => '新しいパスワード(確認)';
+
+  @override
+  String get changePasswordSubmit => 'パスワードを変更';
+
+  @override
+  String get changePasswordRequired => '入力してください';
+
+  @override
+  String get changePasswordTooShort => '8文字以上で入力してください';
+
+  @override
+  String get changePasswordMismatch => '新しいパスワードが一致しません';
+
+  @override
+  String get changePasswordSameAsCurrent => '現在のパスワードとは別のパスワードを設定してください';
+
+  @override
+  String get changePasswordWrongCurrent => '現在のパスワードが正しくありません';
+
+  @override
+  String get changePasswordDone => 'パスワードを変更しました';
+
+  @override
+  String get forgotPasswordSent =>
+      'このメールアドレスが登録されている場合、パスワード再設定用のリンクを送信しました。メールをご確認ください。';
+
+  @override
+  String get forgotPasswordFailed => 'メールを送信できませんでした。時間をおいて再度お試しください。';
 }

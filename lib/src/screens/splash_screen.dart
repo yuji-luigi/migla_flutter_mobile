@@ -1,5 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:migla_flutter/src/screens/auth/change_password_screen.dart';
 import 'package:migla_flutter/src/constants/image_constants/placeholder_images.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
@@ -55,6 +56,12 @@ class _SplashScreenState extends State<SplashScreen> {
     if (token != null && token.isNotEmpty && mounted) {
       final me = await $meViewModel(context, listen: false).getMe();
       if (!mounted) return;
+      if (me != null && me.mustChangePassword) {
+        // Still on the school's temporary password (e.g. the app was closed
+        // on the change-password screen): nothing else until it is changed.
+        const ChangePasswordScreen(forced: true).launch(context, isNewTask: true);
+        return;
+      }
       if (me != null) {
         DashboardHomeScreen().launch(context, isNewTask: true);
         // A notification tap that cold-started the app (e.g. an inquiry reply).

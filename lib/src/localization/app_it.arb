@@ -216,5 +216,19 @@
 		"inquiryGuestHint": "Se accedi prima di scrivere, potrai leggere le risposte della scuola nell'app. Senza accesso, la risposta arriverà via email.",
 		"inquiryPrivacyConsentPrefix": "Ho letto e accetto l'",
 		"inquiryPrivacyConsentSuffix": "",
-		"inquiryPrivacyConsentRequired": "È necessario accettare l'informativa sulla privacy"
-	}
+		"inquiryPrivacyConsentRequired": "È necessario accettare l'informativa sulla privacy",
+		"changePasswordTitle": "Cambia password",
+		"changePasswordForcedMessage": "Questo è il tuo primo accesso. Per continuare, imposta una tua password.",
+		"changePasswordCurrent": "Password attuale",
+		"changePasswordNew": "Nuova password (almeno 8 caratteri)",
+		"changePasswordConfirm": "Nuova password (conferma)",
+		"changePasswordSubmit": "Cambia password",
+		"changePasswordRequired": "Compila questo campo",
+		"changePasswordTooShort": "Usa almeno 8 caratteri",
+		"changePasswordMismatch": "Le nuove password non coincidono",
+		"changePasswordSameAsCurrent": "Scegli una password diversa da quella attuale",
+		"changePasswordWrongCurrent": "La password attuale non è corretta",
+		"changePasswordDone": "La password è stata cambiata",
+		"forgotPasswordSent": "Se l'indirizzo email è registrato, ti abbiamo inviato un link per reimpostare la password. Controlla la tua casella di posta.",
+		"forgotPasswordFailed": "Impossibile inviare l'email. Riprova più tardi."
+}

@@ -642,4 +642,50 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get inquiryPrivacyConsentRequired =>
       'È necessario accettare l\'informativa sulla privacy';
+
+  @override
+  String get changePasswordTitle => 'Cambia password';
+
+  @override
+  String get changePasswordForcedMessage =>
+      'Questo è il tuo primo accesso. Per continuare, imposta una tua password.';
+
+  @override
+  String get changePasswordCurrent => 'Password attuale';
+
+  @override
+  String get changePasswordNew => 'Nuova password (almeno 8 caratteri)';
+
+  @override
+  String get changePasswordConfirm => 'Nuova password (conferma)';
+
+  @override
+  String get changePasswordSubmit => 'Cambia password';
+
+  @override
+  String get changePasswordRequired => 'Compila questo campo';
+
+  @override
+  String get changePasswordTooShort => 'Usa almeno 8 caratteri';
+
+  @override
+  String get changePasswordMismatch => 'Le nuove password non coincidono';
+
+  @override
+  String get changePasswordSameAsCurrent =>
+      'Scegli una password diversa da quella attuale';
+
+  @override
+  String get changePasswordWrongCurrent => 'La password attuale non è corretta';
+
+  @override
+  String get changePasswordDone => 'La password è stata cambiata';
+
+  @override
+  String get forgotPasswordSent =>
+      'Se l\'indirizzo email è registrato, ti abbiamo inviato un link per reimpostare la password. Controlla la tua casella di posta.';
+
+  @override
+  String get forgotPasswordFailed =>
+      'Impossibile inviare l\'email. Riprova più tardi.';
 }

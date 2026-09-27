@@ -224,5 +224,19 @@
 				"example": "Father"
 			}
 		}
-	}
+	},
+	"changePasswordTitle": "Change password",
+	"changePasswordForcedMessage": "This is your first login. Please set your own password to continue.",
+	"changePasswordCurrent": "Current password",
+	"changePasswordNew": "New password (8+ characters)",
+	"changePasswordConfirm": "New password (confirm)",
+	"changePasswordSubmit": "Change password",
+	"changePasswordRequired": "Please fill in this field",
+	"changePasswordTooShort": "Use at least 8 characters",
+	"changePasswordMismatch": "The new passwords do not match",
+	"changePasswordSameAsCurrent": "Choose a password different from the current one",
+	"changePasswordWrongCurrent": "The current password is incorrect",
+	"changePasswordDone": "Your password has been changed",
+	"forgotPasswordSent": "If this email is registered, we have sent a link to reset your password. Please check your inbox.",
+	"forgotPasswordFailed": "Could not send the email. Please try again later."
 }

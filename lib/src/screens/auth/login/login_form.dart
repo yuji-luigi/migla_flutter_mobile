@@ -15,6 +15,7 @@ import 'package:migla_flutter/src/models/internal/fcm_token_client.dart';
 import 'package:migla_flutter/src/models/internal/storage.dart';
 import 'package:migla_flutter/src/models/user_model.dart';
 import 'package:migla_flutter/src/providers/auth_token_provider.dart';
+import 'package:migla_flutter/src/screens/auth/change_password_screen.dart';
 import 'package:migla_flutter/src/screens/auth/forgot_password_screen.dart';
 import 'package:migla_flutter/src/screens/auth/register_screen.dart';
 import 'package:migla_flutter/src/screens/dashboard/home/dashboard_home_screen.dart';
@@ -120,7 +121,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             LinkText(
               context.t.forgotPassword,
-              newScreen: ForgotPasswordScreen(),
+              newScreen: const ForgotPasswordScreen(),
               isNewTask: true,
             ),
           ],
@@ -209,6 +210,11 @@ class _LoginFormState extends State<LoginForm> {
       }
       _fcmTokenClient.create(user.id);
       formViewModel.setIsSubmitting(false);
+      if (user.mustChangePassword) {
+        // Temporary password set by the school: choose one first.
+        const ChangePasswordScreen(forced: true).launch(context, isNewTask: true);
+        return;
+      }
       DashboardHomeScreen().launch(context);
     } catch (error) {
       await _onError(error);

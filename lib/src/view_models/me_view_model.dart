@@ -55,6 +55,26 @@ class MeViewModel with ChangeNotifier, DiagnosticableTreeMixin {
     notifyListeners();
   }
 
+  /// Changes the logged-in user's password (current password required).
+  /// Throws [ApiException] on failure; its `fieldErrors`/json carry a `code`
+  /// (`wrong_current`, `too_short`, `same_as_current`, `missing`).
+  Future<void> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    await _apiClient.post(apiUrlChangePassword, body: {
+      'currentPassword': currentPassword,
+      'newPassword': newPassword,
+    });
+    // "Remember me" keeps the password on the device: keep it in sync.
+    final saved = await Storage.getLoginCredentials();
+    final String? email = _me?.email;
+    if (saved != null && email != null && saved.containsKey(email)) {
+      await Storage.saveCredentials(email, newPassword);
+    }
+    await getMe(); // refreshes mustChangePassword (now false)
+  }
+
   /// Requests deletion of the logged-in account (App Store 5.1.1(v)).
   ///
   /// Returns the backend status: `deleted` (account removed immediately, local
